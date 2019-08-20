@@ -1,0 +1,15 @@
+<?php
+/**
+ * Хлебные крошки
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$breadcrumbList = isset($variables['items']) ? $variables['items'] : [];
+$breadcrumbList = $this->prepareBreadcrumbs($breadcrumbList);
+?>
+<div class="span12">
+	<div class="breadcrumbs">
+		<?= $this->render($breadcrumbList, 'core/breadcrumb_list') ?>
+	</div>
+</div>

@@ -1,0 +1,14 @@
+<?php
+/**
+ * Google reCAPTCHA
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+?>
+<div class="field captcha">
+	<label>
+		<script src="<?= $this->escape($variables['recaptcha-url']) ?>?hl=ru"></script>
+		<div class="<?= $this->escape($variables['recaptcha-class']) ?>" data-sitekey="<?= $this->escape($variables['recaptcha-sitekey']) ?>"></div>
+	</label>
+</div>

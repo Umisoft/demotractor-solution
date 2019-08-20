@@ -1,0 +1,24 @@
+<?php
+/**
+ * Список ошибок макросов (когда url содержит get-параметр `_err`).
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+?>
+<?php if (isset($variables['items'])): ?>
+	<div class="umi-second-content">
+		<div class="content-wrap">
+			<h1 id="page_main_header" class="h1">
+				<span class="h1_content">
+					<?= $this->translate('js-error-occurred') ?>
+				</span>
+			</h1>
+			<ul>
+				<?php foreach ($variables['items'] as $error): ?>
+					<?= $this->render($error, 'system/error_list_item') ?>
+				<?php endforeach; ?>
+			</ul>
+		</div>
+	</div>
+<?php endif; ?>

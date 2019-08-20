@@ -1,0 +1,15 @@
+<?php
+/**
+ * Кнопка "назад" в постраничной навигации
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+?>
+<?php if (isset($variables['toprev_link'])): ?>
+	<li class="numpages_li toprev_link">
+		<a href="<?= $this->escape($this->getPageNavigationItemLink($variables['toprev_link']['value'])) ?>">
+			<span><?= $this->escape($this->translate('previous_page')) ?></span>
+		</a>
+	</li>
+<?php endif; ?>

@@ -1,0 +1,52 @@
+.adaptive .breadcrumbs ul li.breadcrumbs_last a {
+    color: #ffaf14;
+}
+
+.adaptive .top-menu .header_contacts .addr:before {
+    background: #ffaf14;
+}
+
+.adaptive .umi-menu ul li.current{
+    background: #ffaf14;
+}
+
+.adaptive .umi-menu ul li:hover > a{
+    color: #ffaf14;
+}
+
+.adaptive .for-content .direction_block_title {
+        color:#ffaf14;
+}
+
+.adaptive .all_system_buttons,.adaptive .all_system_buttons:hover {
+    background: #FFAF14;
+    color: #2b2b2b;
+}
+
+.adaptive .services-catalog-wrapper .prev#cato_prev {
+    background: #ffaf14;
+}
+
+.adaptive .services-catalog-wrapper .next#cato_next {
+    background: #ffaf14;
+}
+
+.adaptive .index_special_offers .prev#spec_cato_prev {
+    background: #ffaf14;
+}
+
+.adaptive .index_special_offers .next#spec_cato_next {
+    background: #ffaf14;
+}
+
+.adaptive .news_block .news_item .read-more a{
+    background: #ffaf14;
+}
+
+.adaptive .advantages_block{
+    background: #ffaf14;
+}
+
+.adaptive .umi-menu .btn.btn-umi-shop:focus {
+    outline-color: #ffaf14;
+}

@@ -1,0 +1,13 @@
+<?php
+/**
+ * Карта сайта
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$settings = $this->getSettingsContainer();
+?>
+<h2 umi:object-id="<?= $this->escape($settings->getId()) ?>" umi:field-name="sitemap_header">
+	<?= $this->escape($settings->getValue('sitemap_header')) ?>
+</h2>
+<?= $this->render($variables, 'content/sitemap_item_list') ?>

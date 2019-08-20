@@ -1,0 +1,39 @@
+<?php
+/**
+ * Контент главной страницы
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$page = $this->getPageAndPushToEditable($variables['pageId']);
+$pageId = $this->escape($page->getId());
+$bannerPage = getFirstValue($page->getValue('main_banner_link'));
+$bannerLink = ($bannerPage instanceof iUmiHierarchyElement) ? $this->getPath($bannerPage) : '';
+?>
+<div class="main_image">
+	<div class="direction_block direction_block_2">
+		<a class="direction_block_link" href="<?= $this->escape($bannerLink) ?>">
+			<img umi:element-id="<?= $pageId ?>" umi:field-name="main_banner_image"
+				 alt="<?= $this->escape($this->getPageImageAlt($pageId, 'main_banner_image')); ?>"
+				 title="<?= $this->escape($this->getPageImageTitle($pageId, 'main_banner_image')); ?>"
+				 src="<?= $this->escape($this->getPageImagePath($pageId, 'main_banner_image')); ?>"
+			>
+		</a>
+		<div class="direction_text text">
+			<?= $page->getValue('main_banner_text') ?>
+		</div>
+		<div class="cleaner"></div>
+	</div>
+</div>
+<div class="services-catalog-wrapper">
+	<?= $this->render($page, 'content/home/catalog/category/index') ?>
+</div>
+<div class="news_block">
+	<?= $this->render($page, 'content/home/news/item/index') ?>
+</div>
+<div class="index_text_content text" umi:element-id="<?= $pageId ?>" umi:field-name="advantages_block">
+	<?= $page->getValue('advantages_block') ?>
+</div>
+<div class="special-offers-wrapper umi-services">
+	<?= $this->render($page, 'content/home/catalog/object/index') ?>
+</div>

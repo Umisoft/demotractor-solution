@@ -1,0 +1,22 @@
+<?php
+/**
+ * Страница в списке найденных
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$number = $this->escape(sprintf('%d. ', $variables['num']));
+$name = isset($variables['name']) ? $this->escape($variables['name']) : '';
+$context = isset($variables['context']) ? $variables['context'] : '';
+?>
+<div>
+	<p>
+		<strong class="serial"><?= $number ?></strong>
+		<a href="<?= $this->escape($variables['link']) ?>" umi:element-id="<?= $this->escape($variables['id']) ?>" umi:field-name="name">
+			<?= $name ?>
+		</a>
+	</p>
+	<p></p>
+	<?= $context ?>
+	<p></p>
+</div>

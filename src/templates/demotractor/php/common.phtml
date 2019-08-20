@@ -1,0 +1,21 @@
+<?php
+/**
+ * Точка входа в шаблон Demotractor.
+ *
+ * В шаблоне используется:
+ *   - Кастомное расширение PHP-шаблонизатора `DemotractorPhpExtension`
+ *   - Кастомный файл config.ini
+ *   - Сборщик css и js-ресурсов gulp, @see gulpfile.js
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+
+$this->initializeCommonVariables($variables);
+
+// Вывод rss производится прямо в буффер, html шаблонизация не требуется
+if ($variables['module'] === 'data' && $variables['method'] === 'rss') {
+	$this->macros('data', 'rss'); // Макрос неявно прерывает работу скрипта - дальше код не выполняется
+}
+?>
+<?= $this->render($variables, 'layout/index') ?>

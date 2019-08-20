@@ -1,0 +1,27 @@
+<?php
+/**
+ * Контент новости
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ * @var iUmiHierarchyElement $page
+ */
+$page = $this->getPageAndPushToEditable($variables['pageId']);
+?>
+<div class="umi-second-content">
+	<div class="content-wrap">
+		<?= $this->render($this->macros('core', 'navibar'), 'core/navibar') ?>
+		<h1 id="page_main_header" class="h1">
+			<span class="h1_content" umi:element-id="<?= $this->escape($page->getId()) ?>" umi:field-name="h1"
+				  umi:empty="<?= $this->escape($this->translate('empty_page_h1')) ?>"><?= $this->escape($page->getValue('h1')) ?></span>
+		</h1>
+		<div class="text" umi:element-id="<?= $this->escape($page->getId()) ?>" umi:field-name="anons"
+			 umi:empty="<?= $this->escape($this->translate('empty_news_preview')) ?>">
+			<?= $page->getValue('anons') ?>
+		</div>
+		<div class="text" umi:element-id="<?= $this->escape($page->getId()) ?>" umi:field-name="content"
+			 umi:empty="<?= $this->escape($this->translate('empty_page_content')) ?>">
+			<?= $page->getValue('content') ?>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,14 @@
+<?php
+/**
+ * Каптча
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$variables = is_array($variables) ? $variables : [];
+?>
+<?php if (isset($variables['url'])): ?>
+	<?= $this->render($variables, 'system/classic_captcha') ?>
+<?php elseif (isset($variables['recaptcha-url'])): ?>
+	<?= $this->render($variables, 'system/google_captcha') ?>
+<?php endif; ?>

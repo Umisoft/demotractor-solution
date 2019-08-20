@@ -1,0 +1,24 @@
+<?php
+/**
+ * Блок с подпиской на rss
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$settings = $this->getSettingsContainer();
+?>
+<div class="text" id="site-rss">
+	<p>
+		<a href="/data/rss/" id="site_rss_link">
+			<img id="site_rss_icon" umi:object-id="<?= $settings->getId() ?>" umi:field-name="rss_icon"
+			     alt="<?= $this->escape($this->getSettingsImageAlt('rss_icon')) ?>"
+			     title="<?= $this->escape($this->getSettingsImageTitle('rss_icon')) ?>"
+			     src="<?= $this->getSettingsImagePath('rss_icon') ?>"
+			>
+			<span umi:object-id="<?= $settings->getId() ?>" umi:field-name="rss_text"
+			      umi:empty="<?= $this->escape($this->translate('empty_rss_text')) ?>">
+				<?= $this->escape($settings->getValue('rss_text')) ?>
+			</span>
+		</a>
+	</p>
+</div>

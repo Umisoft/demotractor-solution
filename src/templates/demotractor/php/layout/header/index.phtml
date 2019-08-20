@@ -1,0 +1,19 @@
+<?php
+/**
+ * Шапка сайта
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+?>
+<div class="row-fluid top-menu">
+	<div class="span12 pos-rel">
+		<div class="container">
+			<div class="row-fluid">
+				<?= $this->render($variables, 'layout/header/brand') ?>
+				<?= $this->render($variables, 'layout/header/contacts') ?>
+				<?= $this->render($variables, 'layout/header/menu') ?>
+			</div>
+		</div>
+	</div>
+</div>

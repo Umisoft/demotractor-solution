@@ -1,0 +1,72 @@
+.adaptive .breadcrumbs ul li.breadcrumbs_last a {
+    color: #795883;
+}
+
+.adaptive .top-menu .header_contacts .addr:before {
+    background: #795883;
+}
+
+.adaptive .umi-menu ul li.current{
+    background: #795883;
+}
+
+.adaptive .umi-menu ul li:hover > a{
+    color: #795883;
+}
+
+.adaptive .umi-menu ul.level-0 li.baby:hover:after {
+    border-top-color: #795883;
+}
+
+.adaptive .for-content .direction_block_title {
+    color:#795883;
+}
+
+.adaptive .all_system_buttons,.adaptive .all_system_buttons:hover {
+    background: #795883;
+    color: #2b2b2b;
+}
+
+.adaptive .services-catalog-wrapper .prev#cato_prev {
+    background: #795883;
+}
+
+.adaptive .services-catalog-wrapper .next#cato_next {
+    background: #795883;
+}
+
+.adaptive .index_special_offers .prev#spec_cato_prev {
+    background: #795883;
+}
+
+.adaptive .index_special_offers .next#spec_cato_next {
+    background: #795883;
+}
+
+.adaptive .news_block .news_item .read-more a{
+    background: #795883;
+}
+
+.adaptive .advantages_block{
+    background: #795883;
+}
+
+.adaptive .umi-menu .btn.btn-umi-shop:focus {
+    outline-color: #795883;
+}
+
+.adaptive .top-menu .header_contacts:before {
+    filter: hue-rotate(206deg)saturate(200%)brightness(.7);
+}
+
+.adaptive .index_special_offers .h2:after {
+    filter: hue-rotate(206deg)saturate(200%)brightness(.7);
+}
+
+.adaptive .footer .footer-in .social #social_block {
+    filter: hue-rotate(206deg)saturate(200%)brightness(.7);
+}
+
+.adaptive .search#min_lens .search_form.search2 .submit_button {
+    filter: hue-rotate(206deg)saturate(200%)brightness(.7);
+}

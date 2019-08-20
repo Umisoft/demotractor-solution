@@ -1,0 +1,16 @@
+<?php
+/**
+ * Список разделов каталога
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$categoryList = isset($variables['items']) ? $variables['items'] : [];
+?>
+<ul class="items_catalog" umi:element-id="<?= $this->escape($variables['category_id']) ?>"
+	umi:region="list" umi:module="catalog" umi:method="category" umi:sortable="sortable" umi:button-position="bottom right">
+	<?php foreach ($categoryList as $category): ?>
+		<?= $this->render($category, 'catalog/category_list_item') ?>
+	<?php endforeach; ?>
+</ul>
+<?= $this->render($this->macros('system', 'numpages', [$variables['total'], $variables['per_page']]), 'system/numpages') ?>

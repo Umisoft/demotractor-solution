@@ -1,0 +1,18 @@
+<?php
+/**
+ * Пункт динамического меню
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$name = isset($variables['name']) ? $this->escape($variables['name']) : '';
+?>
+<li umi:element-id="<?= $this->escape($variables['id']) ?>"
+	umi:region="row" data-id="<?= $this->escape($variables['id']) ?>"
+	class="<?= $this->escape($this->getMenuItemClass($variables)) ?>">
+	<a href="<?= $this->escape($variables['link']) ?>" umi:element-id="<?= $this->escape($variables['id']) ?>" umi:field-name="name"
+	   umi:empty="<?= $this->escape($this->translate('empty_page_name')) ?>">
+		<?= $name ?>
+	</a>
+	<?= $this->render($variables, 'content/menu_item_list') ?>
+</li>

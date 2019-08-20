@@ -1,0 +1,34 @@
+<?php
+/**
+ * Форма обратной связи
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$header = isset($variables['form_name']) ? $this->escape($variables['form_name']) : '';
+$formId = isset($variables['form_id']) ? $this->escape($variables['form_id']) : '';
+$addressId = isset($variables['items'][0]['id']) ? $this->escape($variables['items'][0]['id']) : '';
+$fieldList = isset($variables['groups']['groups'][0]['fields']) ? $variables['groups']['groups'][0]['fields'] : [];
+?>
+<div class="contacts_page_h2 h2">
+	<?= $header ?>
+</div>
+<form method="post" action="/webforms/send/" class="site_form feedback_form" onsubmit="return site.webForms.validate(this);">
+	<fieldset>
+		<div class="left_side">
+			<input type="hidden" name="system_form_id" value="<?= $formId ?>">
+			<input type="hidden" name="ref_onsuccess" value="/webforms/posted/<?= $formId ?>">
+			<input type="hidden" name="system_email_to" value="<?= $addressId ?>">
+			<?php foreach ($fieldList as $field): ?>
+				<?= $this->render($field, 'webforms/add_field') ?>
+			<?php endforeach; ?>
+			<?= $this->render($this->macros('system', 'captcha'), 'system/captcha') ?>
+		</div>
+		<?= $this->render($variables, 'webforms/personal_data_policy') ?>
+	</fieldset>
+	<fieldset>
+		<div class="submit">
+			<input type="submit" class="all_system_buttons" value="<?= $this->escape($this->translate('submit_form_label')) ?>">
+		</div>
+	</fieldset>
+</form>

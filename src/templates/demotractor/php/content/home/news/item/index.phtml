@@ -1,0 +1,29 @@
+<?php
+/**
+ * Блок новостей на главной
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var iUmiHierarchyElement $variables главная страница
+ * @var int $limit количество новостей в блоке на главной
+ */
+$pageId = $this->escape($variables->getId());
+$newsLentPage = getFirstValue($variables->getValue('news_block_source'));
+$limit = 2;
+?>
+<div class="span6 about_block">
+	<div class="custom_wrapper_1 stc1 customing" umi:element-id="<?= $pageId ?>" umi:field-name="first_content_block">
+		<?= $variables->getValue('first_content_block') ?>
+	</div>
+	<div class="custom_wrapper_2 stc2 customing">
+		<div class="text custom_block_2" umi:element-id="<?= $pageId ?>" umi:field-name="second_content_block">
+			<?= $variables->getValue('second_content_block') ?>
+		</div>
+	</div>
+</div>
+<div id="center_column" class="span6 module-news method-rubric">
+	<?php if ($newsLentPage instanceof iUmiHierarchyElement): ?>
+		<div class="news">
+			<?= $this->render($this->macros('news', 'lastlist', [$newsLentPage->getId(), null, $limit], ['anons']), 'content/home/news/item/news_list') ?>
+		</div>
+	<?php endif; ?>
+</div>

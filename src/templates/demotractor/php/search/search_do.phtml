@@ -1,0 +1,22 @@
+<?php
+/**
+ * Страница результата поиска
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$variables = $this->macros('search', 'search_do');
+$settings = $this->getSettingsContainer();
+?>
+<div class="umi-second-content">
+	<div class="content-wrap">
+		<?= $this->render($this->macros('core', 'navibar'), 'core/navibar') ?>
+		<h1 id="page_main_header" class="h1">
+			<span class="h1_content" umi:object-id="<?= $this->escape($settings->getId()) ?>" umi:field-name="search_page_header"
+				  umi:empty="<?= $this->escape($this->translate('empty_page_h1')) ?>"><?= $this->escape($settings->getValue('search_page_header')) ?></span>
+		</h1>
+		<div class="text">
+			<?= $this->render($variables, 'search/search_do_list') ?>
+		</div>
+	</div>
+</div>

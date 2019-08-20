@@ -1,0 +1,23 @@
+<?php
+/**
+ * Блок с адресом и телефоном
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$settings = $this->getSettingsContainer();
+?>
+<div class="header_contacts">
+	<div class="span7 addr">
+		<span class="address_string" umi:object-id="<?= $settings->getId() ?>" umi:field-name="address"
+		      umi:empty="<?= $this->escape($this->translate('empty_address')) ?>">
+			<?= $this->escape($settings->getValue('address')) ?>
+		</span>
+	</div>
+	<div class="span5 phone">
+		<span class="phone_number" umi:object-id="<?= $settings->getId() ?>" umi:field-name="phone"
+		      umi:empty="<?= $this->escape($this->translate('empty_phone')) ?>">
+			<?= $this->escape($settings->getValue('phone')) ?>
+		</span>
+	</div>
+</div>

@@ -1,0 +1,19 @@
+<?php
+/**
+ * Хлебная крошка
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$text = $this->escape($variables['text']);
+$link = $this->escape($this->getBreadcrumbLink($variables));
+?>
+<li class="<?= $this->escape($this->getBreadcrumbCssClass($variables)) ?>">
+	<a <?= $link ? 'href=' . $link : '' ?> title="<?= $text ?>">
+		<div umi:element-id="<?= $this->escape($variables['id']) ?>" umi:field-name="name"
+		     umi:empty="<?= $this->escape($this->translate('empty_page_name')) ?>"><?= $text ?></div>
+	</a>
+	<span class="breadcrumb_separator">
+		<span class="separator_text">/</span>
+	</span>
+</li>

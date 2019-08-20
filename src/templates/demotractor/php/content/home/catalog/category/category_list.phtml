@@ -1,0 +1,14 @@
+<?php
+/**
+ * Список разделов каталога на главной странице
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$categoryList = isset($variables['items']) ? $variables['items'] : [];
+?>
+<ul class="items_catalog mainpage_items_catalog" data-item-width="212" data-item-height="auto" data-item-max="6">
+	<?php foreach ($categoryList as $category): ?>
+		<?= $this->render($category, 'content/home/catalog/category/category_list_item') ?>
+	<?php endforeach; ?>
+</ul>

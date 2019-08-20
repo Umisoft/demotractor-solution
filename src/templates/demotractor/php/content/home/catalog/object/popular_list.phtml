@@ -1,0 +1,14 @@
+<?php
+/**
+ * Список популярных товаров на главной странице
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$productList = isset($variables['lines']) ? $variables['lines'] : [];
+?>
+<ul class="special_offers_list items_catalog" data-item-width="422" data-item-height="auto" data-item-max="10">
+	<?php foreach ($productList as $product): ?>
+		<?= $this->render($product, 'content/home/catalog/object/popular_list_item') ?>
+	<?php endforeach; ?>
+</ul>

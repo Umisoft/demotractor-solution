@@ -1,0 +1,31 @@
+<?php
+/**
+ * Страница с результатом отправки формы обратной связи
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$header = isset($variables['header']) ? $this->escape($variables['header']) : '';
+$message = $this->macros('webforms', 'posted');
+$referrer = $this->escape(UmiCms\Service::Request()->referrer());
+?>
+<div class="umi-second-content">
+	<div class="content-wrap">
+		<?= $this->render($this->macros('core', 'navibar'), 'core/navibar') ?>
+		<h1 id="page_main_header" class="h1">
+			<span class="h1_content">
+				<?= $header ?>
+			</span>
+		</h1>
+		<div class="text">
+			<p>
+				<?= $message ?>
+			</p>
+		</div>
+		<div>
+			<a class="all_system_buttons system_back" href="<?= $referrer ?>">
+				<?= $this->escape($this->translate('return_back_label')) ?>
+			</a>
+		</div>
+	</div>
+</div>

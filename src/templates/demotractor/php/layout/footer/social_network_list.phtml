@@ -1,0 +1,16 @@
+<?php
+/**
+ * Блок с социальными сетями
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+?>
+<div class="social">
+	<div class="addthis_toolbox social_gray" id="social_block">
+		<?php foreach ($this->getFooterSocialNetworkList() as $socialNetwork): ?>
+			<?= $this->render($socialNetwork, 'layout/footer/social_network') ?>
+		<?php endforeach; ?>
+		<div class="cleaner"></div>
+	</div>
+</div>

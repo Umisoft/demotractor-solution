@@ -1,0 +1,15 @@
+<?php
+/**
+ * Пункт карты сайта
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$name = isset($variables['name']) ? $this->escape($variables['name']) : '';
+?>
+<li>
+	<a href="<?= $this->escape($variables['link']) ?>" umi:element-id="<?= $variables['id'] ?>" umi:field-name="name">
+		<?= $name ?>
+	</a>
+	<?= $this->render($variables, 'content/sitemap_item_list') ?>
+</li>

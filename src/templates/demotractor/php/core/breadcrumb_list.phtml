@@ -1,0 +1,13 @@
+<?php
+/**
+ * Список хлебных крошек
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+?>
+<ul>
+	<?php foreach ($variables as $breadcrumb): ?>
+		<?= $this->render($breadcrumb, 'core/breadcrumb') ?>
+	<?php endforeach; ?>
+</ul>

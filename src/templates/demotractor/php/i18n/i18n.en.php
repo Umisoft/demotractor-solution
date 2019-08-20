@@ -1,0 +1,33 @@
+<?php
+	/** Языковые константы для бекенда английской версии шаблона Demotractor */
+	return [
+		'empty_page_h1' => 'Page header',
+		'empty_page_name' => 'Page name',
+		'empty_page_content' => 'Page content',
+		'empty_name' => 'Company name',
+		'empty_phone' => 'Phone number',
+		'empty_address' => 'Company address',
+		'empty_counter' => 'Counter code',
+		'empty_copyright' => 'Copyright',
+		'empty_rss_text' => 'Rss text',
+		'empty_news_name' => 'News item name',
+		'empty_news_preview' => 'News item preview',
+		'empty_news_publish_date' => 'News item publish date',
+		'next_page' => 'Next',
+		'previous_page' => 'Previous',
+		'empty_album_name' => 'Album name',
+		'empty_photo_name' => 'Photo name',
+		'empty_category_name' => 'Category name',
+		'empty_object_name' => 'Product name',
+		'search_result_summary_format' => '%d pages found for your query "%s"',
+		'run_search_label' => 'Search',
+		'submit_form_label' => 'Submit',
+		'required_field_label' => 'Required field',
+		'empty_required_field_error_text' => 'Fill required field',
+		'incorrect_email_field_error_text' => 'Fill correct email',
+		'return_back_label' => 'Return back',
+		'empty_personal_data_policy_confirmation_text' => 'Personal data policy processing confirmation text',
+		'empty_captcha_error_label' => 'Enter code from picture',
+		'enter_captcha_label' => 'Enter code:',
+		'empty_additional_content' => 'Additional content'
+	];

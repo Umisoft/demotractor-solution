@@ -1,0 +1,24 @@
+<?php
+/**
+ * Популярный товар в списке на главной странице
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$pageId = $this->escape($variables['id']);
+$link = isset($variables['link']) ? $this->escape($variables['link']) : '';
+$name = isset($variables['text']) ? $this->escape($variables['text']) : '';
+?>
+<li class="simple_catalog_item objectlist" umi:element-id="<?= $pageId ?>">
+	<a href="<?= $link ?>" class="object_item_img">
+		<img umi:field-name="image"
+			alt="<?= $this->escape($this->getPageImageAlt($pageId, 'image')) ?>"
+			title="<?= $this->escape($this->getPageImageTitle($pageId, 'image')) ?>"
+			src="<?= $this->escape($this->getPageImagePath($pageId, 'image')) ?>">
+	</a>
+	<div class="object_title object_title_bottom">
+		<a href="<?= $link ?>" umi:field-name="name" umi:empty="<?= $this->escape($this->translate('empty_object_name')) ?>">
+			<?= $name ?>
+		</a>
+	</div>
+</li>

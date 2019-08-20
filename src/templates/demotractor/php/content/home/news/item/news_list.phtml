@@ -1,0 +1,16 @@
+<?php
+/**
+ * Список последних новостей на главной
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$newsItemList = isset($variables['items']) ? $variables['items'] : [];
+?>
+<?php if (count($newsItemList) > 0): ?>
+	<div class="news">
+		<?php foreach ($newsItemList as $newsItem): ?>
+			<?= $this->render($newsItem, 'content/home/news/item/news_list_item') ?>
+		<?php endforeach; ?>
+	</div>
+<?php endif; ?>

@@ -1,0 +1,43 @@
+<?php
+/**
+ * Новость в списке на главной
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$pageId = $this->escape($variables['id']);
+$link = $this->escape($variables['link']);
+$name = isset($variables['name']) ? $this->escape($variables['name']) : '';
+$preview = isset($variables['extended']['properties'][0]) ? $variables['extended']['properties'][0] : null;
+/** @var iUmiObjectProperty $preview */
+$preview = ($preview instanceof iUmiObjectProperty) ? $preview->getValue() : '';
+$monthName = mb_convert_case($this->getPageDate($pageId, 'publish_time',  'F'), MB_CASE_LOWER);
+?>
+<div class="item news_item" umi:element-id="<?= $pageId ?>">
+	<div class="date">
+		<div class="big-date">
+			<?= $this->escape($this->getPageDate($pageId, 'publish_time',  'd')) ?>
+		</div>
+		<div class="aside-date">
+			<div class="month">
+				<?= $this->escape($this->translate(sprintf('mouth-%s', $monthName))) ?>
+			</div>
+			<div class="year">
+				<?= $this->escape($this->getPageDate($pageId, 'publish_time',  'Y')) ?>
+			</div>
+		</div>
+	</div>
+	<a href="<?= $link ?>">
+		<h3 umi:field-name="name" umi:empty="<?= $this->escape($this->translate('empty_news_name')) ?>">
+			<?= $name ?>
+		</h3>
+	</a>
+	<div class="text" umi:field-name="anons" umi:empty="<?= $this->escape($this->translate('empty_news_preview')) ?>">
+		<?= $preview ?>
+	</div>
+	<div class="read-more">
+		<a href="<?= $link ?>">
+			<div class="arrow"></div>
+		</a>
+	</div>
+</div>

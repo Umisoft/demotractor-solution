@@ -1,0 +1,27 @@
+<?php
+/**
+ * Список найденных страниц
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$searchResultItems = isset($variables['items']) ? $variables['items'] : [];
+$searchString = $this->escape($variables['last_search_string']);
+?>
+<?php if (count($searchResultItems) > 0): ?>
+	<p>
+		<?= $this->escape(sprintf($this->translate('search_result_summary_format'), $searchString, $variables['total'])) ?>
+	</p>
+<?php endif; ?>
+<form action="/search/search_do/" method="get" class="search_form page_search_form">
+	<fieldset>
+		<input class="form_placeholder search_form_string" autocomplete="off" type="text" size="20" value="<?= $searchString ?>" name="search_string">
+		<input class="submit_button all_system_buttons" type="submit" value="<?= $this->escape($this->translate('run_search_label')) ?> ">
+	</fieldset>
+</form>
+<div class="search">
+	<?php foreach ($searchResultItems as $item): ?>
+		<?= $this->render($item, 'search/search_do_list_item') ?>
+	<?php endforeach; ?>
+</div>
+<?= $this->render($this->macros('system', 'numpages', [$variables['total'], $variables['per_page']]), 'system/numpages') ?>

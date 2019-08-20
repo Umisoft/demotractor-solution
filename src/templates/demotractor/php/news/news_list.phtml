@@ -1,0 +1,16 @@
+<?php
+/**
+ * Список последних новостей
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$newsItemList = isset($variables['items']) ? $variables['items'] : [];
+?>
+<div class="news test4" umi:element-id="<?= $this->escape($variables['category_id']) ?>"
+	 umi:module="news" umi:method="item" umi:region="list" umi:button-position="bottom right">
+	<?php foreach ($newsItemList as $newsItem): ?>
+		<?= $this->render($newsItem, 'news/news_list_item') ?>
+	<?php endforeach; ?>
+</div>
+<?= $this->render($this->macros('system', 'numpages', [$variables['total'], $variables['per_page']]), 'system/numpages') ?>

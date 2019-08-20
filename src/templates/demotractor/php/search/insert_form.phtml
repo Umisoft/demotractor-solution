@@ -1,0 +1,15 @@
+<?php
+/**
+ * Форма поиска
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+?>
+<form action="/search/search_do/" method="get" class="search_form search2">
+	<fieldset>
+		<input placeholder="<?= $variables['last_search_string'] ?>" class="form_placeholder search_form_string placeholder_text"
+			   autocomplete="off" type="text" size="20" value="" name="search_string">
+		<input class="submit_button " type="submit" value="">
+	</fieldset>
+</form>

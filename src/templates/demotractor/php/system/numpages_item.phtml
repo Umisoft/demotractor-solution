@@ -1,0 +1,13 @@
+<?php
+/**
+ * Пункт постраничной навигации
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+?>
+<li class="<?= $this->escape($this->getPageNavigationItemCssClass($variables)) ?>">
+	<a href="<?= $this->escape($this->getPageNavigationItemLink($variables['link'])) ?>">
+		<span><?= $this->escape($variables['num']) ?></span>
+	</a>
+</li>

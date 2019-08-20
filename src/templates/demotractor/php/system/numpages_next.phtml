@@ -1,0 +1,15 @@
+<?php
+/**
+ * Кнопка "вперед" в постраничной навигации
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+?>
+<?php if (isset($variables['tonext_link'])): ?>
+	<li class="numpages_li tonext_link">
+		<a href="<?= $this->escape($this->getPageNavigationItemLink($variables['tonext_link']['value'])) ?>">
+			<span><?= $this->escape($this->translate('next_page')) ?></span>
+		</a>
+	</li>
+<?php endif; ?>

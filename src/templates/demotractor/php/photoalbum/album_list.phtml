@@ -1,0 +1,16 @@
+<?php
+/**
+ * Список фотоальбомов
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$albumList = isset($variables['items']) ? $variables['items'] : [];
+?>
+<ul class="photo_list" umi:element-id="<?= $this->escape($variables['album_id']) ?>" umi:region="list"
+	umi:sortable="sortable" umi:button-position="bottom right" umi:module="photoalbum" umi:method="album">
+	<?php foreach ($albumList as $album): ?>
+		<?= $this->render($album, 'photoalbum/album_list_item') ?>
+	<?php endforeach; ?>
+</ul>
+<?= $this->render($this->macros('system', 'numpages', [$variables['total'], $variables['per_page']]), 'system/numpages') ?>

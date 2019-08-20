@@ -1,0 +1,44 @@
+<?php
+/**
+ * Содержимое html-тега <head>.
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$description = $this->escape($this->getMetaDescription($variables));
+$title = $this->escape($this->getMetaTitle($variables));
+?>
+
+<base href="<?= $this->macros('umiTemplates', 'getResourceDirectory') ?>">
+<link type="text/css" rel="stylesheet" href="compiled/demotractor.min.css">
+<link type="text/css" rel="stylesheet" href="compiled/<?= $this->escape($this->getSiteColor()) ?>.min.css">
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1.0, initial-scale=1.0">
+
+<title><?= $title ?></title>
+<meta property="og:title" content="<?= $title ?>">
+
+<meta name="description" content="<?= $description ?>">
+<meta property="og:description" content="<?= $description ?>">
+<meta name="keywords" content="<?= $this->escape($this->getMetaKeywords($variables)) ?>">
+
+<meta property="og:locale" content="ru_RU">
+<meta property="og:type" content="website">
+<meta property="og:url" content="<?= $this->escape($variables['request-url']) ?>">
+<meta property="og:image" content="<?= $this->escape($this->getSiteLogoUrl()) ?>">
+<meta property="og:site_name" content="<?= $this->escape($this->getSiteName()) ?>">
+
+<meta name="author" content="Umisoft">
+<?= $this->getCanonicalLinkTag($variables) ?>
+<?= $this->getMetaRobots($variables) ?>
+<link rel="shortcut icon" href="<?= $this->escape($this->getFaviconPath()) ?>" />
+
+<style>
+	<?= $this->getSettingsValue('user_css') ?>
+</style>
+
+<?= $this->macros('content', 'includeFrontendResources') ?>
+<script charset="utf-8" src="compiled/demotractor-min.js" type="text/javascript"></script>
+<script charset="utf-8" src="compiled/demotractor.lib-min.js" type="text/javascript"></script>

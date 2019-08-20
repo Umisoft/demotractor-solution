@@ -1,0 +1,21 @@
+<?php
+/**
+ * Скелет сайта.
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+?>
+<!DOCTYPE html>
+<html class="adaptive company c210_stroiteh">
+	<head>
+		<?= $this->render($variables, 'layout/head') ?>
+	</head>
+	<body>
+		<div class="general_wrap">
+			<?= $this->render($variables, 'layout/header/index') ?>
+			<?= $this->render($variables, 'layout/content/index') ?>
+		</div>
+		<?= $this->render($variables, 'layout/footer/index') ?>
+	</body>
+</html>

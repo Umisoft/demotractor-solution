@@ -1,0 +1,13 @@
+<?php
+/**
+ * Блок для вставки произвольного кода
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$settings = $this->getSettingsContainer();
+?>
+<div class="text code_pre code_footer" umi:object-id="<?= $settings->getId() ?>" umi:field-name="footer_code"
+     umi:empty="<?= $this->escape($this->translate('empty_counter')) ?>">
+	<?= htmlspecialchars_decode($settings->getValue('footer_code')) ?>
+</div>

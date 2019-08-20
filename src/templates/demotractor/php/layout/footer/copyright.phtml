@@ -1,0 +1,13 @@
+<?php
+/**
+ * Блок с копирайтом
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$settings = $this->getSettingsContainer();
+?>
+<div class="text umi-copyright" umi:object-id="<?= $settings->getId() ?>" umi:field-name="copyright"
+     umi:empty="<?= $this->escape($this->translate('empty_copyright')) ?>">
+	<?= $settings->getValue('copyright') ?>
+</div>

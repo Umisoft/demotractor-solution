@@ -1,0 +1,19 @@
+<?php
+/**
+ * Постраничная навигация
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+?>
+<?php if (is_array($variables)): ?>
+	<div class="numpages">
+		<ul>
+			<?= $this->render($variables, 'system/numpages_previous') ?>
+			<?php foreach ($variables['items'] as $item): ?>
+				<?= $this->render($item, 'system/numpages_item') ?>
+			<?php endforeach; ?>
+			<?= $this->render($variables, 'system/numpages_next') ?>
+		</ul>
+	</div>
+<?php endif; ?>

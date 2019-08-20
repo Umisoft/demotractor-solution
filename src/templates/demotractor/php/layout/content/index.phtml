@@ -1,0 +1,27 @@
+<?php
+/**
+ * Основной контент страницы.
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$page = isset($variables['pageId']) ? $this->getPageById($variables['pageId']) : '';
+?>
+<div class="row-fluid for-content">
+	<div class="container">
+		<?= $this->render($this->macros('system', 'listErrorMessages'), 'system/error_list') ?>
+		<?= $this->render($variables, "{$variables['module']}/{$variables['method']}") ?>
+	</div>
+</div>
+<?php if ($page instanceof iUmiHierarchyElement): ?>
+	<div class="row-fluid umi-seo-text">
+		<div class="span12">
+			<div class="container">
+				<div class="seo_text text" umi:element-id="<?= $page->getId() ?>" umi:field-name="additional_content"
+				     umi:empty="<?= $this->escape($this->translate('empty_additional_content')) ?>">
+					<?= $page->getValue('additional_content'); ?>
+				</div>
+			</div>
+		</div>
+	</div>
+<?php endif; ?>

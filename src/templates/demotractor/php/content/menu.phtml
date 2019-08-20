@@ -1,0 +1,15 @@
+<?php
+/**
+ * Динамическое меню
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$variables['level'] = 0;
+?>
+<div class="container">
+	<button type="button" class="btn btn-umi-shop b-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">≡</button>
+	<div class="nav-collapse collapse">
+		<?= $this->render($variables, 'content/menu_item_list') ?>
+	</div>
+</div>

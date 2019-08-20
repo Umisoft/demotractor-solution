@@ -1,0 +1,12 @@
+<?php
+/**
+ * Ошибка макроса в списке
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$message = (is_array($variables) && isset($variables['message'])) ? $variables['message'] : $variables;
+?>
+<li>
+	<?= $this->escape($message) ?>
+</li>

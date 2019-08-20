@@ -1,0 +1,22 @@
+<?php
+/**
+ * Блок разделов каталога на главной странице
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var iUmiHierarchyElement $variables главная страница
+ */
+$catalogCategoryPage = getFirstValue($variables->getValue('category_catalog_source'));
+$limit = 10;
+?>
+<div class="mainpage_catalog_title h2">
+	<span class="h2_content" umi:element-id="<?= $this->escape($variables->getId()) ?>" umi:field-name="catalog_category_block_header">
+		<?= $this->escape($variables->getValue('catalog_category_block_header')) ?>
+	</span>
+</div>
+<div class="index_catalog">
+	<?php if ($catalogCategoryPage instanceof iUmiHierarchyElement): ?>
+		<div class="caroufredsel_wrapper">
+			<?= $this->render($this->macros('catalog', 'getCategoryList', [null, $catalogCategoryPage->getId(), $limit]), 'content/home/catalog/category/category_list') ?>
+		</div>
+	<?php endif; ?>
+</div>

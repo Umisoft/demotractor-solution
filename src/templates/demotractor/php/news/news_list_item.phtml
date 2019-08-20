@@ -1,0 +1,29 @@
+<?php
+/**
+ * Превью новости в списке
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$pageId = $variables['id'];
+$name = isset($variables['name']) ? $this->escape($variables['name']) : '';
+$preview = isset($variables['extended']['properties'][0]) ? $variables['extended']['properties'][0] : null;
+/** @var iUmiObjectProperty $preview */
+$preview = ($preview instanceof iUmiObjectProperty) ? $preview->getValue() : '';
+?>
+<div class="news_item test5" umi:element-id="<?= $pageId ?>" umi:region="row">
+	<div class="news_title">
+		<div class="top_date news_date" umi:field-name="publish_time"
+			 umi:empty="<?= $this->escape($this->translate('empty_news_publish_date')) ?>">
+			<?= $this->escape($this->getPageDate($pageId, 'publish_time')) ?>
+		</div>
+		<a class="news_headline" href="<?= $this->escape($variables['link']) ?>" title="<?= $name ?>"
+		   umi:field-name="name" umi:delete="delete" umi:empty="<?= $this->escape($this->translate('empty_news_name')) ?>">
+			<?= $name ?>
+		</a>
+	</div>
+	<div class="news_anons text" umi:field-name="anons" title="<?= $name ?>"
+		 umi:empty="<?= $this->escape($this->translate('empty_news_preview')) ?>">
+		<?= $preview ?>
+	</div>
+</div>

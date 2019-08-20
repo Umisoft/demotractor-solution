@@ -1,0 +1,25 @@
+<?php
+/**
+ * Блок с логотипом и именем сайта
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$settings = $this->getSettingsContainer();
+?>
+<div class="header_brand">
+	<div class="logotype">
+		<a href="/" class="logo">
+			<img umi:object-id="<?= $settings->getId() ?>" umi:field-name="logo"
+				alt="<?= $this->escape($this->getSettingsImageAlt('logo')) ?>"
+				title="<?= $this->escape($this->getSettingsImageTitle('logo')) ?>"
+				src="<?= $this->getSettingsImagePath('logo') ?>"
+			>
+		</a>
+	</div>
+	<div class="company_name">
+		<p umi:object-id="<?= $settings->getId() ?>" umi:field-name="site_name" umi:empty="<?= $this->escape($this->translate('empty_name')) ?>">
+			<?= $this->escape($this->getSiteName()) ?>
+		</p>
+	</div>
+</div>

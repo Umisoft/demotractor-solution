@@ -1,0 +1,17 @@
+<?php
+/**
+ * Список пунктов динамического меню
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$menuItemList = isset($variables['items']) ? $variables['items'] : [];
+?>
+<?php if (count($menuItemList) > 0): ?>
+	<ul class="level-<?= $variables['level'] ?>" umi:element-id="<?= $variables['id'] ?>" umi:region="list" umi:sortable="sortable">
+		<?php foreach ($menuItemList as $menuItem): ?>
+			<?php $menuItem['level'] = $variables['level'] + 1 ?>
+			<?= $this->render($menuItem, 'content/menu_item') ?>
+		<?php endforeach; ?>
+	</ul>
+<?php endif; ?>

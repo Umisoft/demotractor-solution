@@ -1,0 +1,27 @@
+<?php
+/**
+ * Раздел каталога в списке
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$pageId = $variables['id'];
+$link = $this->escape($variables['link']);
+$name = isset($variables['text']) ? $this->escape($variables['text']) : '';
+?>
+<li class="cat-item-active catalog_item li_category_item " umi:region="row" umi:element-id="<?= $pageId ?>">
+	<div class="object_card">
+		<a class="catalog_item_img" href="<?= $link ?>">
+			<img umi:element-id="<?= $pageId ?>" umi:field-name="header_pic"
+				alt="<?= $this->escape($this->getPageImageAlt($pageId, 'header_pic')) ?>"
+				title="<?= $this->escape($this->getPageImageTitle($pageId, 'header_pic')) ?>"
+				src="<?= $this->escape($this->getPageImagePath($pageId, 'header_pic')) ?>">
+		</a>
+	</div>
+	<div class="category_title category_title_bottom">
+		<a href="<?= $link ?>" umi:field-name="name" umi:delete="delete"
+		   umi:empty="<?= $this->escape($this->translate('empty_category_name')) ?>">
+			<?= $name ?>
+		</a>
+	</div>
+</li>

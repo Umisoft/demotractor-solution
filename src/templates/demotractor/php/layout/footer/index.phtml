@@ -1,0 +1,27 @@
+<?php
+/**
+ * Подвал сайта.
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+?>
+<div class="footer">
+	<div class="footer-in">
+		<?= $this->render($variables, 'layout/footer/brand') ?>
+		<div class="row-fluid umi-footer">
+			<?= $this->render($variables, 'layout/footer/contacts') ?>
+			<div class="span3 cp">
+				<?= $this->render($variables, 'layout/footer/copyright') ?>
+				<?= $this->render($variables, 'layout/footer/rss') ?>
+			</div>
+			<div class="social_and_search">
+				<?= $this->render($variables, 'layout/footer/social_network_list') ?>
+				<?= $this->render($variables, 'layout/footer/search') ?>
+			</div>
+			<div class="span12 code_wrapper">
+				<?= $this->render($variables, 'layout/footer/code') ?>
+			</div>
+		</div>
+	</div>
+</div>

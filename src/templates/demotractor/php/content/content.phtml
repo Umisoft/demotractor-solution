@@ -1,0 +1,15 @@
+<?php
+/**
+ * Контент страницы модуля "Структура"
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+?>
+<?php if ($this->isHomePage($variables)): ?>
+	<?= $this->render($variables, 'content/home/index') ?>
+<?php elseif ($this->is404Page($variables)): ?>
+	<?= $this->render($variables, 'content/notfound') ?>
+<?php else: ?>
+	<?= $this->render($variables, 'content/common') ?>
+<?php endif; ?>

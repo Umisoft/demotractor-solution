@@ -1,0 +1,22 @@
+<?php
+/**
+ * Политика обработки персональных данных
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$settings = $this->getSettingsContainer();
+$settingsId = $this->escape($settings->getId());
+?>
+<div class="required field accept_pdn checkbox_full">
+	<label>
+		<input type="checkbox" name="acceptPdn" value="pdn_accepted" checked="checked">
+		<span umi:object-id="<?= $settingsId ?>" umi:field-name="personal_data_policy_confirmation_text"
+			  umi:empty="<?= $this->escape($this->translate('empty_personal_data_policy_confirmation_text')) ?>">
+			<?= $settings->getValue('personal_data_policy_confirmation_text'); ?>
+		</span>
+	</label>
+	<div class="webforms_error_text">
+		<?= $this->escape($settings->getValue('personal_data_policy_no_confirmation_error')) ?>
+	</div>
+</div>

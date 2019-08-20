@@ -1,0 +1,31 @@
+<?php
+/**
+ * Классическая каптча
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$url = isset($variables['url']) ? $this->escape($variables['url']['value'] . $variables['url']['random-string']) : '';
+?>
+<div class="required field captcha">
+	<div class="captcha_input">
+		<label>
+			<span>
+				<?= $this->escape($this->translate('enter_captcha_label')) ?>
+			</span>
+			<span class="required_star" title="<?= $this->escape($this->translate('required_field_label')) ?>">
+				<span class="required_star_text">*</span>
+			</span>
+		</label>
+		<div class="field_div input">
+			<input type="text" name="captcha" class="captcha_input">
+		</div>
+	</div>
+	<div class="captcha_img">
+		<img src="<?= $url ?>">
+	</div>
+	<div class="cleaner"></div>
+	<div class="webforms_error_text">
+		<?= $this->escape($this->translate('empty_captcha_error_label')) ?>
+	</div>
+</div>

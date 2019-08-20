@@ -1,0 +1,30 @@
+<?php
+/**
+ * Страница фотографии
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ * @var iUmiHierarchyElement $page
+ */
+$page = $this->getPageAndPushToEditable($variables['pageId']);
+$pageId = $this->escape($page->getId());
+?>
+<div class="umi-second-content">
+	<div class="content-wrap">
+		<?= $this->render($this->macros('core', 'navibar'), 'core/navibar') ?>
+		<h1 id="page_main_header" class="h1">
+			<span class="h1_content" umi:element-id="<?= $pageId ?>" umi:field-name="h1"
+				  umi:empty="<?= $this->escape($this->translate('empty_page_h1')) ?>"><?= $this->escape($page->getValue('h1')) ?></span>
+		</h1>
+		<div class="full_photo">
+			<img umi:element-id="<?= $pageId ?>" umi:field-name="photo"
+				 alt="<?= $this->escape($this->getPageImageAlt($pageId, 'photo')) ?>"
+				 title="<?= $this->escape($this->getPageImageTitle($pageId, 'photo')) ?>"
+				 src="<?= $this->escape($this->getPageImagePath($pageId, 'photo')) ?>">
+		</div>
+		<div class="text" umi:element-id="<?= $pageId ?>" umi:field-name="descr"
+			 umi:empty="<?= $this->escape($this->translate('empty_page_content')) ?>">
+			<?= $page->getValue('descr') ?>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,23 @@
+<?php
+/**
+ * Контент 404ой страницы
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$setting = $this->getSettingsContainer();
+?>
+<div class="umi-second-content">
+	<div class="content-wrap">
+		<?= $this->render($this->macros('core', 'navibar'), 'core/navibar') ?>
+		<h1 id="page_main_header" class="h1">
+			<span class="h1_content" umi:object-id="<?= $this->escape($setting->getId()) ?>" umi:field-name="404_header"
+				  umi:empty="<?= $this->escape($this->translate('empty_page_h1')) ?>"><?= $this->escape($setting->getValue('404_header')) ?></span>
+		</h1>
+		<div class="text" umi:object-id="<?= $this->escape($setting->getId()) ?>" umi:field-name="404_content"
+			 umi:empty="<?= $this->escape($this->translate('empty_page_content')) ?>"><?= $setting->getValue('404_content') ?></div>
+		<div class="text sitemap">
+			<?= $this->render($this->macros('content', 'sitemap'), 'content/sitemap') ?>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,26 @@
+<?php
+/**
+ * Фотоальбом в списке
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ */
+$pageId = $this->escape($variables['id']);
+$name = isset($variables['name']) ? $this->escape($variables['name']) : '';
+?>
+<li class="photo_album tech" umi:element-id="<?= $pageId ?>" umi:region="row" >
+	<div class="photo_album_img_div">
+		<a class="photo_album_img" href="<?= $this->escape($variables['link']) ?>" title="<?= $name ?>">
+			<img umi:element-id="<?= $pageId ?>" umi:field-name="header_pic"
+				 alt="<?= $this->escape($this->getPageImageAlt($pageId, 'header_pic')) ?>"
+				 title="<?= $this->escape($this->getPageImageTitle($pageId, 'header_pic')) ?>"
+				 src="<?= $this->escape($this->getPageImagePath($pageId, 'header_pic')) ?>">
+		</a>
+	</div>
+	<div class="photo_album_title">
+		<a href="<?= $this->escape($variables['link']) ?>" title="<?= $name ?>" umi:field-name="name"  umi:delete="delete"
+		   umi:empty="<?= $this->escape($this->translate('empty_album_name')) ?>">
+			<?= $name ?>
+		</a>
+	</div>
+</li>

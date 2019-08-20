@@ -1,0 +1,21 @@
+<?php
+/**
+ * Блок популярных товаров на главной странице
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var iUmiHierarchyElement $variables главная страница
+ */
+$limit = 10;
+?>
+<div class="index_catalog index_special_offers">
+	<div class="decoration_1"></div>
+	<div class="mainpage_special_offers_title h2">
+			<span class="h2_content" umi:element-id="<?= $this->escape($variables->getId()) ?>" umi:field-name="popular_product_block_header">
+				<?= $this->escape($variables->getValue('popular_product_block_header')) ?>
+			</span>
+	</div>
+	<div class="caroufredsel_wrapper">
+		<?= $this->render($this->macros('catalog', 'getProductsByFlag', [null, 'popular', $limit]), 'content/home/catalog/object/popular_list') ?>
+	</div>
+	<div class="decoration_2"></div>
+</div>

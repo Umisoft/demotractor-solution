@@ -1,0 +1,16 @@
+<?php
+/**
+ * Социальная сеть
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemotractorPhpExtension $this
+ * @var array $variables
+ * @var iUmiObject $socialNetwork
+ */
+$socialNetwork = $variables;
+$class = $this->escape($socialNetwork->getValue('css_class'));
+?>
+<a class="social_button <?= $class ?>"
+   href="<?= $this->escape($socialNetwork->getValue('link')) ?>" rel="nofollow"
+   title="<?= $this->escape($socialNetwork->getName()) ?>"
+   onclick="return site.socialButtons.open('<?= $class ?>');">
+</a>

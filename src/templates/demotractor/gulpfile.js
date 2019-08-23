@@ -15,7 +15,6 @@ var cssmin = require('gulp-cssmin');
 var jsmin = require('gulp-minify');
 var rename = require('gulp-rename');
 var rimraf = require('gulp-rimraf');
-var runSequence = require('run-sequence');
 
 var jsLibraries = 'js/lib/**/*.js';
 var cssFiles = 'css/*.css';
@@ -106,12 +105,14 @@ gulp.task('watch', function() {
 	gulp.watch(jsFiles, ['build-js-common']);
 });
 
-gulp.task('compile', function(callback) {
-	runSequence('cleancss', 'mincss', 'cleanjs', 'minjs', callback);
-});
+gulp.task('compile', gulp.series('cleancss', 'mincss', 'cleanjs', 'minjs', function(done) {
+	done();
+}));
 
-gulp.task('build', function(callback) {
-	runSequence('build-css-files', 'build-css-color-files', 'build-js-libraries', 'build-js-common', 'compile', callback);
-});
+gulp.task('build', gulp.series('build-css-files', 'build-css-color-files', 'build-js-libraries', 'build-js-common', 'compile', function(done) {
+	done();
+}));
 
-gulp.task('default', ['build']);
+gulp.task('default', gulp.series('build-css-files', 'build-css-color-files', 'build-js-libraries', 'build-js-common', 'compile', function(done) {
+	done();
+}));

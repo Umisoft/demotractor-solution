@@ -1,7 +1,7 @@
 <?php
 	return [
 		'package' => 'demotractor',
-		'destination' => './libs/packer/out/demotractor/',
+		'destination' => './sys-temp/packer/out/demotractor/',
 		'directories' => [
 			'./templates/demotractor/',
 			'./images/cms/data/',

@@ -22,6 +22,62 @@
 			$templateEngine->setCommonVar('settings_container', $this->requestSettingsContainer());
 		}
 
+		/** @inheritDoc */
+		public function getMetaRobots(array $variables) {
+			if (!class_exists('SeoPhpExtension')) {
+				return '';
+			}
+			return (new SeoPhpExtension($this->umiTemplaterPHP))->getMetaRobots($variables);
+		}
+
+		/** @inheritDoc */
+		public function getMetaDescription(array $variables) {
+			if (!class_exists('SeoPhpExtension')) {
+				return '';
+			}
+			return (new SeoPhpExtension($this->umiTemplaterPHP))->getMetaDescription($variables);
+		}
+
+		/** @inheritDoc */
+		public function getMetaTitle(array $variables) {
+			if (!class_exists('SeoPhpExtension')) {
+				return '';
+			}
+			return (new SeoPhpExtension($this->umiTemplaterPHP))->getMetaTitle($variables);
+		}
+
+		/** @inheritDoc */
+		public function getMetaKeywords(array $variables) {
+			if (!class_exists('SeoPhpExtension')) {
+				return '';
+			}
+			return (new SeoPhpExtension($this->umiTemplaterPHP))->getMetaKeywords($variables);
+		}
+
+		/** @inheritDoc */
+		public function getMetaWithPostfix($meta) {
+			if (!class_exists('SeoPhpExtension')) {
+				return '';
+			}
+			return (new SeoPhpExtension($this->umiTemplaterPHP))->getMetaWithPostfix($meta);
+		}
+
+		/** @inheritDoc */
+		public function getPageNumberPostfix($meta) {
+			if (!class_exists('SeoPhpExtension')) {
+				return '';
+			}
+			return (new SeoPhpExtension($this->umiTemplaterPHP))->getPageNumberPostfix($meta);
+		}
+
+		/** @inheritDoc */
+		public function getFaviconPath() {
+			if (!class_exists('SeoPhpExtension')) {
+				return '';
+			}
+			return (new SeoPhpExtension($this->umiTemplaterPHP))->getFaviconPath();
+		}
+
 		/**
 		 * Запрашивает актуальный объект настроек и возвращает его
 		 * @return bool|iUmiObject
@@ -128,16 +184,6 @@
 			$date = $page->getValue($fieldName);
 			/** @var iUmiDate $date */
 			return ($date instanceof iUmiDate) ? $date->getFormattedDate($format) : null;
-		}
-
-		/**
-		 * Возвращает путь до фавикона
-		 * @return string
-		 * @throws coreException
-		 */
-		public function getFaviconPath() {
-			$favicon = Service::DomainDetector()->detect()->getFavicon();
-			return ($favicon instanceof iUmiImageFile) ? $favicon->getFilePath(true) : self::DEFAULT_FAVICON_PATH;
 		}
 
 		/**

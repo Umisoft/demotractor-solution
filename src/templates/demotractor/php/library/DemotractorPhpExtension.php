@@ -23,8 +23,16 @@
 		}
 
 		/** @inheritDoc */
+		public function getCanonicalLinkTag(array $variables) {
+			if (!class_exists('SeoPhpExtension', false)) {
+				return '';
+			}
+			return (new SeoPhpExtension($this->umiTemplaterPHP))->getCanonicalLinkTag($variables);
+		}
+
+		/** @inheritDoc */
 		public function getMetaRobots(array $variables) {
-			if (!class_exists('SeoPhpExtension')) {
+			if (!class_exists('SeoPhpExtension', false)) {
 				return '';
 			}
 			return (new SeoPhpExtension($this->umiTemplaterPHP))->getMetaRobots($variables);
@@ -32,7 +40,7 @@
 
 		/** @inheritDoc */
 		public function getMetaDescription(array $variables) {
-			if (!class_exists('SeoPhpExtension')) {
+			if (!class_exists('SeoPhpExtension', false)) {
 				return '';
 			}
 			return (new SeoPhpExtension($this->umiTemplaterPHP))->getMetaDescription($variables);
@@ -40,7 +48,7 @@
 
 		/** @inheritDoc */
 		public function getMetaTitle(array $variables) {
-			if (!class_exists('SeoPhpExtension')) {
+			if (!class_exists('SeoPhpExtension', false)) {
 				return '';
 			}
 			return (new SeoPhpExtension($this->umiTemplaterPHP))->getMetaTitle($variables);
@@ -48,7 +56,7 @@
 
 		/** @inheritDoc */
 		public function getMetaKeywords(array $variables) {
-			if (!class_exists('SeoPhpExtension')) {
+			if (!class_exists('SeoPhpExtension', false)) {
 				return '';
 			}
 			return (new SeoPhpExtension($this->umiTemplaterPHP))->getMetaKeywords($variables);
@@ -56,7 +64,7 @@
 
 		/** @inheritDoc */
 		public function getMetaWithPostfix($meta) {
-			if (!class_exists('SeoPhpExtension')) {
+			if (!class_exists('SeoPhpExtension', false)) {
 				return '';
 			}
 			return (new SeoPhpExtension($this->umiTemplaterPHP))->getMetaWithPostfix($meta);
@@ -64,7 +72,7 @@
 
 		/** @inheritDoc */
 		public function getPageNumberPostfix($meta) {
-			if (!class_exists('SeoPhpExtension')) {
+			if (!class_exists('SeoPhpExtension', false)) {
 				return '';
 			}
 			return (new SeoPhpExtension($this->umiTemplaterPHP))->getPageNumberPostfix($meta);
@@ -72,7 +80,7 @@
 
 		/** @inheritDoc */
 		public function getFaviconPath() {
-			if (!class_exists('SeoPhpExtension')) {
+			if (!class_exists('SeoPhpExtension', false)) {
 				return '';
 			}
 			return (new SeoPhpExtension($this->umiTemplaterPHP))->getFaviconPath();

@@ -11,10 +11,10 @@ $name = isset($variables['name']) ? $this->escape($variables['name']) : '';
 <li class="photo_album tech" umi:element-id="<?= $pageId ?>" umi:region="row" >
 	<div class="photo_album_img_div">
 		<a class="photo_album_img" href="<?= $this->escape($variables['link']) ?>" title="<?= $name ?>">
-			<img umi:element-id="<?= $pageId ?>" umi:field-name="header_pic"
-				 alt="<?= $this->escape($this->getPageImageAlt($pageId, 'header_pic')) ?>"
-				 title="<?= $this->escape($this->getPageImageTitle($pageId, 'header_pic')) ?>"
-				 src="<?= $this->escape($this->getPageImagePath($pageId, 'header_pic')) ?>">
+			<img umi:element-id="<?= $pageId ?>" umi:field-name="album_image"
+				 alt="<?= $this->escape($this->getPageImageAlt($pageId, 'album_image')) ?>"
+				 title="<?= $this->escape($this->getPageImageTitle($pageId, 'album_image')) ?>"
+				 src="<?= $this->escape($this->getPageImagePath($pageId, 'album_image')) ?>">
 		</a>
 	</div>
 	<div class="photo_album_title">

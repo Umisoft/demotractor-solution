@@ -12,10 +12,10 @@ $name = isset($variables['text']) ? $this->escape($variables['text']) : '';
 <li class="cat-item-active catalog_item li_category_item " umi:region="row" umi:element-id="<?= $pageId ?>">
 	<div class="object_card">
 		<a class="catalog_item_img" href="<?= $link ?>">
-			<img umi:element-id="<?= $pageId ?>" umi:field-name="header_pic"
-				alt="<?= $this->escape($this->getPageImageAlt($pageId, 'header_pic')) ?>"
-				title="<?= $this->escape($this->getPageImageTitle($pageId, 'header_pic')) ?>"
-				src="<?= $this->escape($this->getPageImagePath($pageId, 'header_pic')) ?>">
+			<img umi:element-id="<?= $pageId ?>" umi:field-name="category_image"
+				alt="<?= $this->escape($this->getPageImageAlt($pageId, 'category_image')) ?>"
+				title="<?= $this->escape($this->getPageImageTitle($pageId, 'category_image')) ?>"
+				src="<?= $this->escape($this->getPageImagePath($pageId, 'category_image')) ?>">
 		</a>
 	</div>
 	<div class="category_title category_title_bottom">

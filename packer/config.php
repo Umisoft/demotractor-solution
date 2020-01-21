@@ -5,6 +5,7 @@
 		'directories' => [
 			'./templates/demotractor/',
 			'./images/cms/data/',
+			'./files/filesToImport/',
 		],
 		'files' => [
 			'./files/pdn.doc'

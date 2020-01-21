@@ -80,7 +80,7 @@
 
 		/** @inheritDoc */
 		public function getFaviconPath() {
-			if (!class_exists('SeoPhpExtension')) {
+			if (!class_exists('SeoPhpExtension', false)) {
 				return '';
 			}
 			return (new SeoPhpExtension($this->umiTemplaterPHP))->getFaviconPath();

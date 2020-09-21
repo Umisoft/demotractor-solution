@@ -21,7 +21,8 @@
     "gulp-rimraf": "^0.2.2",
     "gulp-util": "^3.0.3",
     "lodash.template": ">=4.5.0",
-    "clean-css": ">=4.1.11"
+    "clean-css": ">=4.1.11",
+    "yargs-parser": ">=13.1.2"
   },
   "dependencies": {
     "package.json": "^2.0.1",

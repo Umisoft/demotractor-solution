@@ -20,7 +20,9 @@ $imagePath = $this->escape($this->getPageImagePath($pageId, 'image'));
 		</h1>
 		<div class="object" umi:element-id="<?= $pageId ?>">
 			<div class="object_image">
-				<a class="object_image_a fancybox-group" title="<?= $imageTitle ?>" href="<?= $imagePath ?>" rel="<?= $this->escape($page->getAltName()) ?>">
+				<a class="object_image_a fancybox-group" title="<?= $imageTitle ?>" href="<?= $imagePath ?>" 
+					rel="<?= $this->escape($page->getAltName()) ?>"
+					data-caption="<?= $imageTitle ?>">
 					<img umi:element-id="<?= $pageId ?>" umi:field-name="image"
 					     alt="<?= $this->escape($this->getPageImageAlt($pageId, 'image')) ?>"
 					     title="<?= $imageTitle ?>"

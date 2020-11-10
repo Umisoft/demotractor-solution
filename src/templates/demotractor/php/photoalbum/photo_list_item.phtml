@@ -11,7 +11,10 @@ $imagePath = $this->escape($this->getPageImagePath($pageId, 'photo'));
 ?>
 <li class="photo tech" umi:element-id="<?= $pageId ?>" umi:region="row" >
 	<div class="photo_album_img_div">
-		<a class="photo_img fancybox-group" href="<?= $imagePath ?>" title="<?= $name ?>" rel="<?= $this->escape($variables['rel']) ?>">
+		<a class="photo_img fancybox-group" href="<?= $imagePath ?>" title="<?= $name ?>" 
+			rel="<?= $this->escape($variables['rel']) ?>" 
+			data-fancybox="gallery" 
+			data-caption="<?= $name ?>">
 			<img umi:element-id="<?= $pageId ?>" umi:field-name="photo"
 				 alt="<?= $this->escape($this->getPageImageAlt($pageId, 'photo')) ?>"
 				 title="<?= $this->escape($this->getPageImageTitle($pageId, 'photo')) ?>"

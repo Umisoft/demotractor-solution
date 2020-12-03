@@ -7941,7 +7941,7 @@ INSERT INTO `cms3_object_content` (`obj_id`, `field_id`, `int_val`, `varchar_val
 (558, 30, NULL, 'SS', NULL, NULL, NULL, NULL),
 (559, 30, NULL, 'JM', NULL, NULL, NULL, NULL),
 (560, 30, NULL, 'JP', NULL, NULL, NULL, NULL),
-(561, 112, NULL, 'YandexKassa', NULL, NULL, NULL, NULL),
+(561, 112, NULL, 'ЮKassa', NULL, NULL, NULL, NULL),
 (561, 114, NULL, 'emarket-payment-yandex-kassa', NULL, NULL, NULL, NULL),
 (562, 87, NULL, 'custom', NULL, NULL, NULL, NULL),
 (563, 87, NULL, 'TradeOffer', NULL, NULL, NULL, NULL),

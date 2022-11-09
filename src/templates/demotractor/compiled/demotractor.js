@@ -168,10 +168,6 @@ site.socialButtons = {
 				href = 'https://connect.mail.ru/share?url=' + url + '&title=' + title;
 				break;
 			}
-			case 'social_facebook': {
-				href = 'https://www.facebook.com/sharer.php?u=' + url;
-				break;
-			}
 			case 'social_twitter': {
 				href = 'https://twitter.com/home?status=' + title + '+' + url;
 				break;

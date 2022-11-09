@@ -420,9 +420,6 @@ background: url(/base-img/32x32/soc_icons.png) transparent no-repeat -128px 0px;
 display:none;
 background: url(/base-img/32x32/soc_icons.png) transparent no-repeat -128px -32px;
 }
-.social_facebook {
-background: url(/base-img/32x32/soc_icons.png) transparent no-repeat -32px 0px;
-}
 .social_twitter {
 background: url(/base-img/32x32/soc_icons.png) transparent no-repeat -64px -32px;
 }
@@ -1956,9 +1953,6 @@ display: inline-block;
 }
 .social_gray .social_krug {
      background-position: -125px 0;
-}
-.social_gray .social_facebook {
-     background-position: 0 0;
 }
 .social_gray .social_twitter {
      background-position: -63px 0;

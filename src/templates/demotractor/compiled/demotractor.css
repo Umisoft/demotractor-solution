@@ -420,9 +420,6 @@ background: url(/base-img/32x32/soc_icons.png) transparent no-repeat -128px 0px;
 display:none;
 background: url(/base-img/32x32/soc_icons.png) transparent no-repeat -128px -32px;
 }
-.social_facebook {
-background: url(/base-img/32x32/soc_icons.png) transparent no-repeat -32px 0px;
-}
 .social_twitter {
 background: url(/base-img/32x32/soc_icons.png) transparent no-repeat -64px -32px;
 }
@@ -1956,9 +1953,6 @@ display: inline-block;
 }
 .social_gray .social_krug {
      background-position: -125px 0;
-}
-.social_gray .social_facebook {
-     background-position: 0 0;
 }
 .social_gray .social_twitter {
      background-position: -63px 0;
@@ -6286,10 +6280,6 @@ td .recaptcha, .purchase_fields .recaptcha {
 
 }
 
-.adaptive .like_block .like_item .fb-like {
-    line-height: 1;
-}
-
 .adaptive body .system_errors {
     background: #f8f8f8;
     color: #555;
@@ -6643,10 +6633,6 @@ td .recaptcha, .purchase_fields .recaptcha {
     background-position: -60px 0
 }
 
-.adaptive .footer .footer-in .social #social_block a.social_facebook {
-    background-position: -90px 0
-}
-
 .adaptive .footer .footer-in .social #social_block a.social_twitter {
     background-position: -120px 0
 }
@@ -6657,10 +6643,6 @@ td .recaptcha, .purchase_fields .recaptcha {
 
 .adaptive .footer .footer-in .social #social_block a.social_liveinternet {
     background-position: -180px 0
-}
-
-.adaptive .footer .footer-in .social #social_block a.social_instagram {
-    background-position: -42px 0
 }
 
 .adaptive .footer .footer-in .social #social_block a.social_youtube {

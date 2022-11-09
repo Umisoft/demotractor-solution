@@ -1189,10 +1189,6 @@
 
 }
 
-.adaptive .like_block .like_item .fb-like {
-    line-height: 1;
-}
-
 .adaptive body .system_errors {
     background: #f8f8f8;
     color: #555;
@@ -1546,10 +1542,6 @@
     background-position: -60px 0
 }
 
-.adaptive .footer .footer-in .social #social_block a.social_facebook {
-    background-position: -90px 0
-}
-
 .adaptive .footer .footer-in .social #social_block a.social_twitter {
     background-position: -120px 0
 }
@@ -1560,10 +1552,6 @@
 
 .adaptive .footer .footer-in .social #social_block a.social_liveinternet {
     background-position: -180px 0
-}
-
-.adaptive .footer .footer-in .social #social_block a.social_instagram {
-    background-position: -42px 0
 }
 
 .adaptive .footer .footer-in .social #social_block a.social_youtube {

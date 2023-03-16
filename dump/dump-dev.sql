@@ -1,13 +1,13 @@
--- MariaDB dump 10.19  Distrib 10.5.18-MariaDB, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.32, for Linux (x86_64)
 --
--- Host: mysql    Database: db
+-- Host: localhost    Database: dev.aposio.ru
 -- ------------------------------------------------------
--- Server version	5.7.41
+-- Server version	8.0.32-0ubuntu0.20.04.2
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!50503 SET NAMES utf8mb4 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,11 +21,11 @@
 
 DROP TABLE IF EXISTS `cms3_apiship_orders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_apiship_orders` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `number` int(11) unsigned NOT NULL,
-  `umi_order_ref_number` int(11) unsigned NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `number` int unsigned NOT NULL,
+  `umi_order_ref_number` int unsigned NOT NULL,
   `provider_order_ref_number` varchar(255) DEFAULT NULL,
   `status` enum('pending','delivered','delivering','deliveryCanceled','lost','notApplicable','onPointIn','onPointOut','onWay','partialReturn','problem','readyForRecipient','returned','returnedFromDelivery','returning','returnReady','unknown','uploaded','uploading','uploadingError') NOT NULL,
   PRIMARY KEY (`id`),
@@ -33,7 +33,7 @@ CREATE TABLE `cms3_apiship_orders` (
   KEY `umi_order_ref_number` (`umi_order_ref_number`),
   KEY `provider_order_ref_number` (`provider_order_ref_number`),
   KEY `status` (`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -51,17 +51,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_appointment_employee_schedule`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_appointment_employee_schedule` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `employee_id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `employee_id` int NOT NULL,
   `day` enum('0','1','2','3','4','5','6') NOT NULL,
   `time_start` time NOT NULL,
   `time_end` time NOT NULL,
   PRIMARY KEY (`id`),
   KEY `employee_id` (`employee_id`),
   CONSTRAINT `employee schedule to employees` FOREIGN KEY (`employee_id`) REFERENCES `cms3_appointment_employees` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -79,14 +79,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_appointment_employees`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_appointment_employees` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `photo` varchar(500) NOT NULL,
   `description` mediumtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -104,17 +104,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_appointment_employees_services`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_appointment_employees_services` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `employee_id` int(11) NOT NULL,
-  `service_id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `employee_id` int NOT NULL,
+  `service_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `employee_id and service_id` (`employee_id`,`service_id`),
   KEY `employees services to services` (`service_id`),
   CONSTRAINT `employees services to employees` FOREIGN KEY (`employee_id`) REFERENCES `cms3_appointment_employees` (`id`) ON DELETE CASCADE,
   CONSTRAINT `employees services to services` FOREIGN KEY (`service_id`) REFERENCES `cms3_appointment_services` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -132,13 +132,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_appointment_orders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_appointment_orders` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `service_id` int(11) unsigned NOT NULL,
-  `employee_id` int(11) unsigned DEFAULT NULL,
-  `create_date` int(11) unsigned NOT NULL,
-  `date` int(11) unsigned NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `service_id` int unsigned NOT NULL,
+  `employee_id` int unsigned DEFAULT NULL,
+  `create_date` int unsigned NOT NULL,
+  `date` int unsigned NOT NULL,
   `time` time NOT NULL,
   `phone` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
@@ -147,7 +147,7 @@ CREATE TABLE `cms3_appointment_orders` (
   `status_id` enum('1','2','3') NOT NULL,
   PRIMARY KEY (`id`),
   KEY `create_date` (`create_date`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -165,12 +165,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_appointment_service_groups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_appointment_service_groups` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -188,17 +188,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_appointment_services`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_appointment_services` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `group_id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `group_id` int NOT NULL,
   `name` varchar(255) NOT NULL,
   `time` time NOT NULL,
   `price` double NOT NULL,
   PRIMARY KEY (`id`),
   KEY `services to service_groups` (`group_id`),
   CONSTRAINT `services to service_groups` FOREIGN KEY (`group_id`) REFERENCES `cms3_appointment_service_groups` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -216,14 +216,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_cluster_nodes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_cluster_nodes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `node_ip` varchar(16) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `node_id` (`id`),
   KEY `node_ip` (`node_ip`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -241,13 +241,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_cluster_nodes_cache_keys`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_cluster_nodes_cache_keys` (
-  `node_id` int(11) DEFAULT NULL,
+  `node_id` int DEFAULT NULL,
   `key` varchar(255) NOT NULL DEFAULT '',
   KEY `node_id` (`node_id`),
   KEY `key` (`key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -265,17 +265,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_data_cache`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_data_cache` (
   `key` varchar(255) NOT NULL,
   `value` mediumtext NOT NULL,
-  `create_time` int(11) NOT NULL,
-  `expire_time` int(11) NOT NULL,
-  `entry_time` int(11) NOT NULL,
-  `entries_number` int(11) NOT NULL,
+  `create_time` int NOT NULL,
+  `expire_time` int NOT NULL,
+  `entry_time` int NOT NULL,
+  `entries_number` int NOT NULL,
   PRIMARY KEY (`key`),
   KEY `Life time` (`expire_time`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -284,7 +284,7 @@ CREATE TABLE `cms3_data_cache` (
 
 LOCK TABLES `cms3_data_cache` WRITE;
 /*!40000 ALTER TABLE `cms3_data_cache` DISABLE KEYS */;
-INSERT INTO `cms3_data_cache` VALUES ('620767eae0e8a7d314b53cbbb7ac9ab2','s:202:\"{\"_browser_name\":\"Firefox\",\"_version\":\"110.0\",\"_platform\":\"Windows\",\"_os\":\"unknown\",\"_is_aol\":false,\"_is_mobile\":false,\"_is_tablet\":false,\"_is_robot\":false,\"_is_facebook\":false,\"_aol_version\":\"unknown\"}\";',1678957465,1742115865,0,0),('last-release-revision','i:91974;',1678957598,1679216798,0,0),('last-release-info','s:183:\"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<modules>\n  <system>\n    <version>22</version>\n    <revision>91974</revision>\n    <date>2022-10-12T09:13:38+03:00</date>\n  </system>\n</modules>\n\";',1678957598,1679216798,0,0),('last-release-version','i:22;',1678957598,1679216798,0,0),('support-end-time','i:1710482728;',1678957606,1679216806,0,0);
+INSERT INTO `cms3_data_cache` VALUES ('620767eae0e8a7d314b53cbbb7ac9ab2','s:202:\"{\"_browser_name\":\"Firefox\",\"_version\":\"110.0\",\"_platform\":\"Windows\",\"_os\":\"unknown\",\"_is_aol\":false,\"_is_mobile\":false,\"_is_tablet\":false,\"_is_robot\":false,\"_is_facebook\":false,\"_aol_version\":\"unknown\"}\";',1678957465,1742115865,0,0),('last-release-revision','i:91974;',1678957598,1679216798,0,0),('last-release-info','s:183:\"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<modules>\n  <system>\n    <version>22</version>\n    <revision>91974</revision>\n    <date>2022-10-12T09:13:38+03:00</date>\n  </system>\n</modules>\n\";',1678957598,1679216798,0,0),('last-release-version','i:22;',1678957598,1679216798,0,0),('support-end-time','i:1710482728;',1678957606,1679216806,0,0),('7d54254077b6be949b1fea5a88f0d06e','s:205:\"{\"_browser_name\":\"Chrome\",\"_version\":\"111.0.0.0\",\"_platform\":\"Windows\",\"_os\":\"unknown\",\"_is_aol\":false,\"_is_mobile\":false,\"_is_tablet\":false,\"_is_robot\":false,\"_is_facebook\":false,\"_aol_version\":\"unknown\"}\";',1678974774,1742133174,0,0);
 /*!40000 ALTER TABLE `cms3_data_cache` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -294,16 +294,16 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_domain_mirrows`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_domain_mirrows` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `host` varchar(64) DEFAULT NULL,
-  `rel` int(10) unsigned DEFAULT NULL,
+  `rel` int unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `host` (`host`),
   KEY `Domain to mirrows relation_FK` (`rel`),
   CONSTRAINT `FK_Domain to mirrows relation` FOREIGN KEY (`rel`) REFERENCES `cms3_domains` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -321,19 +321,19 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_domains`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_domains` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `host` varchar(64) NOT NULL,
   `is_default` tinyint(1) DEFAULT NULL,
-  `default_lang_id` int(10) unsigned DEFAULT NULL,
+  `default_lang_id` int unsigned DEFAULT NULL,
   `use_ssl` tinyint(1) DEFAULT NULL,
   `favicon` mediumtext,
   PRIMARY KEY (`id`),
   UNIQUE KEY `host` (`host`),
   KEY `Domain to default language relation_FK` (`default_lang_id`),
   CONSTRAINT `FK_Domain to default language relation` FOREIGN KEY (`default_lang_id`) REFERENCES `cms3_langs` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -342,7 +342,7 @@ CREATE TABLE `cms3_domains` (
 
 LOCK TABLES `cms3_domains` WRITE;
 /*!40000 ALTER TABLE `cms3_domains` DISABLE KEYS */;
-INSERT INTO `cms3_domains` VALUES (1,'localhost:8410',1,1,0,NULL);
+INSERT INTO `cms3_domains` VALUES (1,'dev.aposio.ru:18880',1,1,0,NULL);
 /*!40000 ALTER TABLE `cms3_domains` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -352,14 +352,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_emarket_top`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_emarket_top` (
-  `id` int(11) NOT NULL,
-  `date` bigint(20) NOT NULL,
+  `id` int NOT NULL,
+  `date` bigint NOT NULL,
   `title` varchar(255) NOT NULL,
-  `amount` int(11) NOT NULL,
+  `amount` int NOT NULL,
   `total_price` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -377,17 +377,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_fields_controller`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_fields_controller` (
-  `ord` int(11) DEFAULT NULL,
-  `field_id` int(10) unsigned DEFAULT NULL,
-  `group_id` int(10) unsigned DEFAULT NULL,
+  `ord` int DEFAULT NULL,
+  `field_id` int unsigned DEFAULT NULL,
+  `group_id` int unsigned DEFAULT NULL,
   KEY `rel to field_FK` (`field_id`),
   KEY `rel to field group_FK` (`group_id`),
   KEY `ord` (`ord`),
   CONSTRAINT `FK_rel to field` FOREIGN KEY (`field_id`) REFERENCES `cms3_object_fields` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_rel to field group` FOREIGN KEY (`group_id`) REFERENCES `cms3_object_field_groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -406,14 +406,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_filter_index_52_pages_4`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_filter_index_52_pages_4` (
-  `id` int(10) unsigned NOT NULL,
-  `obj_id` int(10) unsigned NOT NULL,
-  `parent_id` int(10) unsigned NOT NULL,
-  `type_id` int(10) unsigned NOT NULL,
-  `lang_id` int(10) unsigned NOT NULL,
-  `domain_id` int(10) unsigned NOT NULL,
+  `id` int unsigned NOT NULL,
+  `obj_id` int unsigned NOT NULL,
+  `parent_id` int unsigned NOT NULL,
+  `type_id` int unsigned NOT NULL,
+  `lang_id` int unsigned NOT NULL,
+  `domain_id` int unsigned NOT NULL,
   `brend` varchar(255) DEFAULT NULL,
   `cvet` varchar(255) DEFAULT NULL,
   `cvet_korpusa` varchar(255) DEFAULT NULL,
@@ -436,7 +436,7 @@ CREATE TABLE `cms3_filter_index_52_pages_4` (
   `ves_upakovki` double DEFAULT NULL,
   `ves_velosipeda` double DEFAULT NULL,
   `vid` varchar(255) DEFAULT NULL,
-  `vmestimost` bigint(20) DEFAULT NULL,
+  `vmestimost` bigint DEFAULT NULL,
   `vozrast` varchar(255) DEFAULT NULL,
   `vysota` double DEFAULT NULL,
   `zastezhka` varchar(255) DEFAULT NULL,
@@ -471,7 +471,7 @@ CREATE TABLE `cms3_filter_index_52_pages_4` (
   KEY `vozrast` (`vozrast`),
   KEY `vysota` (`vysota`),
   KEY `zastezhka` (`zastezhka`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -490,14 +490,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_filter_index_56_pages_1161`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_filter_index_56_pages_1161` (
-  `id` int(10) unsigned NOT NULL,
-  `obj_id` int(10) unsigned NOT NULL,
-  `parent_id` int(10) unsigned NOT NULL,
-  `type_id` int(10) unsigned NOT NULL,
-  `lang_id` int(10) unsigned NOT NULL,
-  `domain_id` int(10) unsigned NOT NULL,
+  `id` int unsigned NOT NULL,
+  `obj_id` int unsigned NOT NULL,
+  `parent_id` int unsigned NOT NULL,
+  `type_id` int unsigned NOT NULL,
+  `lang_id` int unsigned NOT NULL,
+  `domain_id` int unsigned NOT NULL,
   `brend` varchar(255) DEFAULT NULL,
   `cvet` varchar(255) DEFAULT NULL,
   `cvet_korpusa` varchar(255) DEFAULT NULL,
@@ -531,7 +531,7 @@ CREATE TABLE `cms3_filter_index_56_pages_1161` (
   KEY `tip` (`tip`),
   KEY `tip_mehanizma` (`tip_mehanizma`),
   KEY `zastezhka` (`zastezhka`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -550,14 +550,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_filter_index_56_pages_228`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_filter_index_56_pages_228` (
-  `id` int(10) unsigned NOT NULL,
-  `obj_id` int(10) unsigned NOT NULL,
-  `parent_id` int(10) unsigned NOT NULL,
-  `type_id` int(10) unsigned NOT NULL,
-  `lang_id` int(10) unsigned NOT NULL,
-  `domain_id` int(10) unsigned NOT NULL,
+  `id` int unsigned NOT NULL,
+  `obj_id` int unsigned NOT NULL,
+  `parent_id` int unsigned NOT NULL,
+  `type_id` int unsigned NOT NULL,
+  `lang_id` int unsigned NOT NULL,
+  `domain_id` int unsigned NOT NULL,
   `brend` varchar(255) DEFAULT NULL,
   `cvet` varchar(255) DEFAULT NULL,
   `cvet_korpusa` varchar(255) DEFAULT NULL,
@@ -580,7 +580,7 @@ CREATE TABLE `cms3_filter_index_56_pages_228` (
   `ves_upakovki` double DEFAULT NULL,
   `ves_velosipeda` double DEFAULT NULL,
   `vid` varchar(255) DEFAULT NULL,
-  `vmestimost` bigint(20) DEFAULT NULL,
+  `vmestimost` bigint DEFAULT NULL,
   `vozrast` varchar(255) DEFAULT NULL,
   `vysota` double DEFAULT NULL,
   `zastezhka` varchar(255) DEFAULT NULL,
@@ -615,7 +615,7 @@ CREATE TABLE `cms3_filter_index_56_pages_228` (
   KEY `vozrast` (`vozrast`),
   KEY `vysota` (`vysota`),
   KEY `zastezhka` (`zastezhka`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -634,14 +634,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_filter_index_56_pages_539`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_filter_index_56_pages_539` (
-  `id` int(10) unsigned NOT NULL,
-  `obj_id` int(10) unsigned NOT NULL,
-  `parent_id` int(10) unsigned NOT NULL,
-  `type_id` int(10) unsigned NOT NULL,
-  `lang_id` int(10) unsigned NOT NULL,
-  `domain_id` int(10) unsigned NOT NULL,
+  `id` int unsigned NOT NULL,
+  `obj_id` int unsigned NOT NULL,
+  `parent_id` int unsigned NOT NULL,
+  `type_id` int unsigned NOT NULL,
+  `lang_id` int unsigned NOT NULL,
+  `domain_id` int unsigned NOT NULL,
   `brend` varchar(255) DEFAULT NULL,
   `cvet` varchar(255) DEFAULT NULL,
   `cvet_korpusa` varchar(255) DEFAULT NULL,
@@ -675,7 +675,7 @@ CREATE TABLE `cms3_filter_index_56_pages_539` (
   KEY `tip` (`tip`),
   KEY `tip_mehanizma` (`tip_mehanizma`),
   KEY `zastezhka` (`zastezhka`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -694,14 +694,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_filter_index_56_pages_850`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_filter_index_56_pages_850` (
-  `id` int(10) unsigned NOT NULL,
-  `obj_id` int(10) unsigned NOT NULL,
-  `parent_id` int(10) unsigned NOT NULL,
-  `type_id` int(10) unsigned NOT NULL,
-  `lang_id` int(10) unsigned NOT NULL,
-  `domain_id` int(10) unsigned NOT NULL,
+  `id` int unsigned NOT NULL,
+  `obj_id` int unsigned NOT NULL,
+  `parent_id` int unsigned NOT NULL,
+  `type_id` int unsigned NOT NULL,
+  `lang_id` int unsigned NOT NULL,
+  `domain_id` int unsigned NOT NULL,
   `brend` varchar(255) DEFAULT NULL,
   `cvet` varchar(255) DEFAULT NULL,
   `cvet_korpusa` varchar(255) DEFAULT NULL,
@@ -735,7 +735,7 @@ CREATE TABLE `cms3_filter_index_56_pages_850` (
   KEY `tip` (`tip`),
   KEY `tip_mehanizma` (`tip_mehanizma`),
   KEY `zastezhka` (`zastezhka`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -754,21 +754,21 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_hierarchy`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_hierarchy` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `rel` int(10) unsigned NOT NULL,
-  `type_id` int(10) unsigned NOT NULL,
-  `lang_id` int(10) unsigned NOT NULL,
-  `domain_id` int(10) unsigned NOT NULL,
-  `obj_id` int(10) unsigned NOT NULL,
-  `ord` int(11) DEFAULT '0',
-  `tpl_id` int(10) unsigned DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `rel` int unsigned NOT NULL,
+  `type_id` int unsigned NOT NULL,
+  `lang_id` int unsigned NOT NULL,
+  `domain_id` int unsigned NOT NULL,
+  `obj_id` int unsigned NOT NULL,
+  `ord` int DEFAULT '0',
+  `tpl_id` int unsigned DEFAULT NULL,
   `alt_name` varchar(128) DEFAULT NULL,
   `is_active` tinyint(1) DEFAULT NULL,
   `is_deleted` tinyint(1) DEFAULT NULL,
   `is_visible` tinyint(1) DEFAULT NULL,
-  `updatetime` int(11) DEFAULT NULL,
+  `updatetime` int DEFAULT NULL,
   `is_default` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `types rels_FK` (`type_id`),
@@ -786,10 +786,10 @@ CREATE TABLE `cms3_hierarchy` (
   KEY `is_visible` (`is_visible`),
   CONSTRAINT `FK_Domain from domain_id relation` FOREIGN KEY (`domain_id`) REFERENCES `cms3_domains` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_Getting template data` FOREIGN KEY (`tpl_id`) REFERENCES `cms3_templates` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_Prefix from lang_id` FOREIGN KEY (`lang_id`) REFERENCES `cms3_langs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_hierarchy to plain object image` FOREIGN KEY (`obj_id`) REFERENCES `cms3_objects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_Prefix from lang_id` FOREIGN KEY (`lang_id`) REFERENCES `cms3_langs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_types rels` FOREIGN KEY (`type_id`) REFERENCES `cms3_hierarchy_types` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -808,19 +808,19 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_hierarchy_relations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_hierarchy_relations` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `rel_id` int(10) unsigned DEFAULT NULL,
-  `child_id` int(10) unsigned DEFAULT NULL,
-  `level` int(10) unsigned DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `rel_id` int unsigned DEFAULT NULL,
+  `child_id` int unsigned DEFAULT NULL,
+  `level` int unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `rel_id` (`rel_id`),
   KEY `child_id` (`child_id`),
   KEY `level` (`level`),
   CONSTRAINT `Hierarchy relation by child_id` FOREIGN KEY (`child_id`) REFERENCES `cms3_hierarchy` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `Hierarchy relation by rel_id` FOREIGN KEY (`rel_id`) REFERENCES `cms3_hierarchy` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=318 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=318 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -839,9 +839,9 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_hierarchy_types`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_hierarchy_types` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(48) NOT NULL,
   `title` varchar(255) DEFAULT NULL,
   `ext` varchar(48) DEFAULT NULL,
@@ -850,7 +850,7 @@ CREATE TABLE `cms3_hierarchy_types` (
   KEY `name` (`name`,`ext`),
   KEY `title` (`title`),
   KEY `ext` (`ext`)
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -869,17 +869,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_apiship_orders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_apiship_orders` (
-  `external_id` int(10) unsigned NOT NULL,
-  `internal_id` int(10) unsigned NOT NULL,
-  `source_id` int(10) unsigned NOT NULL,
+  `external_id` int unsigned NOT NULL,
+  `internal_id` int unsigned NOT NULL,
+  `source_id` int unsigned NOT NULL,
   KEY `external_id` (`external_id`,`source_id`),
   KEY `internal_id` (`internal_id`,`source_id`),
   KEY `source_id` (`source_id`),
   CONSTRAINT `cms3_import_apiship_orders_ibfk_1` FOREIGN KEY (`internal_id`) REFERENCES `cms3_apiship_orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `cms3_import_apiship_orders_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -897,17 +897,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_appointment_employee_schedule`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_appointment_employee_schedule` (
-  `external_id` int(11) NOT NULL,
-  `internal_id` int(11) NOT NULL,
-  `source_id` int(10) unsigned NOT NULL,
+  `external_id` int NOT NULL,
+  `internal_id` int NOT NULL,
+  `source_id` int unsigned NOT NULL,
   KEY `external_id` (`external_id`,`source_id`),
   KEY `internal_id` (`internal_id`,`source_id`),
   KEY `source_id` (`source_id`),
   CONSTRAINT `cms3_import_appointment_employee_schedule_ibfk_1` FOREIGN KEY (`internal_id`) REFERENCES `cms3_appointment_employee_schedule` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `cms3_import_appointment_employee_schedule_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -925,17 +925,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_appointment_employees`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_appointment_employees` (
-  `external_id` int(11) NOT NULL,
-  `internal_id` int(11) NOT NULL,
-  `source_id` int(10) unsigned NOT NULL,
+  `external_id` int NOT NULL,
+  `internal_id` int NOT NULL,
+  `source_id` int unsigned NOT NULL,
   KEY `external_id` (`external_id`,`source_id`),
   KEY `internal_id` (`internal_id`,`source_id`),
   KEY `source_id` (`source_id`),
   CONSTRAINT `cms3_import_appointment_employees_ibfk_1` FOREIGN KEY (`internal_id`) REFERENCES `cms3_appointment_employees` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `cms3_import_appointment_employees_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -953,17 +953,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_appointment_employees_services`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_appointment_employees_services` (
-  `external_id` int(11) NOT NULL,
-  `internal_id` int(11) NOT NULL,
-  `source_id` int(10) unsigned NOT NULL,
+  `external_id` int NOT NULL,
+  `internal_id` int NOT NULL,
+  `source_id` int unsigned NOT NULL,
   KEY `external_id` (`external_id`,`source_id`),
   KEY `internal_id` (`internal_id`,`source_id`),
   KEY `source_id` (`source_id`),
   CONSTRAINT `cms3_import_appointment_employees_services_ibfk_1` FOREIGN KEY (`internal_id`) REFERENCES `cms3_appointment_employees_services` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `cms3_import_appointment_employees_services_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -981,17 +981,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_appointment_orders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_appointment_orders` (
-  `external_id` int(11) NOT NULL,
-  `internal_id` int(11) NOT NULL,
-  `source_id` int(10) unsigned NOT NULL,
+  `external_id` int NOT NULL,
+  `internal_id` int NOT NULL,
+  `source_id` int unsigned NOT NULL,
   KEY `external_id` (`external_id`,`source_id`),
   KEY `internal_id` (`internal_id`,`source_id`),
   KEY `source_id` (`source_id`),
   CONSTRAINT `cms3_import_appointment_orders_ibfk_1` FOREIGN KEY (`internal_id`) REFERENCES `cms3_appointment_orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `cms3_import_appointment_orders_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1009,17 +1009,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_appointment_service_groups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_appointment_service_groups` (
-  `external_id` int(11) NOT NULL,
-  `internal_id` int(11) NOT NULL,
-  `source_id` int(10) unsigned NOT NULL,
+  `external_id` int NOT NULL,
+  `internal_id` int NOT NULL,
+  `source_id` int unsigned NOT NULL,
   KEY `external_id` (`external_id`,`source_id`),
   KEY `internal_id` (`internal_id`,`source_id`),
   KEY `source_id` (`source_id`),
   CONSTRAINT `cms3_import_appointment_service_groups_ibfk_1` FOREIGN KEY (`internal_id`) REFERENCES `cms3_appointment_service_groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `cms3_import_appointment_service_groups_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1037,17 +1037,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_appointment_services`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_appointment_services` (
-  `external_id` int(11) NOT NULL,
-  `internal_id` int(11) NOT NULL,
-  `source_id` int(10) unsigned NOT NULL,
+  `external_id` int NOT NULL,
+  `internal_id` int NOT NULL,
+  `source_id` int unsigned NOT NULL,
   KEY `external_id` (`external_id`,`source_id`),
   KEY `internal_id` (`internal_id`,`source_id`),
   KEY `source_id` (`source_id`),
   CONSTRAINT `cms3_import_appointment_services_ibfk_1` FOREIGN KEY (`internal_id`) REFERENCES `cms3_appointment_services` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `cms3_import_appointment_services_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1065,17 +1065,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_domain_mirrors`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_domain_mirrors` (
-  `source_id` int(10) unsigned NOT NULL,
+  `source_id` int unsigned NOT NULL,
   `old_id` varchar(255) NOT NULL,
-  `new_id` int(10) unsigned NOT NULL,
+  `new_id` int unsigned NOT NULL,
   KEY `source_id` (`source_id`,`old_id`,`new_id`),
   KEY `old_id` (`old_id`,`new_id`),
   KEY `new_id` (`new_id`),
   CONSTRAINT `FK_DomainMirrorSourceId_To_Source` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_NewId_To_DomainMirrorId` FOREIGN KEY (`new_id`) REFERENCES `cms3_domain_mirrows` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1093,17 +1093,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_domains`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_domains` (
-  `source_id` int(10) unsigned NOT NULL,
+  `source_id` int unsigned NOT NULL,
   `old_id` varchar(255) NOT NULL,
-  `new_id` int(10) unsigned NOT NULL,
+  `new_id` int unsigned NOT NULL,
   KEY `source_id` (`source_id`,`old_id`,`new_id`),
   KEY `old_id` (`old_id`,`new_id`),
   KEY `new_id` (`new_id`),
   CONSTRAINT `FK_DomainSourceId_To_Source` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_NewId_To_DomainId` FOREIGN KEY (`new_id`) REFERENCES `cms3_domains` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1122,12 +1122,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_fields`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_fields` (
-  `source_id` int(10) unsigned NOT NULL,
+  `source_id` int unsigned NOT NULL,
   `field_name` varchar(64) NOT NULL,
-  `type_id` int(10) unsigned NOT NULL,
-  `new_id` int(10) unsigned NOT NULL,
+  `type_id` int unsigned NOT NULL,
+  `new_id` int unsigned NOT NULL,
   KEY `source_id` (`source_id`),
   KEY `type_id` (`type_id`),
   KEY `field_name` (`field_name`),
@@ -1135,7 +1135,7 @@ CREATE TABLE `cms3_import_fields` (
   CONSTRAINT `FK_FieldSourceId_To_Source` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_NewFieldId_To_ObjectTypeId` FOREIGN KEY (`type_id`) REFERENCES `cms3_import_types` (`new_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_NewId_To_ObjectTypeFieldId` FOREIGN KEY (`new_id`) REFERENCES `cms3_object_fields` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1154,12 +1154,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_groups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_groups` (
-  `source_id` int(10) unsigned NOT NULL,
+  `source_id` int unsigned NOT NULL,
   `group_name` varchar(48) NOT NULL,
-  `type_id` int(10) unsigned NOT NULL,
-  `new_id` int(10) unsigned NOT NULL,
+  `type_id` int unsigned NOT NULL,
+  `new_id` int unsigned NOT NULL,
   KEY `source_id` (`source_id`),
   KEY `type_id` (`type_id`),
   KEY `group_name` (`group_name`),
@@ -1167,7 +1167,7 @@ CREATE TABLE `cms3_import_groups` (
   CONSTRAINT `FK_GroupSourceId_To_Source` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_NewGroupId_To_ObjectTypeId` FOREIGN KEY (`type_id`) REFERENCES `cms3_import_types` (`new_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_NewId_To_ObjectTypeGroupId` FOREIGN KEY (`new_id`) REFERENCES `cms3_object_field_groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1186,17 +1186,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_langs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_langs` (
-  `source_id` int(10) unsigned NOT NULL,
+  `source_id` int unsigned NOT NULL,
   `old_id` varchar(255) NOT NULL,
-  `new_id` int(10) unsigned NOT NULL,
+  `new_id` int unsigned NOT NULL,
   KEY `source_id` (`source_id`,`old_id`,`new_id`),
   KEY `old_id` (`old_id`,`new_id`),
   KEY `new_id` (`new_id`),
   CONSTRAINT `FK_LangSourceId_To_Source` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_NewId_To_LangId` FOREIGN KEY (`new_id`) REFERENCES `cms3_langs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1215,17 +1215,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_links`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_links` (
-  `external_id` int(10) unsigned NOT NULL,
-  `internal_id` int(10) unsigned NOT NULL,
-  `source_id` int(10) unsigned NOT NULL,
+  `external_id` int unsigned NOT NULL,
+  `internal_id` int unsigned NOT NULL,
+  `source_id` int unsigned NOT NULL,
   KEY `external_id` (`external_id`,`source_id`),
   KEY `internal_id` (`internal_id`,`source_id`),
   KEY `source_id` (`source_id`),
   CONSTRAINT `cms3_import_links_ibfk_1` FOREIGN KEY (`internal_id`) REFERENCES `cms3_links` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `cms3_import_links_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1243,17 +1243,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_links_sources`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_links_sources` (
-  `external_id` int(11) unsigned NOT NULL,
-  `internal_id` int(11) unsigned NOT NULL,
-  `source_id` int(10) unsigned NOT NULL,
+  `external_id` int unsigned NOT NULL,
+  `internal_id` int unsigned NOT NULL,
+  `source_id` int unsigned NOT NULL,
   KEY `external_id` (`external_id`,`source_id`),
   KEY `internal_id` (`internal_id`,`source_id`),
   KEY `source_id` (`source_id`),
   CONSTRAINT `cms3_import_links_sources_ibfk_1` FOREIGN KEY (`internal_id`) REFERENCES `cms3_links_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `cms3_import_links_sources_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1271,17 +1271,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_mail_notifications`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_mail_notifications` (
-  `external_id` int(11) unsigned NOT NULL,
-  `internal_id` int(11) unsigned NOT NULL,
-  `source_id` int(10) unsigned NOT NULL,
+  `external_id` int unsigned NOT NULL,
+  `internal_id` int unsigned NOT NULL,
+  `source_id` int unsigned NOT NULL,
   KEY `external_id` (`external_id`,`source_id`),
   KEY `internal_id` (`internal_id`,`source_id`),
   KEY `source_id` (`source_id`),
   CONSTRAINT `cms3_import_mail_notifications_ibfk_1` FOREIGN KEY (`internal_id`) REFERENCES `cms3_mail_notifications` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `cms3_import_mail_notifications_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1300,17 +1300,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_mail_templates`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_mail_templates` (
-  `external_id` int(10) unsigned NOT NULL,
-  `internal_id` int(10) unsigned NOT NULL,
-  `source_id` int(10) unsigned NOT NULL,
+  `external_id` int unsigned NOT NULL,
+  `internal_id` int unsigned NOT NULL,
+  `source_id` int unsigned NOT NULL,
   KEY `external_id` (`external_id`,`source_id`),
   KEY `internal_id` (`internal_id`,`source_id`),
   KEY `source_id` (`source_id`),
   CONSTRAINT `cms3_import_mail_templates_ibfk_1` FOREIGN KEY (`internal_id`) REFERENCES `cms3_mail_templates` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `cms3_import_mail_templates_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1329,17 +1329,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_mail_variables`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_mail_variables` (
-  `external_id` int(10) unsigned NOT NULL,
-  `internal_id` int(10) unsigned NOT NULL,
-  `source_id` int(10) unsigned NOT NULL,
+  `external_id` int unsigned NOT NULL,
+  `internal_id` int unsigned NOT NULL,
+  `source_id` int unsigned NOT NULL,
   KEY `external_id` (`external_id`,`source_id`),
   KEY `internal_id` (`internal_id`,`source_id`),
   KEY `source_id` (`source_id`),
   CONSTRAINT `cms3_import_mail_variables_ibfk_1` FOREIGN KEY (`internal_id`) REFERENCES `cms3_mail_variables` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `cms3_import_mail_variables_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1358,17 +1358,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_objects`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_objects` (
-  `source_id` int(10) unsigned NOT NULL,
+  `source_id` int unsigned NOT NULL,
   `old_id` varchar(255) NOT NULL,
-  `new_id` int(10) unsigned NOT NULL,
+  `new_id` int unsigned NOT NULL,
   KEY `source_id` (`source_id`,`old_id`,`new_id`),
   KEY `old_id` (`old_id`,`new_id`),
   KEY `new_id` (`new_id`),
   CONSTRAINT `FK_NewId_To_ObjectsId` FOREIGN KEY (`new_id`) REFERENCES `cms3_objects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_ObjectSourceId_To_Source` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1387,17 +1387,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_offer_list`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_offer_list` (
   `external_id` varchar(255) NOT NULL,
-  `internal_id` int(10) unsigned NOT NULL,
-  `source_id` int(10) unsigned NOT NULL,
+  `internal_id` int unsigned NOT NULL,
+  `source_id` int unsigned NOT NULL,
   KEY `external_id` (`external_id`,`source_id`),
   KEY `internal_id` (`internal_id`,`source_id`),
   KEY `source_id` (`source_id`),
   CONSTRAINT `internal id to offer` FOREIGN KEY (`internal_id`) REFERENCES `cms3_offer_list` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `offer source id to import source` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1415,17 +1415,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_offer_price_list`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_offer_price_list` (
   `external_id` varchar(255) NOT NULL,
-  `internal_id` int(10) unsigned NOT NULL,
-  `source_id` int(10) unsigned NOT NULL,
+  `internal_id` int unsigned NOT NULL,
+  `source_id` int unsigned NOT NULL,
   KEY `external_id` (`external_id`,`source_id`),
   KEY `internal_id` (`internal_id`,`source_id`),
   KEY `source_id` (`source_id`),
   CONSTRAINT `internal id to price` FOREIGN KEY (`internal_id`) REFERENCES `cms3_offer_price_list` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `price source id to import source` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1443,17 +1443,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_offer_price_type_list`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_offer_price_type_list` (
   `external_id` varchar(255) NOT NULL,
-  `internal_id` int(10) unsigned NOT NULL,
-  `source_id` int(10) unsigned NOT NULL,
+  `internal_id` int unsigned NOT NULL,
+  `source_id` int unsigned NOT NULL,
   KEY `external_id` (`external_id`,`source_id`),
   KEY `internal_id` (`internal_id`,`source_id`),
   KEY `source_id` (`source_id`),
   CONSTRAINT `internal id to price type` FOREIGN KEY (`internal_id`) REFERENCES `cms3_offer_price_type_list` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `price type source id to import source` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1472,17 +1472,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_push_message_list`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_push_message_list` (
   `external_id` varchar(255) NOT NULL,
-  `internal_id` int(10) unsigned NOT NULL,
-  `source_id` int(10) unsigned NOT NULL,
+  `internal_id` int unsigned NOT NULL,
+  `source_id` int unsigned NOT NULL,
   KEY `external_id` (`external_id`,`source_id`),
   KEY `internal_id` (`internal_id`,`source_id`),
   KEY `source_id` (`source_id`),
   CONSTRAINT `internal id to message` FOREIGN KEY (`internal_id`) REFERENCES `cms3_push_message_list` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `message source id to import source` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1500,17 +1500,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_push_subscriber_list`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_push_subscriber_list` (
   `external_id` varchar(255) NOT NULL,
-  `internal_id` int(10) unsigned NOT NULL,
-  `source_id` int(10) unsigned NOT NULL,
+  `internal_id` int unsigned NOT NULL,
+  `source_id` int unsigned NOT NULL,
   KEY `external_id` (`external_id`,`source_id`),
   KEY `internal_id` (`internal_id`,`source_id`),
   KEY `source_id` (`source_id`),
   CONSTRAINT `internal id to subscriber` FOREIGN KEY (`internal_id`) REFERENCES `cms3_push_subscriber_list` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `subscriber source id to import source` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1528,17 +1528,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_push_topic_list`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_push_topic_list` (
   `external_id` varchar(255) NOT NULL,
-  `internal_id` int(10) unsigned NOT NULL,
-  `source_id` int(10) unsigned NOT NULL,
+  `internal_id` int unsigned NOT NULL,
+  `source_id` int unsigned NOT NULL,
   KEY `external_id` (`external_id`,`source_id`),
   KEY `internal_id` (`internal_id`,`source_id`),
   KEY `source_id` (`source_id`),
   CONSTRAINT `internal id to topic` FOREIGN KEY (`internal_id`) REFERENCES `cms3_push_topic_list` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `topic source id to import source` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1556,17 +1556,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_redirects`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_redirects` (
-  `external_id` int(11) NOT NULL,
-  `internal_id` int(11) NOT NULL,
-  `source_id` int(10) unsigned NOT NULL,
+  `external_id` int NOT NULL,
+  `internal_id` int NOT NULL,
+  `source_id` int unsigned NOT NULL,
   KEY `external_id` (`external_id`,`source_id`),
   KEY `internal_id` (`internal_id`,`source_id`),
   KEY `source_id` (`source_id`),
   CONSTRAINT `cms3_import_redirects_ibfk_1` FOREIGN KEY (`internal_id`) REFERENCES `cms3_redirects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `cms3_import_redirects_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1584,17 +1584,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_relations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_relations` (
-  `source_id` int(10) unsigned NOT NULL,
+  `source_id` int unsigned NOT NULL,
   `old_id` varchar(255) NOT NULL,
-  `new_id` int(10) unsigned NOT NULL,
+  `new_id` int unsigned NOT NULL,
   KEY `source_id` (`source_id`,`old_id`,`new_id`),
   KEY `old_id` (`old_id`,`new_id`),
   KEY `new_id` (`new_id`),
   CONSTRAINT `FK_NewId_To_HierarchyId` FOREIGN KEY (`new_id`) REFERENCES `cms3_hierarchy` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_SourceId_To_Source` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1613,17 +1613,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_restrictions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_restrictions` (
-  `source_id` int(10) unsigned NOT NULL,
+  `source_id` int unsigned NOT NULL,
   `old_id` varchar(255) NOT NULL,
-  `new_id` int(10) unsigned NOT NULL,
+  `new_id` int unsigned NOT NULL,
   KEY `source_id` (`source_id`,`old_id`,`new_id`),
   KEY `old_id` (`old_id`,`new_id`),
   KEY `new_id` (`new_id`),
   CONSTRAINT `FK_NewId_To_RestrictionId` FOREIGN KEY (`new_id`) REFERENCES `cms3_object_fields_restrictions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_RestrictionSourceId_To_Source` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1642,17 +1642,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_sliders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_sliders` (
-  `external_id` int(10) unsigned NOT NULL,
-  `internal_id` int(10) unsigned NOT NULL,
-  `source_id` int(10) unsigned NOT NULL,
+  `external_id` int unsigned NOT NULL,
+  `internal_id` int unsigned NOT NULL,
+  `source_id` int unsigned NOT NULL,
   KEY `external_id` (`external_id`,`source_id`),
   KEY `internal_id` (`internal_id`,`source_id`),
   KEY `source_id` (`source_id`),
   CONSTRAINT `cms3_import_sliders_ibfk_1` FOREIGN KEY (`internal_id`) REFERENCES `cms3_sliders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `cms3_import_sliders_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1670,17 +1670,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_slides`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_slides` (
-  `external_id` int(10) unsigned NOT NULL,
-  `internal_id` int(10) unsigned NOT NULL,
-  `source_id` int(10) unsigned NOT NULL,
+  `external_id` int unsigned NOT NULL,
+  `internal_id` int unsigned NOT NULL,
+  `source_id` int unsigned NOT NULL,
   KEY `external_id` (`external_id`,`source_id`),
   KEY `internal_id` (`internal_id`,`source_id`),
   KEY `source_id` (`source_id`),
   CONSTRAINT `cms3_import_slides_ibfk_1` FOREIGN KEY (`internal_id`) REFERENCES `cms3_slides` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `cms3_import_slides_ibfk_2` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1698,13 +1698,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_sources`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_sources` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `source_name` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `source_name` (`source_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1723,17 +1723,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_stock_balance_list`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_stock_balance_list` (
   `external_id` varchar(255) NOT NULL,
-  `internal_id` int(10) unsigned NOT NULL,
-  `source_id` int(10) unsigned NOT NULL,
+  `internal_id` int unsigned NOT NULL,
+  `source_id` int unsigned NOT NULL,
   KEY `external_id` (`external_id`,`source_id`),
   KEY `internal_id` (`internal_id`,`source_id`),
   KEY `source_id` (`source_id`),
   CONSTRAINT `internal id to stock balance` FOREIGN KEY (`internal_id`) REFERENCES `cms3_stock_balance_list` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `stock balance source id to import source` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1751,17 +1751,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_templates`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_templates` (
-  `source_id` int(10) unsigned NOT NULL,
+  `source_id` int unsigned NOT NULL,
   `old_id` varchar(255) NOT NULL,
-  `new_id` int(10) unsigned NOT NULL,
+  `new_id` int unsigned NOT NULL,
   KEY `source_id` (`source_id`,`old_id`,`new_id`),
   KEY `old_id` (`old_id`,`new_id`),
   KEY `new_id` (`new_id`),
   CONSTRAINT `FK_NewId_To_TemplateId` FOREIGN KEY (`new_id`) REFERENCES `cms3_templates` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_TemplateSourceId_To_Source` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1780,17 +1780,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_import_types`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_import_types` (
-  `source_id` int(10) unsigned NOT NULL,
+  `source_id` int unsigned NOT NULL,
   `old_id` varchar(255) NOT NULL,
-  `new_id` int(10) unsigned NOT NULL,
+  `new_id` int unsigned NOT NULL,
   KEY `source_id` (`source_id`,`old_id`,`new_id`),
   KEY `old_id` (`old_id`,`new_id`),
   KEY `new_id` (`new_id`),
   CONSTRAINT `FK_NewId_To_ObjectTypeId` FOREIGN KEY (`new_id`) REFERENCES `cms3_object_types` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_TypeSourceId_To_Source` FOREIGN KEY (`source_id`) REFERENCES `cms3_import_sources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1809,15 +1809,15 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_langs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_langs` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `prefix` varchar(16) NOT NULL,
   `title` varchar(255) NOT NULL,
   `is_default` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `prefix` (`prefix`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1836,9 +1836,9 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_links`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_links` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `address` varchar(1024) NOT NULL,
   `address_hash` varchar(32) NOT NULL,
   `place` varchar(255) NOT NULL,
@@ -1846,7 +1846,7 @@ CREATE TABLE `cms3_links` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `address_hash` (`address_hash`),
   KEY `broken` (`broken`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1864,16 +1864,16 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_links_sources`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_links_sources` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `link_id` int(11) unsigned NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `link_id` int unsigned NOT NULL,
   `place` varchar(255) NOT NULL,
   `type` enum('object','template') NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `link_source` (`link_id`,`place`),
   CONSTRAINT `source link_id` FOREIGN KEY (`link_id`) REFERENCES `cms3_links` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1891,11 +1891,11 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_mail_notifications`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_mail_notifications` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `lang_id` int(10) unsigned NOT NULL,
-  `domain_id` int(10) unsigned NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `lang_id` int unsigned NOT NULL,
+  `domain_id` int unsigned NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `module` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -1905,7 +1905,7 @@ CREATE TABLE `cms3_mail_notifications` (
   KEY `name` (`name`),
   CONSTRAINT `notification to domain` FOREIGN KEY (`domain_id`) REFERENCES `cms3_domains` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `notification to lang` FOREIGN KEY (`lang_id`) REFERENCES `cms3_langs` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1924,10 +1924,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_mail_templates`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_mail_templates` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `notification_id` int(11) unsigned NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `notification_id` int unsigned NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
   `content` mediumtext,
@@ -1936,7 +1936,7 @@ CREATE TABLE `cms3_mail_templates` (
   KEY `name` (`name`),
   KEY `notification_id` (`notification_id`),
   CONSTRAINT `mail template to notification` FOREIGN KEY (`notification_id`) REFERENCES `cms3_mail_notifications` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1955,16 +1955,16 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_mail_variables`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_mail_variables` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `template_id` int(11) unsigned NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `template_id` int unsigned NOT NULL,
   `variable` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `field_name` (`variable`),
   KEY `template_name` (`template_id`),
   CONSTRAINT `mail variable to template` FOREIGN KEY (`template_id`) REFERENCES `cms3_mail_templates` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=181 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=181 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1983,16 +1983,16 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_messages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_messages` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
   `content` mediumtext NOT NULL,
-  `sender_id` int(10) unsigned DEFAULT NULL,
-  `create_time` int(11) NOT NULL,
+  `sender_id` int unsigned DEFAULT NULL,
+  `create_time` int NOT NULL,
   `type` enum('private','sys-event','sys-log') NOT NULL,
-  `priority` int(11) DEFAULT '0',
-  `is_sended` int(11) DEFAULT '0',
+  `priority` int DEFAULT '0',
+  `is_sended` int DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `title` (`title`),
   KEY `create_time` (`create_time`),
@@ -2001,7 +2001,7 @@ CREATE TABLE `cms3_messages` (
   KEY `is_sended` (`is_sended`),
   KEY `FK_Messages to user relation` (`sender_id`),
   CONSTRAINT `FK_Messages to user relation` FOREIGN KEY (`sender_id`) REFERENCES `cms3_objects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2019,11 +2019,11 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_messages_inbox`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_messages_inbox` (
-  `message_id` int(10) unsigned DEFAULT NULL,
-  `recipient_id` int(10) unsigned DEFAULT NULL,
-  `is_opened` int(11) DEFAULT '0',
+  `message_id` int unsigned DEFAULT NULL,
+  `recipient_id` int unsigned DEFAULT NULL,
+  `is_opened` int DEFAULT '0',
   KEY `message_id` (`message_id`),
   KEY `recipient_id` (`recipient_id`),
   KEY `is_opened` (`is_opened`),
@@ -2031,7 +2031,7 @@ CREATE TABLE `cms3_messages_inbox` (
   KEY `FK_MessagesInbox to User` (`recipient_id`),
   CONSTRAINT `FK_MessagesInbox to Messages` FOREIGN KEY (`message_id`) REFERENCES `cms3_messages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_MessagesInbox to User` FOREIGN KEY (`recipient_id`) REFERENCES `cms3_objects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2049,15 +2049,15 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_object_content`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_object_content` (
-  `obj_id` int(10) unsigned DEFAULT NULL,
-  `field_id` int(10) unsigned DEFAULT NULL,
-  `int_val` bigint(20) DEFAULT NULL,
+  `obj_id` int unsigned DEFAULT NULL,
+  `field_id` int unsigned DEFAULT NULL,
+  `int_val` bigint DEFAULT NULL,
   `varchar_val` varchar(255) DEFAULT NULL,
   `text_val` mediumtext,
-  `rel_val` int(10) unsigned DEFAULT NULL,
-  `tree_val` int(10) unsigned DEFAULT NULL,
+  `rel_val` int unsigned DEFAULT NULL,
+  `tree_val` int unsigned DEFAULT NULL,
   `float_val` double DEFAULT NULL,
   KEY `Content to object relation_FK` (`obj_id`),
   KEY `Contents field id relation_FK` (`field_id`),
@@ -2071,10 +2071,10 @@ CREATE TABLE `cms3_object_content` (
   KEY `K_Complex_FieldIdAndTreeVal` (`field_id`,`tree_val`),
   KEY `K_Complex_ObjIdAndFieldId` (`obj_id`,`field_id`),
   CONSTRAINT `FK_Content to object relation` FOREIGN KEY (`obj_id`) REFERENCES `cms3_objects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_content2tree` FOREIGN KEY (`tree_val`) REFERENCES `cms3_hierarchy` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_Contents field id relation` FOREIGN KEY (`field_id`) REFERENCES `cms3_object_fields` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_Relation value reference` FOREIGN KEY (`rel_val`) REFERENCES `cms3_objects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_content2tree` FOREIGN KEY (`tree_val`) REFERENCES `cms3_hierarchy` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `FK_Relation value reference` FOREIGN KEY (`rel_val`) REFERENCES `cms3_objects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2093,16 +2093,16 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_object_content_cnt`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_object_content_cnt` (
-  `obj_id` int(10) unsigned DEFAULT NULL,
-  `field_id` int(10) unsigned DEFAULT NULL,
-  `cnt` int(10) DEFAULT '0',
+  `obj_id` int unsigned DEFAULT NULL,
+  `field_id` int unsigned DEFAULT NULL,
+  `cnt` int DEFAULT '0',
   KEY `FK_Contents_Counters to object relation` (`obj_id`),
   KEY `FK_Contents_Counters field id relation` (`field_id`),
   CONSTRAINT `FK_Contents_Counters field id relation` FOREIGN KEY (`field_id`) REFERENCES `cms3_object_fields` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_Contents_Counters to object relation` FOREIGN KEY (`obj_id`) REFERENCES `cms3_objects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2120,12 +2120,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_object_domain_id_list`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_object_domain_id_list` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `obj_id` int(10) unsigned DEFAULT NULL,
-  `field_id` int(10) unsigned DEFAULT NULL,
-  `domain_id` int(10) unsigned DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `obj_id` int unsigned DEFAULT NULL,
+  `field_id` int unsigned DEFAULT NULL,
+  `domain_id` int unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `cms3_object_domain_id_list load field value` (`obj_id`,`field_id`),
   KEY `cms3_object_domain_id_list field_id` (`field_id`),
@@ -2134,7 +2134,7 @@ CREATE TABLE `cms3_object_domain_id_list` (
   CONSTRAINT `cms3_object_domain_id_list domain id` FOREIGN KEY (`domain_id`) REFERENCES `cms3_domains` (`id`) ON DELETE CASCADE,
   CONSTRAINT `cms3_object_domain_id_list field id` FOREIGN KEY (`field_id`) REFERENCES `cms3_object_fields` (`id`) ON DELETE CASCADE,
   CONSTRAINT `cms3_object_domain_id_list object id` FOREIGN KEY (`obj_id`) REFERENCES `cms3_objects` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2153,15 +2153,15 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_object_field_groups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_object_field_groups` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(64) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
-  `type_id` int(10) unsigned DEFAULT NULL,
+  `type_id` int unsigned DEFAULT NULL,
   `is_active` tinyint(1) DEFAULT NULL,
   `is_visible` tinyint(1) DEFAULT NULL,
-  `ord` int(11) DEFAULT NULL,
+  `ord` int DEFAULT NULL,
   `is_locked` tinyint(1) DEFAULT '0',
   `tip` varchar(4096) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -2173,7 +2173,7 @@ CREATE TABLE `cms3_object_field_groups` (
   KEY `is_visible` (`is_visible`),
   KEY `is_locked` (`is_locked`),
   CONSTRAINT `FK_Group to type relation` FOREIGN KEY (`type_id`) REFERENCES `cms3_object_types` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=362 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=362 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2192,9 +2192,9 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_object_field_types`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_object_field_types` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(64) DEFAULT NULL,
   `data_type` enum('int','string','text','relation','file','img_file','swf_file','bool','date','boolean','wysiwyg','password','tags','symlink','price','formula','float','counter','optioned','video_file','color','link_to_object_type','multiple_image','domain_id','domain_id_list','offer_id_list','offer_id','multiple_file','lang_id','lang_id_list','price_type_id') DEFAULT NULL,
   `is_multiple` tinyint(1) DEFAULT '0',
@@ -2204,7 +2204,7 @@ CREATE TABLE `cms3_object_field_types` (
   KEY `data_type` (`data_type`),
   KEY `is_multiple` (`is_multiple`),
   KEY `is_unsigned` (`is_unsigned`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2223,22 +2223,22 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_object_fields`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_object_fields` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(64) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
   `is_locked` tinyint(1) DEFAULT '0',
-  `field_type_id` int(10) unsigned DEFAULT NULL,
+  `field_type_id` int unsigned DEFAULT NULL,
   `is_inheritable` tinyint(1) DEFAULT '0',
   `is_visible` tinyint(1) DEFAULT '1',
-  `guide_id` int(10) unsigned DEFAULT NULL,
+  `guide_id` int unsigned DEFAULT NULL,
   `in_search` tinyint(1) DEFAULT '1',
   `in_filter` tinyint(1) DEFAULT '1',
   `tip` varchar(255) DEFAULT NULL,
   `is_required` tinyint(1) DEFAULT NULL,
-  `restriction_id` int(10) unsigned DEFAULT NULL,
-  `sortable` tinyint(4) DEFAULT '0',
+  `restriction_id` int unsigned DEFAULT NULL,
+  `sortable` tinyint DEFAULT '0',
   `is_system` tinyint(1) DEFAULT '0',
   `is_important` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
@@ -2260,7 +2260,7 @@ CREATE TABLE `cms3_object_fields` (
   CONSTRAINT `FK_Field to field guide relation` FOREIGN KEY (`guide_id`) REFERENCES `cms3_object_types` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `FK_Field to field type relation` FOREIGN KEY (`field_type_id`) REFERENCES `cms3_object_field_types` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_Field to restriction relation` FOREIGN KEY (`restriction_id`) REFERENCES `cms3_object_fields_restrictions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=564 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=564 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2279,16 +2279,16 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_object_fields_restrictions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_object_fields_restrictions` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `class_prefix` varchar(64) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
-  `field_type_id` int(10) unsigned NOT NULL,
+  `field_type_id` int unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `Field restriction to field type relation_FK` (`field_type_id`),
   CONSTRAINT `FK_Field restriction to field type relation` FOREIGN KEY (`field_type_id`) REFERENCES `cms3_object_field_types` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2307,14 +2307,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_object_files`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_object_files` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `obj_id` int(10) unsigned DEFAULT NULL,
-  `field_id` int(10) unsigned DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `obj_id` int unsigned DEFAULT NULL,
+  `field_id` int unsigned DEFAULT NULL,
   `src` varchar(500) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
-  `ord` int(10) unsigned DEFAULT NULL,
+  `ord` int unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `load field value` (`obj_id`,`field_id`),
   KEY `field_id` (`field_id`),
@@ -2323,7 +2323,7 @@ CREATE TABLE `cms3_object_files` (
   KEY `ord` (`ord`),
   CONSTRAINT `File object field content to field` FOREIGN KEY (`field_id`) REFERENCES `cms3_object_fields` (`id`) ON DELETE CASCADE,
   CONSTRAINT `File object field content to object` FOREIGN KEY (`obj_id`) REFERENCES `cms3_objects` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2341,15 +2341,15 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_object_images`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_object_images` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `obj_id` int(10) unsigned DEFAULT NULL,
-  `field_id` int(10) unsigned DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `obj_id` int unsigned DEFAULT NULL,
+  `field_id` int unsigned DEFAULT NULL,
   `src` varchar(500) DEFAULT NULL,
   `alt` varchar(255) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
-  `ord` int(10) unsigned DEFAULT NULL,
+  `ord` int unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `load field value` (`obj_id`,`field_id`),
   KEY `field_id` (`field_id`),
@@ -2359,7 +2359,7 @@ CREATE TABLE `cms3_object_images` (
   KEY `ord` (`ord`),
   CONSTRAINT `object field content to field` FOREIGN KEY (`field_id`) REFERENCES `cms3_object_fields` (`id`) ON DELETE CASCADE,
   CONSTRAINT `object field content to object` FOREIGN KEY (`obj_id`) REFERENCES `cms3_objects` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2378,12 +2378,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_object_lang_id_list`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_object_lang_id_list` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `obj_id` int(10) unsigned DEFAULT NULL,
-  `field_id` int(10) unsigned DEFAULT NULL,
-  `lang_id` int(10) unsigned DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `obj_id` int unsigned DEFAULT NULL,
+  `field_id` int unsigned DEFAULT NULL,
+  `lang_id` int unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `cms3_object_lang_id_list load field value` (`obj_id`,`field_id`),
   KEY `cms3_object_lang_id_list field_id` (`field_id`),
@@ -2392,7 +2392,7 @@ CREATE TABLE `cms3_object_lang_id_list` (
   CONSTRAINT `cms3_object_lang_id_list field id` FOREIGN KEY (`field_id`) REFERENCES `cms3_object_fields` (`id`) ON DELETE CASCADE,
   CONSTRAINT `cms3_object_lang_id_list lang id` FOREIGN KEY (`lang_id`) REFERENCES `cms3_langs` (`id`) ON DELETE CASCADE,
   CONSTRAINT `cms3_object_lang_id_list object id` FOREIGN KEY (`obj_id`) REFERENCES `cms3_objects` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2411,12 +2411,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_object_offer_id_list`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_object_offer_id_list` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `obj_id` int(10) unsigned NOT NULL,
-  `field_id` int(10) unsigned NOT NULL,
-  `offer_id` int(10) unsigned NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `obj_id` int unsigned NOT NULL,
+  `field_id` int unsigned NOT NULL,
+  `offer_id` int unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `cms3_object_offer_id_list load field value` (`obj_id`,`field_id`),
   KEY `cms3_object_offer_id_list field_id` (`field_id`),
@@ -2425,7 +2425,7 @@ CREATE TABLE `cms3_object_offer_id_list` (
   CONSTRAINT `cms3_object_offer_id_list field id` FOREIGN KEY (`field_id`) REFERENCES `cms3_object_fields` (`id`) ON DELETE CASCADE,
   CONSTRAINT `cms3_object_offer_id_list object id` FOREIGN KEY (`obj_id`) REFERENCES `cms3_objects` (`id`) ON DELETE CASCADE,
   CONSTRAINT `cms3_object_offer_id_list offer id` FOREIGN KEY (`offer_id`) REFERENCES `cms3_offer_list` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2443,12 +2443,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_object_price_type_id_list`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_object_price_type_id_list` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `obj_id` int(10) unsigned DEFAULT NULL,
-  `field_id` int(10) unsigned DEFAULT NULL,
-  `price_type_id` int(10) unsigned DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `obj_id` int unsigned DEFAULT NULL,
+  `field_id` int unsigned DEFAULT NULL,
+  `price_type_id` int unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `cms3_object_price_type_id_list load field value` (`obj_id`,`field_id`),
   KEY `cms3_object_price_type_id_list field_id` (`field_id`),
@@ -2457,7 +2457,7 @@ CREATE TABLE `cms3_object_price_type_id_list` (
   CONSTRAINT `cms3_object_price_type_id_list field id` FOREIGN KEY (`field_id`) REFERENCES `cms3_object_fields` (`id`) ON DELETE CASCADE,
   CONSTRAINT `cms3_object_price_type_id_list object id` FOREIGN KEY (`obj_id`) REFERENCES `cms3_objects` (`id`) ON DELETE CASCADE,
   CONSTRAINT `cms3_object_price_type_id_list price id` FOREIGN KEY (`price_type_id`) REFERENCES `cms3_offer_price_type_list` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2475,18 +2475,18 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_object_type_tree`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_object_type_tree` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `parent_id` int(10) unsigned DEFAULT NULL,
-  `child_id` int(10) unsigned DEFAULT NULL,
-  `level` int(10) unsigned DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `parent_id` int unsigned DEFAULT NULL,
+  `child_id` int unsigned DEFAULT NULL,
+  `level` int unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique parent-child object type relation` (`parent_id`,`child_id`),
   KEY `Object type id from child_id` (`child_id`),
   CONSTRAINT `Object type id from child_id` FOREIGN KEY (`child_id`) REFERENCES `cms3_object_types` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `Object type id from parent_id` FOREIGN KEY (`parent_id`) REFERENCES `cms3_object_types` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=228 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=228 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2505,18 +2505,18 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_object_types`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_object_types` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `guid` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `is_locked` tinyint(1) DEFAULT '0',
-  `parent_id` int(10) unsigned DEFAULT NULL,
+  `parent_id` int unsigned DEFAULT NULL,
   `is_guidable` tinyint(1) DEFAULT '0',
   `is_public` tinyint(1) DEFAULT '0',
-  `hierarchy_type_id` int(10) unsigned DEFAULT NULL,
-  `sortable` tinyint(4) DEFAULT '0',
-  `domain_id` int(10) unsigned DEFAULT NULL,
+  `hierarchy_type_id` int unsigned DEFAULT NULL,
+  `sortable` tinyint DEFAULT '0',
+  `domain_id` int unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `hierarchy_type_id` (`hierarchy_type_id`),
   KEY `parent_id` (`parent_id`),
@@ -2527,7 +2527,7 @@ CREATE TABLE `cms3_object_types` (
   KEY `guid` (`guid`),
   KEY `cms3_object_types domain id` (`domain_id`),
   CONSTRAINT `cms3_object_types domain id` FOREIGN KEY (`domain_id`) REFERENCES `cms3_domains` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=134 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=134 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2546,16 +2546,16 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_objects`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_objects` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `guid` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `is_locked` tinyint(1) DEFAULT NULL,
-  `type_id` int(10) unsigned DEFAULT NULL,
-  `owner_id` int(10) unsigned DEFAULT NULL,
-  `ord` int(10) unsigned DEFAULT '0',
-  `updatetime` int(11) unsigned DEFAULT NULL,
+  `type_id` int unsigned DEFAULT NULL,
+  `owner_id` int unsigned DEFAULT NULL,
+  `ord` int unsigned DEFAULT '0',
+  `updatetime` int unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `Object to type relation_FK` (`type_id`),
   KEY `name` (`name`),
@@ -2565,7 +2565,7 @@ CREATE TABLE `cms3_objects` (
   KEY `guid` (`guid`),
   KEY `updatetime` (`updatetime`),
   CONSTRAINT `FK_Object to type relation` FOREIGN KEY (`type_id`) REFERENCES `cms3_object_types` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=755 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=755 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2584,16 +2584,16 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_objects_expiration`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_objects_expiration` (
-  `obj_id` int(10) unsigned NOT NULL,
-  `entrytime` int(10) unsigned NOT NULL,
-  `expire` int(10) unsigned NOT NULL,
+  `obj_id` int unsigned NOT NULL,
+  `entrytime` int unsigned NOT NULL,
+  `expire` int unsigned NOT NULL,
   PRIMARY KEY (`obj_id`),
   KEY `FK_ObjectsExpire to objects` (`obj_id`),
   KEY `entrytime` (`entrytime`,`expire`),
   CONSTRAINT `FK_ObjectsExpire to objects` FOREIGN KEY (`obj_id`) REFERENCES `cms3_objects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2611,27 +2611,27 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_offer_list`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_offer_list` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `type_id` int(10) unsigned NOT NULL,
-  `data_object_id` int(10) unsigned DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `type_id` int unsigned NOT NULL,
+  `data_object_id` int unsigned DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `vendor_code` varchar(255) DEFAULT NULL,
   `bar_code` varchar(255) DEFAULT NULL,
-  `total_count` bigint(20) unsigned DEFAULT '0',
+  `total_count` bigint unsigned DEFAULT '0',
   `is_active` tinyint(1) DEFAULT '1',
-  `order` bigint(20) unsigned DEFAULT '0',
-  `weight` bigint(20) unsigned DEFAULT '0',
-  `width` bigint(20) unsigned DEFAULT '0',
-  `length` bigint(20) unsigned DEFAULT '0',
-  `height` bigint(20) unsigned DEFAULT '0',
+  `order` bigint unsigned DEFAULT '0',
+  `weight` bigint unsigned DEFAULT '0',
+  `width` bigint unsigned DEFAULT '0',
+  `length` bigint unsigned DEFAULT '0',
+  `height` bigint unsigned DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `offer to type id` (`type_id`),
   KEY `offer to data object id` (`data_object_id`),
   CONSTRAINT `offer to data object id` FOREIGN KEY (`data_object_id`) REFERENCES `cms3_objects` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `offer to type id` FOREIGN KEY (`type_id`) REFERENCES `cms3_object_types` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2649,13 +2649,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_offer_price_list`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_offer_price_list` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `value` double unsigned NOT NULL,
-  `offer_id` int(10) unsigned NOT NULL,
-  `currency_id` int(10) unsigned NOT NULL,
-  `type_id` int(10) unsigned NOT NULL,
+  `offer_id` int unsigned NOT NULL,
+  `currency_id` int unsigned NOT NULL,
+  `type_id` int unsigned NOT NULL,
   `is_main` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `offer price to offer` (`offer_id`),
@@ -2664,7 +2664,7 @@ CREATE TABLE `cms3_offer_price_list` (
   CONSTRAINT `offer price to currency` FOREIGN KEY (`currency_id`) REFERENCES `cms3_objects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `offer price to offer` FOREIGN KEY (`offer_id`) REFERENCES `cms3_offer_list` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `offer price to type` FOREIGN KEY (`type_id`) REFERENCES `cms3_offer_price_type_list` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2682,15 +2682,15 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_offer_price_type_list`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_offer_price_type_list` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `is_default` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2709,17 +2709,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_permissions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_permissions` (
-  `level` tinyint(4) DEFAULT NULL,
-  `owner_id` int(10) unsigned DEFAULT NULL,
-  `rel_id` int(10) unsigned DEFAULT NULL,
+  `level` tinyint DEFAULT NULL,
+  `owner_id` int unsigned DEFAULT NULL,
+  `rel_id` int unsigned DEFAULT NULL,
   KEY `owner reference_FK` (`owner_id`),
   KEY `rel reference_FK` (`rel_id`),
   KEY `level` (`level`),
   CONSTRAINT `FK_owner reference` FOREIGN KEY (`owner_id`) REFERENCES `cms3_objects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_rel reference` FOREIGN KEY (`rel_id`) REFERENCES `cms3_hierarchy` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2738,21 +2738,21 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_push_message_list`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_push_message_list` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
   `body` varchar(255) NOT NULL,
   `icon` varchar(255) NOT NULL,
   `click_action` varchar(255) NOT NULL,
-  `create_time` int(11) unsigned NOT NULL,
+  `create_time` int unsigned NOT NULL,
   `is_send` tinyint(1) DEFAULT '0',
-  `publish_time` int(11) unsigned DEFAULT NULL,
-  `expiration_time` int(11) unsigned DEFAULT NULL,
-  `send_time` int(11) unsigned DEFAULT NULL,
-  `domain_id` int(10) unsigned NOT NULL,
-  `lang_id` int(10) unsigned NOT NULL,
-  `topic_id` int(11) unsigned NOT NULL,
+  `publish_time` int unsigned DEFAULT NULL,
+  `expiration_time` int unsigned DEFAULT NULL,
+  `send_time` int unsigned DEFAULT NULL,
+  `domain_id` int unsigned NOT NULL,
+  `lang_id` int unsigned NOT NULL,
+  `topic_id` int unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `cms3_push_message_list domain_id` (`domain_id`),
   KEY `cms3_push_message_list lang_id` (`lang_id`),
@@ -2760,7 +2760,7 @@ CREATE TABLE `cms3_push_message_list` (
   CONSTRAINT `cms3_push_message_list domain_id` FOREIGN KEY (`domain_id`) REFERENCES `cms3_domains` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `cms3_push_message_list lang_id` FOREIGN KEY (`lang_id`) REFERENCES `cms3_langs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `cms3_push_message_list topic_id` FOREIGN KEY (`topic_id`) REFERENCES `cms3_push_topic_list` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2778,15 +2778,15 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_push_subscriber_list`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_push_subscriber_list` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `token` varchar(255) NOT NULL,
-  `create_time` int(11) unsigned NOT NULL,
-  `user_id` int(10) unsigned NOT NULL,
-  `domain_id` int(10) unsigned DEFAULT NULL,
-  `lang_id` int(10) unsigned DEFAULT NULL,
-  `topic_id` int(11) unsigned NOT NULL,
+  `create_time` int unsigned NOT NULL,
+  `user_id` int unsigned NOT NULL,
+  `domain_id` int unsigned DEFAULT NULL,
+  `lang_id` int unsigned DEFAULT NULL,
+  `topic_id` int unsigned NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `token` (`token`),
   KEY `cms3_push_subscriber_list user_id` (`user_id`),
@@ -2797,7 +2797,7 @@ CREATE TABLE `cms3_push_subscriber_list` (
   CONSTRAINT `cms3_push_subscriber_list lang_id` FOREIGN KEY (`lang_id`) REFERENCES `cms3_langs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `cms3_push_subscriber_list topic_id` FOREIGN KEY (`topic_id`) REFERENCES `cms3_push_topic_list` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `cms3_push_subscriber_list user_id` FOREIGN KEY (`user_id`) REFERENCES `cms3_objects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2815,22 +2815,22 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_push_topic_list`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_push_topic_list` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `is_locked` tinyint(1) DEFAULT '0',
-  `create_time` int(11) unsigned NOT NULL,
-  `domain_id` int(10) unsigned NOT NULL,
-  `lang_id` int(10) unsigned NOT NULL,
+  `create_time` int unsigned NOT NULL,
+  `domain_id` int unsigned NOT NULL,
+  `lang_id` int unsigned NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `cms3_push_topic_list domain_id` (`domain_id`),
   KEY `cms3_push_topic_list lang_id` (`lang_id`),
   CONSTRAINT `cms3_push_topic_list domain_id` FOREIGN KEY (`domain_id`) REFERENCES `cms3_domains` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `cms3_push_topic_list lang_id` FOREIGN KEY (`lang_id`) REFERENCES `cms3_langs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2848,17 +2848,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_redirects`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_redirects` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `source` text NOT NULL,
   `target` text NOT NULL,
-  `status` int(10) unsigned DEFAULT '301',
-  `made_by_user` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `status` int unsigned DEFAULT '301',
+  `made_by_user` tinyint unsigned NOT NULL DEFAULT '0',
   `date` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `source` (`source`(255))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2876,20 +2876,20 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_response_error_entry_list`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_response_error_entry_list` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `url` text NOT NULL,
-  `code` int(10) unsigned NOT NULL,
-  `hits_count` int(10) unsigned DEFAULT '0',
-  `domain_id` int(10) unsigned NOT NULL,
-  `update_time` int(11) unsigned NOT NULL,
+  `code` int unsigned NOT NULL,
+  `hits_count` int unsigned DEFAULT '0',
+  `domain_id` int unsigned NOT NULL,
+  `update_time` int unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `cms3_response_error_entry_list order by hits count` (`hits_count`),
   KEY `cms3_response_error_entry_list order by update time` (`update_time`),
   KEY `cms3_response_error_entry_list domain_id` (`domain_id`),
   CONSTRAINT `cms3_response_error_entry_list domain_id` FOREIGN KEY (`domain_id`) REFERENCES `cms3_domains` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2908,19 +2908,19 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_search`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_search` (
-  `rel_id` int(10) unsigned NOT NULL,
-  `indextime` int(11) DEFAULT NULL,
-  `lang_id` int(11) DEFAULT NULL,
-  `domain_id` int(11) DEFAULT NULL,
-  `type_id` int(11) DEFAULT NULL,
+  `rel_id` int unsigned NOT NULL,
+  `indextime` int DEFAULT NULL,
+  `lang_id` int DEFAULT NULL,
+  `domain_id` int DEFAULT NULL,
+  `type_id` int DEFAULT NULL,
   PRIMARY KEY (`rel_id`),
   KEY `lang_id + domain_id + type_id_FK` (`lang_id`,`domain_id`,`type_id`),
   KEY `domain_id` (`domain_id`,`type_id`),
   KEY `indextime` (`indextime`),
   KEY `type_id` (`type_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2929,7 +2929,7 @@ CREATE TABLE `cms3_search` (
 
 LOCK TABLES `cms3_search` WRITE;
 /*!40000 ALTER TABLE `cms3_search` DISABLE KEYS */;
-INSERT INTO `cms3_search` VALUES (1,1678957982,1,1,30),(2,1678957982,1,1,30),(3,1678957982,1,1,42),(4,1678957982,1,1,1),(5,1678957982,1,1,29),(6,1678957982,1,1,29),(7,1678957982,1,1,29),(8,1678957982,1,1,29),(9,1678957982,1,1,55),(10,1678957982,1,1,55),(11,1678957982,1,1,55),(12,1678957982,1,1,55),(13,1678957982,1,1,55),(14,1678957982,1,1,55),(15,1678957982,1,1,55),(16,1678957983,1,1,55),(17,1678957983,1,1,55),(18,1678957983,1,1,56),(19,1678957983,1,1,56),(20,1678957983,1,1,56),(21,1678957983,1,1,56),(22,1678957983,1,1,56),(23,1678957983,1,1,56),(24,1678957983,1,1,56),(25,1678957983,1,1,56),(26,1678957983,1,1,56),(27,1678957983,1,1,56),(28,1678957983,1,1,56),(29,1678957983,1,1,46),(30,1678957983,1,1,46),(31,1678957983,1,1,46),(32,1678957983,1,1,47),(33,1678957983,1,1,47),(34,1678957983,1,1,47),(35,1678957983,1,1,47),(36,1678957983,1,1,47),(37,1678957983,1,1,47),(87,1678957983,1,1,56),(88,1678957983,1,1,56);
+INSERT INTO `cms3_search` VALUES (1,1678974967,1,1,30),(2,1678974967,1,1,30),(3,1678974967,1,1,42),(4,1678974967,1,1,1),(5,1678974967,1,1,29),(6,1678974967,1,1,29),(7,1678974967,1,1,29),(8,1678974967,1,1,29),(9,1678974967,1,1,55),(10,1678974967,1,1,55),(11,1678974967,1,1,55),(12,1678974967,1,1,55),(13,1678974967,1,1,55),(14,1678974967,1,1,55),(15,1678974967,1,1,55),(16,1678974967,1,1,55),(17,1678974967,1,1,55),(18,1678974967,1,1,56),(19,1678974967,1,1,56),(20,1678974967,1,1,56),(21,1678974967,1,1,56),(22,1678974967,1,1,56),(23,1678974967,1,1,56),(24,1678974967,1,1,56),(25,1678974967,1,1,56),(26,1678974967,1,1,56),(27,1678974967,1,1,56),(28,1678974967,1,1,56),(29,1678974967,1,1,46),(30,1678974967,1,1,46),(31,1678974967,1,1,46),(32,1678974967,1,1,47),(33,1678974967,1,1,47),(34,1678974967,1,1,47),(35,1678974967,1,1,47),(36,1678974967,1,1,47),(37,1678974967,1,1,47),(87,1678974967,1,1,56),(88,1678974967,1,1,56);
 /*!40000 ALTER TABLE `cms3_search` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2939,17 +2939,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_search_index`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_search_index` (
-  `rel_id` int(10) unsigned DEFAULT NULL,
-  `weight` int(11) DEFAULT NULL,
-  `word_id` int(10) unsigned DEFAULT NULL,
+  `rel_id` int unsigned DEFAULT NULL,
+  `weight` int DEFAULT NULL,
+  `word_id` int unsigned DEFAULT NULL,
   `tf` float DEFAULT NULL,
   KEY `pages to index_FK` (`rel_id`),
   KEY `word index_FK` (`word_id`),
   KEY `weight` (`weight`),
   KEY `tf` (`tf`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2968,13 +2968,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_search_index_words`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_search_index_words` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `word` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `word` (`word`)
-) ENGINE=InnoDB AUTO_INCREMENT=395 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=395 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2993,25 +2993,25 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_sliders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_sliders` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `domain_id` int(11) unsigned NOT NULL,
-  `language_id` int(11) unsigned NOT NULL,
-  `sliding_speed` int(11) unsigned DEFAULT NULL,
-  `sliding_delay` int(11) unsigned DEFAULT NULL,
+  `domain_id` int unsigned NOT NULL,
+  `language_id` int unsigned NOT NULL,
+  `sliding_speed` int unsigned DEFAULT NULL,
+  `sliding_delay` int unsigned DEFAULT NULL,
   `sliding_loop_enable` tinyint(1) DEFAULT '0',
   `sliding_auto_play_enable` tinyint(1) DEFAULT '0',
   `sliders_random_order_enable` tinyint(1) DEFAULT '0',
-  `slides_count` int(11) unsigned DEFAULT '0',
+  `slides_count` int unsigned DEFAULT '0',
   `custom_id` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id from domains` (`domain_id`),
   KEY `id from languages` (`language_id`),
   CONSTRAINT `id from domains` FOREIGN KEY (`domain_id`) REFERENCES `cms3_domains` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `id from languages` FOREIGN KEY (`language_id`) REFERENCES `cms3_langs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3029,22 +3029,22 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_slides`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_slides` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `slider_id` int(11) unsigned NOT NULL,
+  `slider_id` int unsigned NOT NULL,
   `is_active` tinyint(1) DEFAULT '0',
   `title` varchar(1024) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
   `text` mediumtext,
   `link` varchar(1024) DEFAULT NULL,
   `open_in_new_tab` tinyint(1) DEFAULT '1',
-  `order` int(11) unsigned DEFAULT '0',
+  `order` int unsigned DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `slider_id and is_active with order` (`slider_id`,`is_active`,`order`),
   CONSTRAINT `id from sliders` FOREIGN KEY (`slider_id`) REFERENCES `cms3_sliders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3062,18 +3062,18 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_stock_balance_list`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_stock_balance_list` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `offer_id` int(10) unsigned NOT NULL,
-  `stock_id` int(10) unsigned NOT NULL,
-  `value` bigint(20) unsigned DEFAULT '0',
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `offer_id` int unsigned NOT NULL,
+  `stock_id` int unsigned NOT NULL,
+  `value` bigint unsigned DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `stock balance to offer` (`offer_id`),
   KEY `stock balance to stock` (`stock_id`),
   CONSTRAINT `stock balance to offer` FOREIGN KEY (`offer_id`) REFERENCES `cms3_offer_list` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `stock balance to stock` FOREIGN KEY (`stock_id`) REFERENCES `cms3_objects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3091,14 +3091,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms3_templates`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms3_templates` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(128) DEFAULT NULL,
   `filename` varchar(64) DEFAULT NULL,
   `type` varchar(64) DEFAULT NULL,
-  `domain_id` int(10) unsigned DEFAULT NULL,
-  `lang_id` int(10) unsigned DEFAULT NULL,
+  `domain_id` int unsigned DEFAULT NULL,
+  `lang_id` int unsigned DEFAULT NULL,
   `title` varchar(128) DEFAULT NULL,
   `is_default` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -3107,7 +3107,7 @@ CREATE TABLE `cms3_templates` (
   KEY `is_default` (`is_default`),
   KEY `filename` (`filename`),
   KEY `title` (`title`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3126,18 +3126,18 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_backup`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_backup` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `ctime` int(11) DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `ctime` int DEFAULT NULL,
   `changed_module` varchar(128) DEFAULT NULL,
   `changed_method` varchar(128) DEFAULT NULL,
   `param` text,
   `param0` mediumtext,
-  `user_id` int(11) DEFAULT NULL,
-  `is_active` int(11) DEFAULT '0',
+  `user_id` int DEFAULT NULL,
+  `is_active` int DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3156,18 +3156,18 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_permissions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_permissions` (
   `module` varchar(64) DEFAULT NULL,
   `method` varchar(64) DEFAULT NULL,
-  `owner_id` int(10) unsigned DEFAULT NULL,
-  `allow` tinyint(4) DEFAULT '1',
+  `owner_id` int unsigned DEFAULT NULL,
+  `allow` tinyint DEFAULT '1',
   KEY `module` (`module`),
   KEY `method` (`method`),
   KEY `owner_id` (`owner_id`),
   KEY `allow` (`allow`),
   CONSTRAINT `FK_PermissionOwnerId_To_ObjectId` FOREIGN KEY (`owner_id`) REFERENCES `cms3_objects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3186,16 +3186,16 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_reg`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_reg` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `var` varchar(48) NOT NULL,
   `val` varchar(255) DEFAULT NULL,
-  `rel` int(11) NOT NULL DEFAULT '0',
+  `rel` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `var` (`var`),
   KEY `rel` (`rel`,`var`)
-) ENGINE=InnoDB AUTO_INCREMENT=382 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=382 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3204,7 +3204,7 @@ CREATE TABLE `cms_reg` (
 
 LOCK TABLES `cms_reg` WRITE;
 /*!40000 ALTER TABLE `cms_reg` DISABLE KEYS */;
-INSERT INTO `cms_reg` VALUES (1,'modules','',0),(2,'events','events',1),(3,'name','events',2),(4,'title','Events',2),(5,'description','Events',2),(6,'filename','modules/events/class.php',2),(7,'config','1',2),(8,'ico','ico_events',2),(9,'default_method','getUserSettings',2),(10,'default_method_admin','last',2),(11,'max-days-storing-events','30',2),(12,'collect-events','0',2),(13,'menu','menu',1),(14,'name','menu',13),(15,'filename','modules/menu/class.php',13),(16,'config','0',13),(17,'ico','ico_menu',13),(18,'default_method','show',13),(19,'default_method_admin','lists',13),(20,'per_page','10',13),(21,'news','news',1),(22,'name','news',21),(23,'filename','modules/news/class.php',21),(24,'config','1',21),(25,'default_method','archive',21),(26,'default_method_admin','lists',21),(27,'per_page','10',21),(28,'content','content',1),(29,'name','content',28),(30,'filename','modules/content/class.php',28),(31,'config','1',28),(32,'default_method','content',28),(33,'default_method_admin','sitetree',28),(34,'blogs20','blogs20',1),(35,'verison','2.0.0.0',34),(36,'name','blogs20',34),(37,'filename','modules/blogs20/class.php',34),(38,'config','1',34),(39,'ico','ico_blogs20',34),(40,'default_method','blogsList',34),(41,'default_method_admin','posts',34),(42,'paging','',34),(43,'blogs','10',42),(44,'posts','10',42),(45,'comments','50',42),(46,'blogs_per_user','5',34),(47,'allow_guest_comments','1',34),(48,'notifications','',34),(49,'on_comment_add','1',48),(50,'forum','forum',1),(51,'name','forum',50),(52,'filename','modules/forum/class.php',50),(53,'config','1',50),(54,'default_method','show',50),(55,'default_method_admin','confs_list',50),(56,'need_moder','0',50),(57,'allow_guest','0',50),(58,'per_page','25',50),(59,'sort_by_last_message','0',50),(60,'dispatch_id','26073',50),(61,'comments','comments',1),(62,'name','comments',61),(63,'title','Комментарии',61),(64,'filename','modules/comments/class.php',61),(65,'config','1',61),(66,'default_method','void_func',61),(67,'default_method_admin','view_comments',61),(68,'per_page','10',61),(69,'moderated','0',61),(70,'guest_posting','0',61),(71,'allow_guest','1',61),(72,'default_comments','1',61),(73,'vkontakte','0',61),(74,'vk_per_page','0',61),(75,'vk_width','0',61),(76,'vk_api','',61),(77,'vk_extend','0',61),(78,'facebook','0',61),(79,'fb_per_page','0',61),(80,'fb_width','0',61),(81,'fb_colorscheme','light',61),(82,'vote','vote',1),(83,'name','vote',82),(84,'filename','modules/vote/class.php',82),(85,'config','1',82),(86,'default_method','insertlast',82),(87,'default_method_admin','lists',82),(88,'webforms','webforms',1),(89,'name','webforms',88),(90,'filename','webforms/class.php',88),(91,'config','0',88),(92,'default_method','insert',88),(93,'default_method_admin','addresses',88),(94,'imported','1',88),(95,'photoalbum','photoalbum',1),(96,'name','photoalbum',95),(97,'filename','modules/photoalbum/class.php',95),(98,'config','1',95),(99,'default_method','albums',95),(100,'default_method_admin','lists',95),(101,'per_page','10',95),(102,'faq','faq',1),(103,'name','faq',102),(104,'filename','modules/faq/class.php',102),(105,'config','1',102),(106,'default_method','project',102),(107,'default_method_admin','projects_list',102),(108,'per_page','10',102),(109,'disable_new_question_notification','0',102),(110,'dispatches','dispatches',1),(111,'name','dispatches',110),(112,'filename','dispatches/class.php',110),(113,'config','1',110),(114,'default_method','subscribe',110),(115,'default_method_admin','lists',110),(116,'catalog','catalog',1),(117,'name','catalog',116),(118,'title','Каталог',116),(119,'filename','modules/catalog/class.php',116),(120,'config','1',116),(121,'default_method','category',116),(122,'default_method_admin','tree',116),(123,'per_page','5',116),(124,'banners','banners',1),(125,'name','banners',124),(126,'filename','banners/class.php',124),(127,'config','1',124),(128,'default_method','insert_banner',124),(129,'default_method_admin','lists',124),(130,'users','users',1),(131,'name','users',130),(132,'filename','modules/users/class.php',130),(133,'config','1',130),(134,'default_method','auth',130),(135,'default_method_admin','users_list_all',130),(136,'def_group','619',130),(137,'pages_permissions_changing_enabled_on_add','1',130),(138,'pages_permissions_changing_enabled_on_edit','0',130),(139,'stat','stat',1),(140,'name','stat',139),(141,'filename','modules/stat/class.php',139),(142,'config','1',139),(143,'default_method','sess_refresh',139),(144,'default_method_admin','yandexMetric',139),(145,'collect','0',139),(146,'delete_after','30',139),(147,'items_per_page','100',139),(148,'seo','seo',1),(149,'name','seo',148),(150,'filename','modules/seo/class.php',148),(151,'config','1',148),(152,'default_method','getRelCanonical',148),(153,'default_method_admin','sitemap',148),(154,'megaindex-login','megaindex@umisoft.ru',148),(155,'megaindex-password','et676e5rj',148),(156,'config','config',1),(157,'name','config',156),(158,'filename','modules/config/class.php',156),(159,'config','0',156),(160,'default_method','test',156),(161,'default_method_admin','main',156),(162,'tickets','tickets',1),(163,'name','tickets',162),(164,'filename','modules/tickets/class.php',162),(165,'config','0',162),(166,'ico','ico_tickets',162),(167,'default_method','',162),(168,'default_method_admin','tickets',162),(169,'data','data',1),(170,'name','data',169),(171,'filename','modules/data/class.php',169),(172,'config','1',169),(173,'default_method','test',169),(174,'default_method_admin','types',169),(175,'autoupdate','autoupdate',1),(176,'name','autoupdate',175),(177,'filename','modules/autoupdate/class.php',175),(178,'config','1',175),(179,'default_method','updateall',175),(180,'default_method_admin','versions',175),(181,'backup','backup',1),(182,'name','backup',181),(183,'title','Backups',181),(184,'filename','modules/backup/class.php',181),(185,'config','1',181),(186,'default_method','temp_method',181),(187,'default_method_admin','snapshots',181),(188,'max_timelimit','30',181),(189,'max_save_actions','50',181),(190,'enabled','1',181),(191,'search','search',1),(192,'name','search',191),(193,'filename','modules/search/class.php',191),(194,'default_method','search_do',191),(195,'default_method_admin','index_control',191),(196,'per_page','5',191),(197,'one_iteration_index','5',191),(198,'config','1',191),(199,'filemanager','filemanager',1),(200,'name','filemanager',199),(201,'description','Управление файловой системой.',199),(202,'filename','modules/filemanager/class.php',199),(203,'config','0',199),(204,'default_method','list_files',199),(205,'default_method_admin','shared_files',199),(206,'umiRedirects','umiRedirects',1),(207,'config','1',206),(208,'name','umiRedirects',206),(209,'default_method','empty',206),(210,'default_method_admin','lists',206),(211,'umiNotifications','umiNotifications',1),(212,'default_method','empty',211),(213,'default_method_admin','notifications',211),(214,'config','0',211),(215,'umiSliders','umiSliders',1),(216,'config','1',215),(217,'name','umiSliders',215),(218,'default_method','empty',215),(219,'default_method_admin','getSliders',215),(220,'default_sliding_speed','1',215),(221,'default_sliding_delay','1',215),(222,'default_sliding_slides_count','10',215),(223,'trash','trash',1),(224,'config','0',223),(225,'default_method','empty',223),(226,'default_method_admin','trash',223),(227,'umiSettings','umiSettings',1),(228,'default_method','empty',227),(229,'default_method_admin','read',227),(230,'umiStub','umiStub',1),(231,'name','umiStub',230),(232,'config','0',230),(233,'default_method','empty',230),(234,'default_method_admin','stub',230),(235,'appointment','appointment',1),(236,'config','1',235),(237,'name','appointment',235),(238,'work-time-0','',235),(239,'work-time-1','',235),(240,'work-time-2','',235),(241,'work-time-3','',235),(242,'work-time-4','',235),(243,'work-time-5','',235),(244,'work-time-6','',235),(245,'default_method','page',235),(246,'default_method_admin','orders',235),(247,'settings','',0),(248,'keycode','69D0644A407-DECC7058E80-4206BCC52DD',247),(249,'system_edition','commerce',247),(250,'previous_edition','commerce',247),(251,'system_version','dev',247),(252,'system_build','92175',247),(253,'last_updated','1678957726',247),(254,'system_build','92175',175),(255,'install','1556105595',247),(256,'guest_id','618',130),(257,'create','1556105595',247),(258,'umiMessages','',0),(259,'lastConnectTime','1678957649',258),(260,'lastMessageId','0',258),(261,'last_mess_time','1607074018',247),(262,'umiTemplates','umiTemplates',1),(263,'name','umiTemplates',262),(264,'config','0',262),(265,'default_method','empty',262),(266,'default_method_admin','getTemplateList',262),(267,'is_filter_virtual_copies','0',116),(268,'search-types','',191),(269,'enable-recaptcha','',247),(270,'captcha-remember','0',247),(271,'recaptcha-sitekey','6LfOGaUUAAAAACg2PIVXVpnEYKM7xO_6U-jbdwQa',247),(272,'recaptcha-secret','6LfOGaUUAAAAACiNc76ZopzD9bK_mF95UyGJgHaA',247),(273,'captcha','',247),(274,'1','',273),(275,'1','',274),(276,'enable-classic','',275),(277,'enable-recaptcha','',275),(278,'use-site-settings','0',275),(279,'remember','0',275),(280,'drawer','',275),(281,'recaptcha-sitekey','',275),(282,'recaptcha-secret','',275),(283,'disable_url_autocorrection','0',247),(284,'max_img_filesize','48',247),(285,'default_module_admin','events',247),(286,'default_module_admin_changed','1',247),(287,'default_module','content',247),(288,'site_name','umicms.demo site',247),(289,'title_prefix','',247),(290,'1','',289),(291,'1','UMI.CMS - ',290),(292,'2','',290),(293,'domain','',247),(294,'admin_email','demo@umi-cms.ru',247),(295,'error_email','',247),(296,'memcached','',247),(297,'is_enabled','0',296),(298,'host','localhost',296),(299,'port','11211',296),(300,'rec_deep','0',247),(301,'email_from','demo@umi-cms.ru',247),(302,'fio_from','Тестовый отправитель',247),(303,'meta_keywords','',247),(304,'1','',303),(305,'1','umi CMS демо DEMO сайт система управление',304),(306,'2','',304),(307,'meta_description','',247),(308,'1','',307),(309,'1','',308),(310,'2','',308),(311,'disable_captcha','0',247),(312,'show_macros_onerror','1',247),(313,'lock_duration','3600',247),(314,'expiration_control','0',247),(315,'allow_alt_name_with_module_collision','0',247),(316,'allow_redirects_watch','1',247),(317,'lock_pages','0',247),(318,'next_clean_time','',247),(319,'next_optimise_time','',247),(320,'elements_count_per_page','15',247),(321,'seo','',247),(322,'allow-empty-description','1',321),(323,'allow-empty-h1','1',321),(324,'allow-empty-keywords','0',321),(325,'allow-empty-title','1',321),(326,'emarket','emarket',1),(327,'version','2.8.0.5',326),(328,'version_line','pro',326),(329,'name','emarket',326),(330,'title','Интернет-магазин',326),(331,'filename','modules/emarket/class.php',326),(332,'config','1',326),(333,'ico','ico_eshop',326),(334,'default_method_admin','orders',326),(335,'enable-discounts','1',326),(336,'enable-currency','1',326),(337,'enable-stores','1',326),(338,'enable-payment','1',326),(339,'enable-delivery','1',326),(340,'social_vkontakte_merchant_id','',326),(341,'social_vkontakte_key','',326),(342,'social_vkontakte_wishlist','1',326),(343,'social_vkontakte_order','1',326),(344,'social_vkontakte_testmode','1',326),(345,'delivery-with-address','0',326),(346,'default-store-city','Санкт-Петербург',326),(347,'default-store-contact-email','hariton.moiseevich@umisoft.ru',326),(348,'default-store-contact-full-name','Харитон Моисеевич',326),(349,'default-store-contact-phone','88123090315',326),(350,'default-store-country-code','RU',326),(351,'default-store-house-number','25ж',326),(352,'default-store-region','Санкт-Петербург',326),(353,'default-store-street','Красного курсанта',326),(354,'order-defaultHeight','60',326),(355,'order-defaultLength','40',326),(356,'order-defaultWidth','40',326),(357,'order-defaultWeight','1000',326),(358,'default-store-index','197110',326),(359,'exchange','exchange',1),(360,'name','exchange',359),(361,'filename','modules/exchange/class.php',359),(362,'config','1',359),(363,'ico','exchange',359),(364,'default_method','import',359),(365,'default_method_admin','import',359),(366,'social_networks','social_networks',1),(367,'version','1',366),(368,'name','social_networks',366),(369,'title','Интеграция с социальными сетями',366),(370,'filename','modules/social_networks/class.php',366),(371,'config','0',366),(372,'ico','ico_social_networks',366),(373,'default_method','vkontakte',366),(374,'default_method_admin','vkontakte',366),(375,'umiMarket','umiMarket',1),(376,'config','0',375),(377,'name','umiMarket',375),(378,'default_method','empty',375),(379,'default_method_admin','catalog',375),(380,'extensions','',0);
+INSERT INTO `cms_reg` VALUES (1,'modules','',0),(2,'events','events',1),(3,'name','events',2),(4,'title','Events',2),(5,'description','Events',2),(6,'filename','modules/events/class.php',2),(7,'config','1',2),(8,'ico','ico_events',2),(9,'default_method','getUserSettings',2),(10,'default_method_admin','last',2),(11,'max-days-storing-events','30',2),(12,'collect-events','0',2),(13,'menu','menu',1),(14,'name','menu',13),(15,'filename','modules/menu/class.php',13),(16,'config','0',13),(17,'ico','ico_menu',13),(18,'default_method','show',13),(19,'default_method_admin','lists',13),(20,'per_page','10',13),(21,'news','news',1),(22,'name','news',21),(23,'filename','modules/news/class.php',21),(24,'config','1',21),(25,'default_method','archive',21),(26,'default_method_admin','lists',21),(27,'per_page','10',21),(28,'content','content',1),(29,'name','content',28),(30,'filename','modules/content/class.php',28),(31,'config','1',28),(32,'default_method','content',28),(33,'default_method_admin','sitetree',28),(34,'blogs20','blogs20',1),(35,'verison','2.0.0.0',34),(36,'name','blogs20',34),(37,'filename','modules/blogs20/class.php',34),(38,'config','1',34),(39,'ico','ico_blogs20',34),(40,'default_method','blogsList',34),(41,'default_method_admin','posts',34),(42,'paging','',34),(43,'blogs','10',42),(44,'posts','10',42),(45,'comments','50',42),(46,'blogs_per_user','5',34),(47,'allow_guest_comments','1',34),(48,'notifications','',34),(49,'on_comment_add','1',48),(50,'forum','forum',1),(51,'name','forum',50),(52,'filename','modules/forum/class.php',50),(53,'config','1',50),(54,'default_method','show',50),(55,'default_method_admin','confs_list',50),(56,'need_moder','0',50),(57,'allow_guest','0',50),(58,'per_page','25',50),(59,'sort_by_last_message','0',50),(60,'dispatch_id','26073',50),(61,'comments','comments',1),(62,'name','comments',61),(63,'title','Комментарии',61),(64,'filename','modules/comments/class.php',61),(65,'config','1',61),(66,'default_method','void_func',61),(67,'default_method_admin','view_comments',61),(68,'per_page','10',61),(69,'moderated','0',61),(70,'guest_posting','0',61),(71,'allow_guest','1',61),(72,'default_comments','1',61),(73,'vkontakte','0',61),(74,'vk_per_page','0',61),(75,'vk_width','0',61),(76,'vk_api','',61),(77,'vk_extend','0',61),(78,'facebook','0',61),(79,'fb_per_page','0',61),(80,'fb_width','0',61),(81,'fb_colorscheme','light',61),(82,'vote','vote',1),(83,'name','vote',82),(84,'filename','modules/vote/class.php',82),(85,'config','1',82),(86,'default_method','insertlast',82),(87,'default_method_admin','lists',82),(88,'webforms','webforms',1),(89,'name','webforms',88),(90,'filename','webforms/class.php',88),(91,'config','0',88),(92,'default_method','insert',88),(93,'default_method_admin','addresses',88),(94,'imported','1',88),(95,'photoalbum','photoalbum',1),(96,'name','photoalbum',95),(97,'filename','modules/photoalbum/class.php',95),(98,'config','1',95),(99,'default_method','albums',95),(100,'default_method_admin','lists',95),(101,'per_page','10',95),(102,'faq','faq',1),(103,'name','faq',102),(104,'filename','modules/faq/class.php',102),(105,'config','1',102),(106,'default_method','project',102),(107,'default_method_admin','projects_list',102),(108,'per_page','10',102),(109,'disable_new_question_notification','0',102),(110,'dispatches','dispatches',1),(111,'name','dispatches',110),(112,'filename','dispatches/class.php',110),(113,'config','1',110),(114,'default_method','subscribe',110),(115,'default_method_admin','lists',110),(116,'catalog','catalog',1),(117,'name','catalog',116),(118,'title','Каталог',116),(119,'filename','modules/catalog/class.php',116),(120,'config','1',116),(121,'default_method','category',116),(122,'default_method_admin','tree',116),(123,'per_page','5',116),(124,'banners','banners',1),(125,'name','banners',124),(126,'filename','banners/class.php',124),(127,'config','1',124),(128,'default_method','insert_banner',124),(129,'default_method_admin','lists',124),(130,'users','users',1),(131,'name','users',130),(132,'filename','modules/users/class.php',130),(133,'config','1',130),(134,'default_method','auth',130),(135,'default_method_admin','users_list_all',130),(136,'def_group','619',130),(137,'pages_permissions_changing_enabled_on_add','1',130),(138,'pages_permissions_changing_enabled_on_edit','0',130),(139,'stat','stat',1),(140,'name','stat',139),(141,'filename','modules/stat/class.php',139),(142,'config','1',139),(143,'default_method','sess_refresh',139),(144,'default_method_admin','yandexMetric',139),(145,'collect','0',139),(146,'delete_after','30',139),(147,'items_per_page','100',139),(148,'seo','seo',1),(149,'name','seo',148),(150,'filename','modules/seo/class.php',148),(151,'config','1',148),(152,'default_method','getRelCanonical',148),(153,'default_method_admin','sitemap',148),(154,'megaindex-login','megaindex@umisoft.ru',148),(155,'megaindex-password','et676e5rj',148),(156,'config','config',1),(157,'name','config',156),(158,'filename','modules/config/class.php',156),(159,'config','0',156),(160,'default_method','test',156),(161,'default_method_admin','main',156),(162,'tickets','tickets',1),(163,'name','tickets',162),(164,'filename','modules/tickets/class.php',162),(165,'config','0',162),(166,'ico','ico_tickets',162),(167,'default_method','',162),(168,'default_method_admin','tickets',162),(169,'data','data',1),(170,'name','data',169),(171,'filename','modules/data/class.php',169),(172,'config','1',169),(173,'default_method','test',169),(174,'default_method_admin','types',169),(175,'autoupdate','autoupdate',1),(176,'name','autoupdate',175),(177,'filename','modules/autoupdate/class.php',175),(178,'config','1',175),(179,'default_method','updateall',175),(180,'default_method_admin','versions',175),(181,'backup','backup',1),(182,'name','backup',181),(183,'title','Backups',181),(184,'filename','modules/backup/class.php',181),(185,'config','1',181),(186,'default_method','temp_method',181),(187,'default_method_admin','snapshots',181),(188,'max_timelimit','30',181),(189,'max_save_actions','50',181),(190,'enabled','1',181),(191,'search','search',1),(192,'name','search',191),(193,'filename','modules/search/class.php',191),(194,'default_method','search_do',191),(195,'default_method_admin','index_control',191),(196,'per_page','5',191),(197,'one_iteration_index','5',191),(198,'config','1',191),(199,'filemanager','filemanager',1),(200,'name','filemanager',199),(201,'description','Управление файловой системой.',199),(202,'filename','modules/filemanager/class.php',199),(203,'config','0',199),(204,'default_method','list_files',199),(205,'default_method_admin','shared_files',199),(206,'umiRedirects','umiRedirects',1),(207,'config','1',206),(208,'name','umiRedirects',206),(209,'default_method','empty',206),(210,'default_method_admin','lists',206),(211,'umiNotifications','umiNotifications',1),(212,'default_method','empty',211),(213,'default_method_admin','notifications',211),(214,'config','0',211),(215,'umiSliders','umiSliders',1),(216,'config','1',215),(217,'name','umiSliders',215),(218,'default_method','empty',215),(219,'default_method_admin','getSliders',215),(220,'default_sliding_speed','1',215),(221,'default_sliding_delay','1',215),(222,'default_sliding_slides_count','10',215),(223,'trash','trash',1),(224,'config','0',223),(225,'default_method','empty',223),(226,'default_method_admin','trash',223),(227,'umiSettings','umiSettings',1),(228,'default_method','empty',227),(229,'default_method_admin','read',227),(230,'umiStub','umiStub',1),(231,'name','umiStub',230),(232,'config','0',230),(233,'default_method','empty',230),(234,'default_method_admin','stub',230),(235,'appointment','appointment',1),(236,'config','1',235),(237,'name','appointment',235),(238,'work-time-0','',235),(239,'work-time-1','',235),(240,'work-time-2','',235),(241,'work-time-3','',235),(242,'work-time-4','',235),(243,'work-time-5','',235),(244,'work-time-6','',235),(245,'default_method','page',235),(246,'default_method_admin','orders',235),(247,'settings','',0),(248,'keycode','909AAF566D7-D887CB4CFA0-BF683953464',247),(249,'system_edition','commerce',247),(250,'previous_edition','commerce',247),(251,'system_version','23',247),(252,'system_build','92176',247),(253,'last_updated','1678974798',247),(254,'system_build','92176',175),(255,'install','1556105595',247),(256,'guest_id','618',130),(257,'create','1556105595',247),(258,'umiMessages','',0),(259,'lastConnectTime','1678957649',258),(260,'lastMessageId','0',258),(261,'last_mess_time','1607074018',247),(262,'umiTemplates','umiTemplates',1),(263,'name','umiTemplates',262),(264,'config','0',262),(265,'default_method','empty',262),(266,'default_method_admin','getTemplateList',262),(267,'is_filter_virtual_copies','0',116),(268,'search-types','',191),(269,'enable-recaptcha','',247),(270,'captcha-remember','0',247),(271,'recaptcha-sitekey','6LfOGaUUAAAAACg2PIVXVpnEYKM7xO_6U-jbdwQa',247),(272,'recaptcha-secret','6LfOGaUUAAAAACiNc76ZopzD9bK_mF95UyGJgHaA',247),(273,'captcha','',247),(274,'1','',273),(275,'1','',274),(276,'enable-classic','',275),(277,'enable-recaptcha','',275),(278,'use-site-settings','0',275),(279,'remember','0',275),(280,'drawer','',275),(281,'recaptcha-sitekey','',275),(282,'recaptcha-secret','',275),(283,'disable_url_autocorrection','0',247),(284,'max_img_filesize','48',247),(285,'default_module_admin','events',247),(286,'default_module_admin_changed','1',247),(287,'default_module','content',247),(288,'site_name','umicms.demo site',247),(289,'title_prefix','',247),(290,'1','',289),(291,'1','UMI.CMS - ',290),(292,'2','',290),(293,'domain','',247),(294,'admin_email','demo@umi-cms.ru',247),(295,'error_email','',247),(296,'memcached','',247),(297,'is_enabled','0',296),(298,'host','localhost',296),(299,'port','11211',296),(300,'rec_deep','0',247),(301,'email_from','demo@umi-cms.ru',247),(302,'fio_from','Тестовый отправитель',247),(303,'meta_keywords','',247),(304,'1','',303),(305,'1','umi CMS демо DEMO сайт система управление',304),(306,'2','',304),(307,'meta_description','',247),(308,'1','',307),(309,'1','',308),(310,'2','',308),(311,'disable_captcha','0',247),(312,'show_macros_onerror','1',247),(313,'lock_duration','3600',247),(314,'expiration_control','0',247),(315,'allow_alt_name_with_module_collision','0',247),(316,'allow_redirects_watch','1',247),(317,'lock_pages','0',247),(318,'next_clean_time','',247),(319,'next_optimise_time','',247),(320,'elements_count_per_page','15',247),(321,'seo','',247),(322,'allow-empty-description','1',321),(323,'allow-empty-h1','1',321),(324,'allow-empty-keywords','0',321),(325,'allow-empty-title','1',321),(326,'emarket','emarket',1),(327,'version','2.8.0.5',326),(328,'version_line','pro',326),(329,'name','emarket',326),(330,'title','Интернет-магазин',326),(331,'filename','modules/emarket/class.php',326),(332,'config','1',326),(333,'ico','ico_eshop',326),(334,'default_method_admin','orders',326),(335,'enable-discounts','1',326),(336,'enable-currency','1',326),(337,'enable-stores','1',326),(338,'enable-payment','1',326),(339,'enable-delivery','1',326),(340,'social_vkontakte_merchant_id','',326),(341,'social_vkontakte_key','',326),(342,'social_vkontakte_wishlist','1',326),(343,'social_vkontakte_order','1',326),(344,'social_vkontakte_testmode','1',326),(345,'delivery-with-address','0',326),(346,'default-store-city','Санкт-Петербург',326),(347,'default-store-contact-email','hariton.moiseevich@umisoft.ru',326),(348,'default-store-contact-full-name','Харитон Моисеевич',326),(349,'default-store-contact-phone','88123090315',326),(350,'default-store-country-code','RU',326),(351,'default-store-house-number','25ж',326),(352,'default-store-region','Санкт-Петербург',326),(353,'default-store-street','Красного курсанта',326),(354,'order-defaultHeight','60',326),(355,'order-defaultLength','40',326),(356,'order-defaultWidth','40',326),(357,'order-defaultWeight','1000',326),(358,'default-store-index','197110',326),(359,'exchange','exchange',1),(360,'name','exchange',359),(361,'filename','modules/exchange/class.php',359),(362,'config','1',359),(363,'ico','exchange',359),(364,'default_method','import',359),(365,'default_method_admin','import',359),(366,'social_networks','social_networks',1),(367,'version','1',366),(368,'name','social_networks',366),(369,'title','Интеграция с социальными сетями',366),(370,'filename','modules/social_networks/class.php',366),(371,'config','0',366),(372,'ico','ico_social_networks',366),(373,'default_method','vkontakte',366),(374,'default_method_admin','vkontakte',366),(375,'umiMarket','umiMarket',1),(376,'config','0',375),(377,'name','umiMarket',375),(378,'default_method','empty',375),(379,'default_method_admin','catalog',375),(380,'extensions','',0);
 /*!40000 ALTER TABLE `cms_reg` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3214,16 +3214,16 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_sitemap`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_sitemap` (
-  `id` int(11) NOT NULL,
-  `domain_id` int(10) unsigned NOT NULL,
+  `id` int NOT NULL,
+  `domain_id` int unsigned NOT NULL,
   `link` varchar(1024) NOT NULL,
-  `sort` tinyint(4) NOT NULL,
+  `sort` tinyint NOT NULL,
   `priority` double NOT NULL DEFAULT '0',
   `dt` datetime NOT NULL,
-  `level` int(4) unsigned NOT NULL,
-  `lang_id` int(10) unsigned NOT NULL,
+  `level` int unsigned NOT NULL,
+  `lang_id` int unsigned NOT NULL,
   `change_frequency` enum('always','hourly','daily','weekly','monthly','yearly','never','') DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `__sort` (`sort`),
@@ -3233,7 +3233,7 @@ CREATE TABLE `cms_sitemap` (
   KEY `lang_id from cms3_langs` (`lang_id`),
   CONSTRAINT `domain_id from cms3_domains` FOREIGN KEY (`domain_id`) REFERENCES `cms3_domains` (`id`) ON DELETE CASCADE,
   CONSTRAINT `lang_id from cms3_langs` FOREIGN KEY (`lang_id`) REFERENCES `cms3_langs` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3242,7 +3242,7 @@ CREATE TABLE `cms_sitemap` (
 
 LOCK TABLES `cms_sitemap` WRITE;
 /*!40000 ALTER TABLE `cms_sitemap` DISABLE KEYS */;
-INSERT INTO `cms_sitemap` VALUES (1,1,'http://localhost:8410/',15,1,'2019-05-23 18:40:07',0,1,'weekly'),(2,1,'http://localhost:8410/o-nas/',10,1,'2019-05-16 16:34:05',1,1,'weekly'),(3,1,'http://localhost:8410/kontakty/',4,1,'2019-05-22 15:56:54',1,1,'weekly'),(4,1,'http://localhost:8410/novosti/',11,1,'2019-05-17 11:27:59',1,1,'weekly'),(5,1,'http://localhost:8410/novosti/kak-podobrat-podhodyawij-samosval/',16,0.5,'2019-05-17 16:15:46',2,1,'weekly'),(6,1,'http://localhost:8410/novosti/obnovlenie-parka-spectehniki/',2,0.5,'2019-05-17 16:16:25',2,1,'weekly'),(7,1,'http://localhost:8410/novosti/vesennee-tayanie-cen/',13,0.5,'2019-05-17 16:16:49',2,1,'weekly'),(8,1,'http://localhost:8410/novosti/skidka-na-arendu-spectehniki-na-dlitelnyj-srok/',2,0.5,'2019-05-17 16:17:16',2,1,'weekly'),(9,1,'http://localhost:8410/arenda-spectehniki/',15,1,'2019-05-21 10:42:20',1,1,'weekly'),(10,1,'http://localhost:8410/arenda-spectehniki/arenda-buldozerov/',1,0.5,'2020-01-21 17:03:11',2,1,'weekly'),(11,1,'http://localhost:8410/arenda-spectehniki/arenda-samosvalov/',4,0.5,'2020-01-21 17:03:12',2,1,'weekly'),(12,1,'http://localhost:8410/arenda-spectehniki/arenda-avtokranov/',14,0.5,'2020-01-21 17:03:12',2,1,'weekly'),(13,1,'http://localhost:8410/arenda-spectehniki/arenda-gidromolotov/',10,0.5,'2020-01-21 17:03:12',2,1,'weekly'),(14,1,'http://localhost:8410/arenda-spectehniki/arenda-vibropogruzhateley/',15,0.5,'2020-01-21 17:03:13',2,1,'weekly'),(15,1,'http://localhost:8410/arenda-spectehniki/arenda-ekskavatorov/',3,0.5,'2020-01-21 17:03:13',2,1,'weekly'),(16,1,'http://localhost:8410/arenda-spectehniki/arenda-asfaltoukladchika/',14,0.5,'2020-01-21 17:03:13',2,1,'weekly'),(17,1,'http://localhost:8410/arenda-spectehniki/arenda-vezdehoda/',16,0.5,'2020-01-21 17:03:30',2,1,'weekly'),(18,1,'http://localhost:8410/arenda-spectehniki/arenda-buldozerov/arenda-buldozera-komatsu-d31e-20/',12,0.3,'2019-05-24 15:00:59',3,1,'weekly'),(19,1,'http://localhost:8410/arenda-spectehniki/arenda-buldozerov/arenda-buldozera-komatsu-d21a-7/',6,0.3,'2019-05-21 11:01:10',3,1,'weekly'),(20,1,'http://localhost:8410/arenda-spectehniki/arenda-samosvalov/samosval-18-20-kubov/',8,0.3,'2019-05-24 15:01:23',3,1,'weekly'),(21,1,'http://localhost:8410/arenda-spectehniki/arenda-samosvalov/samosval-10-12-kubov/',1,0.3,'2019-05-24 15:01:00',3,1,'weekly'),(22,1,'http://localhost:8410/arenda-spectehniki/arenda-avtokranov/avtokran-25-tonn-ks-55713/',13,0.3,'2019-05-24 15:01:41',3,1,'weekly'),(23,1,'http://localhost:8410/arenda-spectehniki/arenda-avtokranov/avtokran-14-16-tonn-ks-35715/',4,0.3,'2019-05-24 15:01:03',3,1,'weekly'),(24,1,'http://localhost:8410/arenda-spectehniki/arenda-ekskavatorov/ekskavator-planirovwik-uds-114/',13,0.3,'2019-05-24 15:01:14',3,1,'weekly'),(25,1,'http://localhost:8410/arenda-spectehniki/arenda-ekskavatorov/ekskavator-gusenichnyj-s-planirovochnym-kovshom/',9,0.3,'2019-05-24 15:01:50',3,1,'weekly'),(26,1,'http://localhost:8410/arenda-spectehniki/arenda-asfaltoukladchika/asfaltoukladchik-vogele-800/',7,0.3,'2019-05-24 15:01:07',3,1,'weekly'),(27,1,'http://localhost:8410/arenda-spectehniki/arenda-asfaltoukladchika/asfaltoukladchik-trotuarnyj-vogele-1300-2/',13,0.3,'2019-05-22 11:24:38',3,1,'weekly'),(28,1,'http://localhost:8410/arenda-spectehniki/arenda-vezdehoda/samosval-vezdehod/',3,0.3,'2019-05-24 15:01:28',3,1,'weekly'),(29,1,'http://localhost:8410/foto-tehniki/',7,1,'2019-05-17 16:29:07',1,1,'weekly'),(30,1,'http://localhost:8410/foto-tehniki/gidromoloty/',16,0.5,'2020-01-21 17:05:13',2,1,'weekly'),(31,1,'http://localhost:8410/foto-tehniki/vibropogruzhateli/',3,0.5,'2020-01-21 17:05:14',2,1,'weekly'),(32,1,'http://localhost:8410/foto-tehniki/gidromoloty/gidromolot-jcb/',15,0.3,'2019-05-17 18:09:37',3,1,'weekly'),(33,1,'http://localhost:8410/foto-tehniki/gidromoloty/gidromolot-cat/',16,0.3,'2019-05-17 18:10:54',3,1,'weekly'),(34,1,'http://localhost:8410/foto-tehniki/gidromoloty/gidromolot-doosan/',8,0.3,'2019-05-17 18:11:49',3,1,'weekly'),(35,1,'http://localhost:8410/foto-tehniki/vibropogruzhateli/vibropogruzhatel-jcb/',1,0.3,'2019-05-17 18:14:02',3,1,'weekly'),(36,1,'http://localhost:8410/foto-tehniki/vibropogruzhateli/vibropogruzhatel-volvo/',1,0.3,'2019-05-17 18:16:17',3,1,'weekly'),(37,1,'http://localhost:8410/foto-tehniki/vibropogruzhateli/vibropogruzhatel-hitachi/',10,0.3,'2019-05-17 18:16:53',3,1,'weekly'),(87,1,'http://localhost:8410/arenda-spectehniki/arenda-gidromolotov/gidromolot-c3po/',0,0.3,'2019-05-24 15:05:30',3,1,'weekly'),(88,1,'http://localhost:8410/arenda-spectehniki/arenda-vibropogruzhateley/vibropogruzhatel-r2d2/',9,0.3,'2019-05-24 15:05:59',3,1,'weekly');
+INSERT INTO `cms_sitemap` VALUES (1,1,'http://dev.aposio.ru:18880/',16,1,'2019-05-23 18:40:07',0,1,'weekly'),(2,1,'http://dev.aposio.ru:18880/o-nas/',15,1,'2019-05-16 16:34:05',1,1,'weekly'),(3,1,'http://dev.aposio.ru:18880/kontakty/',1,1,'2019-05-22 15:56:54',1,1,'weekly'),(4,1,'http://dev.aposio.ru:18880/novosti/',3,1,'2019-05-17 11:27:59',1,1,'weekly'),(5,1,'http://dev.aposio.ru:18880/novosti/kak-podobrat-podhodyawij-samosval/',6,0.5,'2019-05-17 16:15:46',2,1,'weekly'),(6,1,'http://dev.aposio.ru:18880/novosti/obnovlenie-parka-spectehniki/',10,0.5,'2019-05-17 16:16:25',2,1,'weekly'),(7,1,'http://dev.aposio.ru:18880/novosti/vesennee-tayanie-cen/',11,0.5,'2019-05-17 16:16:49',2,1,'weekly'),(8,1,'http://dev.aposio.ru:18880/novosti/skidka-na-arendu-spectehniki-na-dlitelnyj-srok/',8,0.5,'2019-05-17 16:17:16',2,1,'weekly'),(9,1,'http://dev.aposio.ru:18880/arenda-spectehniki/',5,1,'2019-05-21 10:42:20',1,1,'weekly'),(10,1,'http://dev.aposio.ru:18880/arenda-spectehniki/arenda-buldozerov/',14,0.5,'2020-01-21 17:03:11',2,1,'weekly'),(11,1,'http://dev.aposio.ru:18880/arenda-spectehniki/arenda-samosvalov/',4,0.5,'2020-01-21 17:03:12',2,1,'weekly'),(12,1,'http://dev.aposio.ru:18880/arenda-spectehniki/arenda-avtokranov/',3,0.5,'2020-01-21 17:03:12',2,1,'weekly'),(13,1,'http://dev.aposio.ru:18880/arenda-spectehniki/arenda-gidromolotov/',11,0.5,'2020-01-21 17:03:12',2,1,'weekly'),(14,1,'http://dev.aposio.ru:18880/arenda-spectehniki/arenda-vibropogruzhateley/',14,0.5,'2020-01-21 17:03:13',2,1,'weekly'),(15,1,'http://dev.aposio.ru:18880/arenda-spectehniki/arenda-ekskavatorov/',4,0.5,'2020-01-21 17:03:13',2,1,'weekly'),(16,1,'http://dev.aposio.ru:18880/arenda-spectehniki/arenda-asfaltoukladchika/',15,0.5,'2020-01-21 17:03:13',2,1,'weekly'),(17,1,'http://dev.aposio.ru:18880/arenda-spectehniki/arenda-vezdehoda/',7,0.5,'2020-01-21 17:03:30',2,1,'weekly'),(18,1,'http://dev.aposio.ru:18880/arenda-spectehniki/arenda-buldozerov/arenda-buldozera-komatsu-d31e-20/',0,0.3,'2019-05-24 15:00:59',3,1,'weekly'),(19,1,'http://dev.aposio.ru:18880/arenda-spectehniki/arenda-buldozerov/arenda-buldozera-komatsu-d21a-7/',2,0.3,'2019-05-21 11:01:10',3,1,'weekly'),(20,1,'http://dev.aposio.ru:18880/arenda-spectehniki/arenda-samosvalov/samosval-18-20-kubov/',4,0.3,'2019-05-24 15:01:23',3,1,'weekly'),(21,1,'http://dev.aposio.ru:18880/arenda-spectehniki/arenda-samosvalov/samosval-10-12-kubov/',15,0.3,'2019-05-24 15:01:00',3,1,'weekly'),(22,1,'http://dev.aposio.ru:18880/arenda-spectehniki/arenda-avtokranov/avtokran-25-tonn-ks-55713/',8,0.3,'2019-05-24 15:01:41',3,1,'weekly'),(23,1,'http://dev.aposio.ru:18880/arenda-spectehniki/arenda-avtokranov/avtokran-14-16-tonn-ks-35715/',2,0.3,'2019-05-24 15:01:03',3,1,'weekly'),(24,1,'http://dev.aposio.ru:18880/arenda-spectehniki/arenda-ekskavatorov/ekskavator-planirovwik-uds-114/',13,0.3,'2019-05-24 15:01:14',3,1,'weekly'),(25,1,'http://dev.aposio.ru:18880/arenda-spectehniki/arenda-ekskavatorov/ekskavator-gusenichnyj-s-planirovochnym-kovshom/',4,0.3,'2019-05-24 15:01:50',3,1,'weekly'),(26,1,'http://dev.aposio.ru:18880/arenda-spectehniki/arenda-asfaltoukladchika/asfaltoukladchik-vogele-800/',2,0.3,'2019-05-24 15:01:07',3,1,'weekly'),(27,1,'http://dev.aposio.ru:18880/arenda-spectehniki/arenda-asfaltoukladchika/asfaltoukladchik-trotuarnyj-vogele-1300-2/',9,0.3,'2019-05-22 11:24:38',3,1,'weekly'),(28,1,'http://dev.aposio.ru:18880/arenda-spectehniki/arenda-vezdehoda/samosval-vezdehod/',15,0.3,'2019-05-24 15:01:28',3,1,'weekly'),(29,1,'http://dev.aposio.ru:18880/foto-tehniki/',15,1,'2019-05-17 16:29:07',1,1,'weekly'),(30,1,'http://dev.aposio.ru:18880/foto-tehniki/gidromoloty/',5,0.5,'2020-01-21 17:05:13',2,1,'weekly'),(31,1,'http://dev.aposio.ru:18880/foto-tehniki/vibropogruzhateli/',0,0.5,'2020-01-21 17:05:14',2,1,'weekly'),(32,1,'http://dev.aposio.ru:18880/foto-tehniki/gidromoloty/gidromolot-jcb/',6,0.3,'2019-05-17 18:09:37',3,1,'weekly'),(33,1,'http://dev.aposio.ru:18880/foto-tehniki/gidromoloty/gidromolot-cat/',14,0.3,'2019-05-17 18:10:54',3,1,'weekly'),(34,1,'http://dev.aposio.ru:18880/foto-tehniki/gidromoloty/gidromolot-doosan/',15,0.3,'2019-05-17 18:11:49',3,1,'weekly'),(35,1,'http://dev.aposio.ru:18880/foto-tehniki/vibropogruzhateli/vibropogruzhatel-jcb/',5,0.3,'2019-05-17 18:14:02',3,1,'weekly'),(36,1,'http://dev.aposio.ru:18880/foto-tehniki/vibropogruzhateli/vibropogruzhatel-volvo/',7,0.3,'2019-05-17 18:16:17',3,1,'weekly'),(37,1,'http://dev.aposio.ru:18880/foto-tehniki/vibropogruzhateli/vibropogruzhatel-hitachi/',14,0.3,'2019-05-17 18:16:53',3,1,'weekly'),(87,1,'http://dev.aposio.ru:18880/arenda-spectehniki/arenda-gidromolotov/gidromolot-c3po/',15,0.3,'2019-05-24 15:05:30',3,1,'weekly'),(88,1,'http://dev.aposio.ru:18880/arenda-spectehniki/arenda-vibropogruzhateley/vibropogruzhatel-r2d2/',0,0.3,'2019-05-24 15:05:59',3,1,'weekly');
 /*!40000 ALTER TABLE `cms_sitemap` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3252,11 +3252,11 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_sitemap_images`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_sitemap_images` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `location_id` int(11) NOT NULL,
-  `domain_id` int(10) unsigned NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `location_id` int NOT NULL,
+  `domain_id` int unsigned NOT NULL,
   `link` varchar(1024) NOT NULL,
   `alt` varchar(255) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
@@ -3265,7 +3265,7 @@ CREATE TABLE `cms_sitemap_images` (
   KEY `domain_id from cms3_domains for sitemap image` (`domain_id`),
   CONSTRAINT `domain_id from cms3_domains for sitemap image` FOREIGN KEY (`domain_id`) REFERENCES `cms3_domains` (`id`) ON DELETE CASCADE,
   CONSTRAINT `location_id from cms_sitemap` FOREIGN KEY (`location_id`) REFERENCES `cms_sitemap` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3283,11 +3283,11 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_dispatches`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_dispatches` (
   `hash` varchar(10) NOT NULL,
-  `time` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `time` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3306,15 +3306,15 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_domains`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_domains` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `entrytime` int(11) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `entrytime` int DEFAULT NULL,
   `refer_domain` text,
   `sess_id` text,
   PRIMARY KEY (`id`),
   KEY `sess_id` (`sess_id`(4))
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3332,17 +3332,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_entry_points`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_entry_points` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   `description` text,
   `url` text,
-  `host_id` int(11) unsigned DEFAULT NULL,
+  `host_id` int unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `url` (`url`(1)),
   KEY `host_id` (`host_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3360,13 +3360,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_entry_points_events`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_entry_points_events` (
-  `entry_point_id` int(11) unsigned DEFAULT NULL,
-  `event_id` int(11) unsigned DEFAULT NULL,
+  `entry_point_id` int unsigned DEFAULT NULL,
+  `event_id` int unsigned DEFAULT NULL,
   KEY `entry_point_id` (`entry_point_id`),
   KEY `event_id` (`event_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3384,19 +3384,19 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_events`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_events` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `description` text,
   `name` varchar(255) DEFAULT NULL,
-  `type` tinyint(4) DEFAULT NULL,
+  `type` tinyint DEFAULT NULL,
   `profit` float(9,2) DEFAULT '0.00',
-  `host_id` int(11) unsigned DEFAULT NULL,
+  `host_id` int unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `name` (`name`,`type`),
   KEY `host_id` (`host_id`),
   KEY `type` (`type`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3414,13 +3414,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_events_collected`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_events_collected` (
-  `event_id` int(11) unsigned DEFAULT NULL,
-  `hit_id` int(11) unsigned DEFAULT NULL,
+  `event_id` int unsigned DEFAULT NULL,
+  `hit_id` int unsigned DEFAULT NULL,
   KEY `event_id` (`event_id`,`hit_id`),
   KEY `hit_id` (`hit_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3438,13 +3438,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_events_rel`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_events_rel` (
-  `metaevent_id` int(11) unsigned DEFAULT NULL,
-  `event_id` int(11) unsigned DEFAULT NULL,
+  `metaevent_id` int unsigned DEFAULT NULL,
+  `event_id` int unsigned DEFAULT NULL,
   UNIQUE KEY `metaevent_id` (`metaevent_id`,`event_id`),
   KEY `event_id` (`event_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3462,13 +3462,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_events_urls`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_events_urls` (
-  `event_id` int(11) unsigned DEFAULT NULL,
-  `page_id` int(11) unsigned DEFAULT NULL,
+  `event_id` int unsigned DEFAULT NULL,
+  `page_id` int unsigned DEFAULT NULL,
   UNIQUE KEY `event_id` (`event_id`,`page_id`),
   KEY `page_id` (`page_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3486,16 +3486,16 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_finders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_finders` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `bot_name` text,
   `pattern` text,
   `alias` text,
   `domain` text,
-  `utf` int(11) DEFAULT NULL,
+  `utf` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3513,20 +3513,20 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_hits`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_hits` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `page_id` int(11) unsigned DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `page_id` int unsigned DEFAULT NULL,
   `date` datetime DEFAULT NULL,
-  `hour` tinyint(8) DEFAULT NULL,
+  `hour` tinyint DEFAULT NULL,
   `day_of_week` tinyint(1) DEFAULT NULL,
-  `day` tinyint(4) DEFAULT NULL,
-  `month` tinyint(4) DEFAULT NULL,
-  `year` int(11) unsigned DEFAULT NULL,
-  `path_id` int(11) unsigned DEFAULT NULL,
-  `number_in_path` int(11) unsigned DEFAULT NULL,
-  `week` tinyint(4) unsigned DEFAULT NULL,
-  `prev_page_id` int(11) unsigned DEFAULT NULL,
+  `day` tinyint DEFAULT NULL,
+  `month` tinyint DEFAULT NULL,
+  `year` int unsigned DEFAULT NULL,
+  `path_id` int unsigned DEFAULT NULL,
+  `number_in_path` int unsigned DEFAULT NULL,
+  `week` tinyint unsigned DEFAULT NULL,
+  `prev_page_id` int unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `day_of_week` (`day_of_week`),
   KEY `date` (`date`,`day_of_week`,`day`,`month`),
@@ -3535,7 +3535,7 @@ CREATE TABLE `cms_stat_hits` (
   KEY `date_level` (`date`,`number_in_path`),
   KEY `date_prev_page_level` (`date`,`prev_page_id`,`number_in_path`),
   KEY `path_id_level` (`path_id`,`number_in_path`,`prev_page_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3553,15 +3553,15 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_holidays`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_holidays` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` char(255) DEFAULT NULL,
-  `day` tinyint(2) DEFAULT NULL,
-  `month` tinyint(4) DEFAULT NULL,
+  `day` tinyint DEFAULT NULL,
+  `month` tinyint DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `day_month` (`day`,`month`,`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3579,17 +3579,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_pages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_pages` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `uri` text,
-  `host_id` int(11) unsigned DEFAULT NULL,
+  `host_id` int unsigned DEFAULT NULL,
   `section` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `section` (`section`),
   KEY `uri` (`uri`(4)),
   KEY `host_id` (`host_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3607,20 +3607,20 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_paths`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_paths` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) unsigned DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned DEFAULT NULL,
   `date` datetime DEFAULT NULL,
-  `source_id` int(11) unsigned DEFAULT NULL,
-  `host_id` int(11) unsigned DEFAULT NULL,
+  `source_id` int unsigned DEFAULT NULL,
+  `host_id` int unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `source_id` (`source_id`),
   KEY `user_id` (`user_id`),
   KEY `id_host` (`id`,`host_id`),
   KEY `date_host_id` (`date`,`host_id`,`user_id`),
   KEY `host_id` (`host_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3638,13 +3638,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_phrases`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_phrases` (
   `phrase` text,
   `domain` text,
-  `finder_id` int(11) DEFAULT NULL,
-  `entrytime` int(11) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `finder_id` int DEFAULT NULL,
+  `entrytime` int DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3662,15 +3662,15 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_sites`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_sites` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` char(255) DEFAULT NULL,
-  `group_id` int(11) unsigned DEFAULT NULL,
+  `group_id` int unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `name` (`name`),
   KEY `group_id` (`group_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3688,12 +3688,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_sites_groups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_sites_groups` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` char(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3711,14 +3711,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_sources`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_sources` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `src_type` tinyint(4) unsigned DEFAULT NULL,
-  `concrete_src_id` int(11) unsigned DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `src_type` tinyint unsigned DEFAULT NULL,
+  `concrete_src_id` int unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `src_type` (`src_type`,`concrete_src_id`,`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3736,14 +3736,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_sources_coupon`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_sources_coupon` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `number` varchar(255) DEFAULT NULL,
   `profit` float(9,2) DEFAULT NULL,
   `descript` text,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3761,11 +3761,11 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_sources_coupon_events`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_sources_coupon_events` (
-  `coupon_id` int(11) unsigned DEFAULT NULL,
-  `event_id` int(11) unsigned DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `coupon_id` int unsigned DEFAULT NULL,
+  `event_id` int unsigned DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3783,14 +3783,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_sources_openstat`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_sources_openstat` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `service_id` int(11) unsigned DEFAULT '0',
-  `campaign_id` int(11) unsigned DEFAULT '0',
-  `ad_id` int(11) unsigned DEFAULT NULL,
-  `source_id` int(11) unsigned DEFAULT NULL,
-  `path_id` int(11) unsigned DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `service_id` int unsigned DEFAULT '0',
+  `campaign_id` int unsigned DEFAULT '0',
+  `ad_id` int unsigned DEFAULT NULL,
+  `source_id` int unsigned DEFAULT NULL,
+  `path_id` int unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `source_id` (`source_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
@@ -3811,9 +3811,9 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_sources_openstat_ad`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_sources_openstat_ad` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` char(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
@@ -3834,9 +3834,9 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_sources_openstat_campaign`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_sources_openstat_campaign` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` char(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `name` (`name`)
@@ -3858,9 +3858,9 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_sources_openstat_service`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_sources_openstat_service` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` char(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `name` (`name`)
@@ -3882,9 +3882,9 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_sources_openstat_source`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_sources_openstat_source` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` char(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `name` (`name`)
@@ -3906,13 +3906,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_sources_pr`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_sources_pr` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   `description` text,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3930,11 +3930,11 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_sources_pr_events`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_sources_pr_events` (
-  `pr_id` int(11) unsigned DEFAULT NULL,
-  `event_id` int(11) unsigned DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `pr_id` int unsigned DEFAULT NULL,
+  `event_id` int unsigned DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3952,13 +3952,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_sources_pr_sites`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_sources_pr_sites` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `pr_id` int(11) unsigned DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `pr_id` int unsigned DEFAULT NULL,
   `url` text,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3976,14 +3976,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_sources_search`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_sources_search` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `engine_id` int(11) unsigned DEFAULT NULL,
-  `text_id` int(11) DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `engine_id` int unsigned DEFAULT NULL,
+  `text_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `engine_id` (`engine_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4001,14 +4001,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_sources_search_engines`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_sources_search_engines` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` char(255) DEFAULT NULL,
   `url_mask` char(255) DEFAULT NULL,
   `varname` char(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4026,12 +4026,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_sources_search_queries`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_sources_search_queries` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `text` text,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4049,16 +4049,16 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_sources_sites`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_sources_sites` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `uri` text,
-  `domain` int(11) DEFAULT NULL,
+  `domain` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `domain` (`domain`),
   KEY `uri` (`uri`(255)),
   KEY `id_domain` (`id`,`domain`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4076,12 +4076,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_sources_sites_domains`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_sources_sites_domains` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` char(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4099,13 +4099,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_sources_ticket`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_sources_ticket` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` char(255) DEFAULT NULL,
   `url` char(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4123,23 +4123,23 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_users` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `session_id` varchar(32) DEFAULT NULL,
   `first_visit` datetime DEFAULT NULL,
   `login` varchar(255) DEFAULT NULL,
-  `os_id` int(11) unsigned DEFAULT NULL,
-  `browser_id` int(11) unsigned DEFAULT NULL,
+  `os_id` int unsigned DEFAULT NULL,
+  `browser_id` int unsigned DEFAULT NULL,
   `ip` varchar(15) DEFAULT NULL,
   `location` text,
   `js_version` varchar(5) DEFAULT NULL,
-  `host_id` int(11) unsigned DEFAULT NULL,
+  `host_id` int unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `first_visit` (`first_visit`),
   KEY `session_id` (`session_id`),
   KEY `host_id` (`host_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4157,12 +4157,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_users_browsers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_users_browsers` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` char(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4180,12 +4180,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cms_stat_users_os`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cms_stat_users_os` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` char(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4203,16 +4203,16 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `umi_event_feeds`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `umi_event_feeds` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `date` bigint(20) DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `date` bigint DEFAULT NULL,
   `params` mediumtext,
   `type_id` varchar(255) NOT NULL,
-  `element_id` int(11) DEFAULT NULL,
-  `object_id` int(11) DEFAULT NULL,
+  `element_id` int DEFAULT NULL,
+  `object_id` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4230,11 +4230,11 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `umi_event_types`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `umi_event_types` (
   `id` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4252,12 +4252,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `umi_event_user_history`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `umi_event_user_history` (
-  `user_id` int(11) NOT NULL,
-  `event_id` int(11) NOT NULL,
+  `user_id` int NOT NULL,
+  `event_id` int NOT NULL,
   `read` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4275,13 +4275,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `umi_event_users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `umi_event_users` (
-  `id` int(11) unsigned NOT NULL,
-  `last_check_in` bigint(20) DEFAULT NULL,
+  `id` int unsigned NOT NULL,
+  `last_check_in` bigint DEFAULT NULL,
   `settings` mediumtext,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4303,4 +4303,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-16  9:44:45
+-- Dump completed on 2023-03-16 13:56:32
